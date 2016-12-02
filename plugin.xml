@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="tabris-plugin-firebase"
+        version="1.0.0">
+
+  <name>Tabris.js Firebase Plugin</name>
+  <description>A firebase for Tabris.js. The plugin allows to handle cloud messages.</description>
+  <author>EclipseSource</author>
+  <license>Revised BSD License (3-clause license)</license>
+  <repo>https://github.com/eclipsesource/tabris-plugin-firebase.git</repo>
+  <issue>https://github.com/eclipsesource/tabris-plugin-firebase/issues</issue>
+
+  <!-- cordova -->
+  <engines>
+    <engine name="cordova" version=">=3.8.0" />
+  </engines>
+
+  <js-module src="www/Messaging.js" name="messaging">
+    <clobbers target="firebase.Messaging" />
+  </js-module>
+
+  <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
+
+  <platform name="android">
+
+    <!-- The default value "icon" is the name used by cordova for its app icon -->
+    <preference name="ANDROID_NOTIFICATION_ICON" default="icon" />
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+
+      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService">
+        <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+      </service>
+      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseInstanceIDService">
+        <intent-filter>
+          <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+        </intent-filter>
+      </service>
+
+      <meta-data
+          android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.messaging"
+          android:value="com.eclipsesource.firebase.messaging.MessagingOperator" />
+      <meta-data
+          android:name="com.google.firebase.messaging.default_notification_icon"
+          android:resource="@drawable/$ANDROID_NOTIFICATION_ICON" />
+
+      <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
+
+    </config-file>
+
+    <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+
+    <framework src="com.google.firebase:firebase-messaging:10.0.1" />
+
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingPropertyHandler.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.java"
+                 target-dir="src/com/eclipsesource/firebase/messaging" />
+  </platform>
+
+</plugin>

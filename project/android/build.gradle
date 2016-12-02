@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            // provides tabris from directory repository
+            url new File( System.getenv('TABRIS_ANDROID_CORDOVA_PLATFORM') +
+                    '/bin/templates/project/m2repository' ).toURI()
+                    .toURL().toString()
+        }
+    }
+}
+
+apply plugin: 'android-reporting'

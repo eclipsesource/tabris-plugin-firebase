@@ -1,0 +1,58 @@
+
+// FAKE FILE! NOT VALID!!!
+
+{
+  "project_info": {
+    "project_number": "213213213",
+    "firebase_url": "https://sdfsdfdsdsf.firebaseio.com",
+    "project_id": "fadfgfdgsergerg",
+    "storage_bucket": "asdsad-cc3df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213213213:android:fe9b8717654185dc",
+        "android_client_info": {
+          "package_name": "com.eclipsesource.tabris.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213213213-aasdasddsfsdfdf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eclipsesource.tabris.firebase",
+            "certificate_hash": "ABCDEF0EF15FACDA7726EDF952E4BB3ADB573600"
+          }
+        },
+        {
+          "client_id": "213213213-asdasdasd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "wererwerewr"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213213213-aasdasdsadasd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

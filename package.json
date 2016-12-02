@@ -1,0 +1,36 @@
+{
+  "name": "tabris-plugin-firebase",
+  "version": "1.0.0",
+  "description": "A firebase plugin for Tabris.js",
+  "cordova": {
+    "id": "tabris-plugin-firebase",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eclipsesource/tabris-plugin-firebase.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "tabris",
+    "tabris.js",
+    "firebase"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.8.0"
+    }
+  ],
+  "author": "EclipseSource",
+  "license": "Revised BSD License (3-clause license)",
+  "bugs": {
+    "url": "https://github.com/eclipsesource/tabris-plugin-firebase/issues"
+  },
+  "homepage": "https://github.com/eclipsesource/tabris-plugin-firebase#readme"
+}
