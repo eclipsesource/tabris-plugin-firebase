@@ -46,9 +46,9 @@ To fetch the latest development version use the GitHub url:
 <plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase.git#:/plugin" />
 ```
 
-#### Android
+#### Notification icon
 
-On Android a notification icon can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. The icon has to be the name of a regular Android drawable inside the Androids `res` folder. A build hook should be used to copy the image from your project into the `android` platform. See the [example project](example/) for an outline of the approach.
+A notification icon can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. The icon has to be the name of a regular Android drawable inside the Androids `res` folder. A build hook should be used to copy the image from your project into the `android` platform. See the [example project](example/) for an outline of the approach.
 
 The icon can be configured inside your apps `config.xml`:
 
@@ -63,6 +63,40 @@ Alternatively the image can be added during the `cordova plugin add` command:
 ```bash
 cordova plugin add <path-to-tabris-firebase-plugin> --variable ANDROID_NOTIFICATION_ICON=`drawable_image`
 ```
+
+## Sending message with notifications
+
+When the server sends a message to a device it can create two types of messages: "notification" messages and "data" messages. Messages that contain a `notification` property are treated as "notification" message. More details of the differences between "notification" and "data" messages can be found in the [firebase documentation](https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages).
+
+The key difference for this plugin is that "notification" messages create their notification automatically when the app is in the background. Tapping on the notification does *not* forward the notification data to the app.
+
+To create a notification that also delivers its data to the app a regular "data" notification has to be created. A "data" message is a message that does _not_ have a property `notification`.
+
+To configure the generated notification the following keys are supported:
+
+- `id` : `number`
+- `title` : `string`
+- `text` : `string`
+
+The following message would create a notification similar to the screenshot above:
+
+```
+POST /fcm/send HTTP/1.1
+Host: fcm.googleapis.com
+Authorization: key=<server-key>
+Content-Type: application/json
+
+{
+  "to": "<token>",
+  "data": {
+    "title": "New data available",
+    "text": "The new data can be used in a multitude of ways",
+    "payload": "custom data"
+  }
+}
+```
+
+Not that the json object does not contain a `notification` property. Using the same `id` for multiple messages updates an existing notification on the device. Omitting the `id` creates a random id on the device so that each message results in a unique notification.
 
 ## Compatibility
 
