@@ -43,7 +43,7 @@ The plugin can be added like any other cordova plugin. Either via the `cordova p
 To fetch the latest development version use the GitHub url:
 
 ```xml
-<plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase.git#:/plugin" />
+<plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase.git" />
 ```
 
 #### Notification icon
