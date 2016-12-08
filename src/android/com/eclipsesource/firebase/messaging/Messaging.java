@@ -100,7 +100,7 @@ class Messaging implements IAppStateListener {
       Intent launchIntent = new Intent( context, TabrisActivity.class );
       launchIntent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
       launchIntent.putExtra( Messaging.EXTRA_DATA, intent.getSerializableExtra( EXTRA_DATA ) );
-      context.startActivity( launchIntent );
+      context.getApplicationContext().startActivity( launchIntent );
     }
   }
 
