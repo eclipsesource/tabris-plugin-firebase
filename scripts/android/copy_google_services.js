@@ -8,7 +8,9 @@ if (!fs.existsSync(GOOGLE_SERVICES_JSON)) {
     'No "google-services.json" file found in project root directory. ' +
     'Required by plugin "tabris-plugin-firebase" (Android).');
 } else {
-  if (fs.statSync('platforms/android').isDirectory()) {
-    fs.createReadStream(GOOGLE_SERVICES_JSON).pipe(fs.createWriteStream(`platforms/android/${GOOGLE_SERVICES_JSON}`));
+  let ANDROID_PLATFORM_PATH = 'platforms/android';
+  if (fs.existsSync(ANDROID_PLATFORM_PATH) && fs.statSync(ANDROID_PLATFORM_PATH).isDirectory()) {
+    fs.createReadStream(GOOGLE_SERVICES_JSON)
+      .pipe(fs.createWriteStream(`${ANDROID_PLATFORM_PATH}/${GOOGLE_SERVICES_JSON}`));
   }
 }
