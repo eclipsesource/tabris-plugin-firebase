@@ -20,7 +20,6 @@
     <clobbers target="firebase.Messaging" />
   </js-module>
 
-  <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
 
   <platform name="android">
 
@@ -67,6 +66,9 @@
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.java"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
+
+    <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
+
   </platform>
 
 </plugin>
