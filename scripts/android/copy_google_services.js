@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require('fs');
+
+const ANDROID_PLATFORM = 'platforms/android';
 const GOOGLE_SERVICES_JSON = 'google-services.json';
 
 if (!fs.existsSync(GOOGLE_SERVICES_JSON)) {
@@ -8,9 +10,8 @@ if (!fs.existsSync(GOOGLE_SERVICES_JSON)) {
     'No "google-services.json" file found in project root directory. ' +
     'Required by plugin "tabris-plugin-firebase" (Android).');
 } else {
-  let ANDROID_PLATFORM_PATH = 'platforms/android';
-  if (fs.existsSync(ANDROID_PLATFORM_PATH) && fs.statSync(ANDROID_PLATFORM_PATH).isDirectory()) {
+  if (fs.existsSync(ANDROID_PLATFORM) && fs.statSync(ANDROID_PLATFORM).isDirectory()) {
     fs.createReadStream(GOOGLE_SERVICES_JSON)
-      .pipe(fs.createWriteStream(`${ANDROID_PLATFORM_PATH}/${GOOGLE_SERVICES_JSON}`));
+      .pipe(fs.createWriteStream(`${ANDROID_PLATFORM}/${GOOGLE_SERVICES_JSON}`));
   }
 }
