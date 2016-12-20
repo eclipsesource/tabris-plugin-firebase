@@ -8,7 +8,7 @@ exports.create = function() {
 
 function createExample(page) {
 
-  var tokenText = new tabris.TextView({
+  new tabris.TextView({
     left: MARGIN, top: MARGIN, right: MARGIN,
     text: 'InstanceId: ' + firebase.Messaging.instanceId
   }).appendTo(page);
