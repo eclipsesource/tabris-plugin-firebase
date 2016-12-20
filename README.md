@@ -11,9 +11,11 @@ The following snippet shows how the `tabris-plugin-firebase` plugin can be used 
 ```js
 console.log('Token to send to server: ' + firebase.Messaging.token);
 
-firebase.Messaging.on('tokenRefresh', (messaging, token) => console.log('Server token refreshed: ' + token));
+firebase.Messaging.on('tokenRefresh',
+    (messaging, token) => console.log('Server token refreshed: ' + token));
 
-firebase.Messaging.on('message', (messaging, data) => console.log('Received message: ' + JSON.stringify(data)));
+firebase.Messaging.on('message',
+    (messaging, data) => console.log('Received message: ' + JSON.stringify(data)));
 
 console.log('Message from app cold start: ' + firebase.Messaging.launchData);
 ```
@@ -78,7 +80,7 @@ cordova plugin add <path-to-tabris-firebase-plugin> --variable ANDROID_NOTIFICAT
 
 When no notification icon is specified, the outline of the app icon is used.
 
-## Sending message with notifications
+## Send message with notification from server
 
 When the server sends a message to a device it can create two types of messages: "notification" messages and "data" messages. Messages that contain a `notification` key in its json payload are treated as "notification" message. More details of the differences between "notification" and "data" messages can be found in the [firebase documentation](https://firebase.google.com/docs/cloud-messaging/concept-options#notifications_and_data_messages).
 
@@ -114,13 +116,63 @@ Note that the json object above does not contain a `notification` key. It only p
 
 Using the same `id` for multiple messages updates an existing notification on the users device. Omitting the `id` creates a random id on the device so that each message results in a unique notification.
 
+## API documentation
+
+The firebase messaging API is represented as the global object `firebase.Messaging`.
+
+### `Messaging`
+
+#### Properties
+
+All `Messaging` properties are read only.
+
+##### `instanceId` : _string_
+
+* A stable identifier that uniquely identifies the app installation. Note that on Android the instance id can become invalid as noted in the [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html).
+  
+##### `token` : _string_
+
+* A registration `token` to be used on the server side to identify an app installation. The registration `token` is always available but can change during the apps lifetime. To get notified of a registration token update you should listen for `tokenRefresh` events. 
+
+##### `launchData` : _object_
+
+* Contains the cloud message data when the app is cold started from a notification. There are two scenarios of message data delivery:
+  1. When the app is in the foreground (or running in the background and the user taps on the notification) the `message` event callback is invoked. 
+  2. In case the app process is not running and the app is freshly launched (cold started) from a notification, the data contained within that notification is available in the `launchData` object.
+ 
+* The recommended way to make sure your app receives all messaging data is to check the `firebase.Messaging.launchData` object on app startup and to register for the `message` event to receive follow-up messages.
+
+#### Events
+
+##### `tokenRefresh`
+
+* The `tokenRefresh` event is fired when the current registration token has changed. Check the firebase [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html) for details when that might be the case.
+
+###### Parameter:
+
+* `messaging` : _Messaging_
+  * The `Messaging` object that allows to interact with firebase cloud messaging
+* `token` : _string_
+  * The new registration `token` to send to the server
+
+##### `message`
+
+* The `message` event is fired when a cloud message is received by a running app. This can either be while the app is in the foreground or the user clicks on a notification while the app is running in the background. To get the message data while the app is cold launched from a notification see the `launchData` property.
+
+###### Parameter:
+
+* `messaging` : _Messaging_
+  * The `Messaging` object that allows to interact with firebase cloud messaging
+* `data` : _object_
+  * The message `data` object as send from the server side
+
 ## Compatibility
 
 Compatible with [Tabris.js 2.0.0](https://github.com/eclipsesource/tabris-js/releases/tag/v2.0.0)
 
-## Development of the widget
+## Development of the plugin
 
-While not required by the consumer of the widget, this repository provides Android specific development artifacts. These artifacts allow to more easily consume the native source code when developing the native parts of the widget.
+While not required by the consumer of the plugin, this repository provides Android specific development artifacts. These artifacts allow to more easily consume the native source code when developing the native parts of the plugin.
 
 ### Android
 
