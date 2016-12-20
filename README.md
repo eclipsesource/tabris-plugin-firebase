@@ -42,6 +42,7 @@ Using the plugin follows the standard cordova plugin mechanism. The Tabris.js we
 The plugin can be added like any other cordova plugin. Either via the `cordova plugin add` command or as an entry in the apps `config.xml` (recommended when published):
 
 ```xml
+<!-- THE PLUGIN IS NOT YET AVAILABLE ON npmjs.com -->
 <plugin name="tabris-plugin-firebase" spec="1.0.0" />
 ```
 
@@ -51,7 +52,13 @@ To fetch the latest development version use the GitHub url:
 <plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase" />
 ```
 
-#### Notification icon
+#### Provide the firebase credentials 
+
+To enable the firebase support in your app, you have to [provide the `google-services.json` file](https://firebase.google.com/docs/android/setup#add_firebase_to_your_app) which contains the apps ids and credentials. The file can be obtained from the [firebase console](https://console.firebase.google.com).
+  
+To make the `google-services.json` file available to the `tabris-plugins-firebase` you have to place it in the same folder as your apps `config.xml` file. If the file is missing the plugin will print an appropriate error message.
+
+#### Notification icon (optional)
 
 An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure an icon the name of an Android drawable inside the Android platform `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](example/scripts/android/copy_icons.js) for a snippet to get you started.
 
@@ -68,6 +75,8 @@ Alternatively the image can be added during the `cordova plugin add` command:
 ```bash
 cordova plugin add <path-to-tabris-firebase-plugin> --variable ANDROID_NOTIFICATION_ICON=`icon_drawable_name`
 ```
+
+When no notification icon is specified, the outline of the app icon is used.
 
 ## Sending message with notifications
 
