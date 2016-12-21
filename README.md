@@ -15,9 +15,9 @@ firebase.Messaging.on('tokenRefresh',
     (messaging, token) => console.log('Server token refreshed: ' + token));
 
 firebase.Messaging.on('message',
-    (messaging, data) => console.log('Received message: ' + JSON.stringify(data)));
+    (messaging, data) => console.log('Received message data: ' + JSON.stringify(data)));
 
-console.log('Message from app cold start: ' + firebase.Messaging.launchData);
+console.log('Message data from app cold start: ' + firebase.Messaging.launchData);
 ```
 
 A more elaborate example can be found in the [example](example/) folder. It provides a Tabris.js cordova project that demonstrates the various features of the `tabris-plugin-firebase` integration. When building the example project make sure to run `npm install` inside its `www` folder to fetch the Tabris.js dependencies.
