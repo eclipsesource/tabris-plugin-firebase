@@ -41,11 +41,11 @@ Using the plugin follows the standard cordova plugin mechanism. The Tabris.js we
 
 ### Add the plugin to your project
 
-The plugin can be added like any other cordova plugin. Either via the `cordova plugin add` command or as an entry in the apps `config.xml` (recommended when published):
+The plugin can be added like any other cordova plugin. Either via the `cordova plugin add` command or as an entry in the apps `config.xml` (recommended):
 
 ```xml
-<!-- THE PLUGIN IS NOT YET AVAILABLE ON npmjs.com -->
-<plugin name="tabris-plugin-firebase" spec="1.0.0" />
+<!-- THE PLUGIN IS NOT YET AVAILABLE ON NPMJS.COM -->
+<!-- <plugin name="tabris-plugin-firebase" spec="1.0.0" /> -->
 ```
 
 To fetch the latest development version use the GitHub url:
