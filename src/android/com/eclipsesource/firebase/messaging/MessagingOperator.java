@@ -11,6 +11,7 @@ import com.eclipsesource.tabris.client.core.model.Properties;
 public class MessagingOperator extends AbstractTabrisOperator<Messaging> {
 
   private static final String TYPE = "com.eclipsesource.firebase.Messaging";
+  private static final String METHOD_RESET_INSTANCE_ID = "resetInstanceId";
 
   private final Activity activity;
   private final TabrisContext tabrisContext;
@@ -35,6 +36,14 @@ public class MessagingOperator extends AbstractTabrisOperator<Messaging> {
   @Override
   public Messaging create( String id, Properties properties ) {
     return new Messaging( activity, tabrisContext );
+  }
+
+  @Override
+  public Object call( Messaging messaging, String method, Properties properties ) {
+    if( method.equals( METHOD_RESET_INSTANCE_ID ) ) {
+      messaging.resetInstanceId();
+    }
+    return null;
   }
 
   @Override

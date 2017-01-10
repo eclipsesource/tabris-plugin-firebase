@@ -132,7 +132,7 @@ All `Messaging` properties are read only.
   
 ##### `token` : _string_
 
-* A registration `token` to be used on the server side to identify an app installation. The registration `token` is always available but can change during the apps lifetime. To get notified of a registration token update you should listen for `tokenRefresh` events. 
+* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `tokenRefresh` events. When resetting the `instanceId`, the token is not available until the `tokenRefresh` event fired. 
 
 ##### `launchData` : _object_
 
@@ -151,9 +151,20 @@ All `Messaging` properties are read only.
 ###### Parameter:
 
 * `messaging` : _Messaging_
-  * The `Messaging` object that allows to interact with firebase cloud messaging
+  * The `Messaging` object which allows to interact with firebase cloud messaging
 * `token` : _string_
   * The new registration `token` to send to the server
+
+##### `instanceidchange`
+
+* The `instanceidchange` event is fired asynchronously when the `resetInstanceId()` method is invoked.
+
+###### Parameter:
+
+* `messaging` : _Messaging_
+  * The `Messaging` object which allows to interact with firebase cloud messaging
+* `instanceId` : _string_
+  * The new `instanceId` of the app
 
 ##### `message`
 
@@ -162,9 +173,15 @@ All `Messaging` properties are read only.
 ###### Parameter:
 
 * `messaging` : _Messaging_
-  * The `Messaging` object that allows to interact with firebase cloud messaging
+  * The `Messaging` object which allows to interact with firebase cloud messaging
 * `data` : _object_
   * The message `data` object as send from the server side
+  
+#### Methods
+  
+##### `resetInstanceId()`
+
+* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `instanceidchange` event. Resetting the `instanceId` also resets the associated registration `token`. A `tokenRefresh` event will be fired once a new token is available. 
 
 ## Compatibility
 

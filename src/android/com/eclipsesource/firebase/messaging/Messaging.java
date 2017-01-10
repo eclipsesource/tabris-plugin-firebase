@@ -6,13 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.eclipsesource.tabris.android.TabrisActivity;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.internal.toolkit.AppState;
 import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener;
+import com.eclipsesource.tabris.client.core.RemoteObject;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class Messaging implements IAppStateListener {
 
@@ -91,6 +97,31 @@ class Messaging implements IAppStateListener {
     Serializable data = intent.getSerializableExtra( EXTRA_DATA );
     tabrisContext.getObjectRegistry().getRemoteObjectForObject( Messaging.this )
         .notify( "message", "data", data );
+  }
+
+  void resetInstanceId() {
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    executor.submit( new Runnable() {
+      @Override
+      public void run() {
+        try {
+          FirebaseInstanceId.getInstance().deleteInstanceId();
+          tabrisContext.getWidgetToolkit().executeInUiThread( new Runnable() {
+            @Override
+            public void run() {
+              RemoteObject remoteObject = tabrisContext.getObjectRegistry().getRemoteObjectForObject( Messaging.this );
+              if( remoteObject != null ) {
+                String instanceId = FirebaseInstanceId.getInstance().getId();
+                remoteObject.notify( "instanceidchange", "instanceId", instanceId );
+              }
+            }
+          } );
+          FirebaseInstanceId.getInstance().getToken(); // will trigger a "tokenRefresh" event
+        } catch( IOException e ) {
+          Log.e( Messaging.class.getSimpleName(), "Could not reset firebase messaging instance id", e );
+        }
+      }
+    } );
   }
 
   private static class LaunchTabrisActivityReceiver extends BroadcastReceiver {
