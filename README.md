@@ -62,13 +62,13 @@ To make the `google-services.json` file available to the `tabris-plugins-firebas
 
 #### Notification icon (optional)
 
-An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure an icon the name of an Android drawable inside the Android platform `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](example/scripts/android/copy_icons.js) for a snippet to get you started.
+An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure an icon the resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](example/scripts/android/copy_icons.js) for a snippet to get you started.
 
 The icon can be configured inside your apps `config.xml`:
 
 ```xml
 <plugin name="tabris-plugin-firebase" spec="1.0.0">
-  <variable name="ANDROID_NOTIFICATION_ICON" value="icon_drawable_name" />
+  <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_notification" />
 </plugin>
 ```
 

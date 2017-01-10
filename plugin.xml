@@ -23,8 +23,8 @@
 
   <platform name="android">
 
-    <!-- The default value "icon" is the name used by cordova for its app icon -->
-    <preference name="ANDROID_NOTIFICATION_ICON" default="icon" />
+    <!-- The default value "@mipmap/icon" is the resource used by the tabris-android cordova platform for the app icon -->
+    <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/icon" />
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
@@ -44,7 +44,7 @@
           android:value="com.eclipsesource.firebase.messaging.MessagingOperator" />
       <meta-data
           android:name="com.google.firebase.messaging.default_notification_icon"
-          android:resource="@drawable/$ANDROID_NOTIFICATION_ICON" />
+          android:resource="$ANDROID_NOTIFICATION_ICON" />
 
       <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
