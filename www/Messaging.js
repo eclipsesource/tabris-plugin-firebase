@@ -15,19 +15,19 @@ var Messaging = tabris.NativeObject.extend({
   },
 
   _events: {
-    tokenRefresh: {
+    'change:token': {
       trigger: function(event) {
-        this.trigger('tokenRefresh', this, event.token);
+        this.trigger('change:token', this, event.token);
+      }
+    },
+    'change:instanceId': {
+      trigger: function(event) {
+        this.trigger('change:instanceId', this, event.instanceId);
       }
     },
     message: {
       trigger: function(event) {
         this.trigger('message', this, event.data);
-      }
-    },
-    instanceidchange: {
-      trigger: function(event) {
-        this.trigger('instanceidchange', this, event.instanceId);
       }
     }
   },

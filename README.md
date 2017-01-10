@@ -11,7 +11,7 @@ The following snippet shows how the `tabris-plugin-firebase` plugin can be used 
 ```js
 console.log('Token to send to server: ' + firebase.Messaging.token);
 
-firebase.Messaging.on('tokenRefresh',
+firebase.Messaging.on('change:token',
     (messaging, token) => console.log('Server token refreshed: ' + token));
 
 firebase.Messaging.on('message',
@@ -132,7 +132,7 @@ All `Messaging` properties are read only.
   
 ##### `token` : _string_
 
-* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `tokenRefresh` events. When resetting the `instanceId`, the token is not available until the `tokenRefresh` event fired. 
+* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `change:token` events. When resetting the `instanceId`, the token is not available until the `change:token` event fired. 
 
 ##### `launchData` : _object_
 
@@ -144,20 +144,9 @@ All `Messaging` properties are read only.
 
 #### Events
 
-##### `tokenRefresh`
+##### `change:instanceId`
 
-* The `tokenRefresh` event is fired when the current registration token has changed. Check the firebase [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html) for details when that might be the case.
-
-###### Parameter:
-
-* `messaging` : _Messaging_
-  * The `Messaging` object which allows to interact with firebase cloud messaging
-* `token` : _string_
-  * The new registration `token` to send to the server
-
-##### `instanceidchange`
-
-* The `instanceidchange` event is fired asynchronously when the `resetInstanceId()` method is invoked.
+* The `change:instanceId` event is fired asynchronously when the `resetInstanceId()` method is invoked.
 
 ###### Parameter:
 
@@ -165,6 +154,17 @@ All `Messaging` properties are read only.
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `instanceId` : _string_
   * The new `instanceId` of the app
+
+##### `change:token`
+
+* The `change:token` event is fired when the current registration token has changed. Check the firebase [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html) for details when that might be the case.
+
+###### Parameter:
+
+* `messaging` : _Messaging_
+  * The `Messaging` object which allows to interact with firebase cloud messaging
+* `token` : _string_
+  * The new registration `token` to send to the server
 
 ##### `message`
 
@@ -181,7 +181,7 @@ All `Messaging` properties are read only.
   
 ##### `resetInstanceId()`
 
-* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `instanceidchange` event. Resetting the `instanceId` also resets the associated registration `token`. A `tokenRefresh` event will be fired once a new token is available. 
+* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `change:instanceId` event. Resetting the `instanceId` also resets the associated registration `token`. A `change:token` event will be fired once a new token is available. 
 
 ## Compatibility
 

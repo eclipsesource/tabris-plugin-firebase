@@ -26,9 +26,9 @@ function createExample(page) {
     messageText.text = 'App launched with data:\n\n' + JSON.stringify(firebase.Messaging.launchData);
   }
 
-  firebase.Messaging.on('instanceidchange', updateMessagingDetails);
+  firebase.Messaging.on('change:instanceId', updateMessagingDetails);
 
-  firebase.Messaging.on('tokenRefresh', updateMessagingDetails);
+  firebase.Messaging.on('change:token', updateMessagingDetails);
 
   firebase.Messaging.on('message', function(messaging, data) {
     messageText.text = 'Received message:\n\n' + JSON.stringify(data);
