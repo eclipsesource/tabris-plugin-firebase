@@ -30,7 +30,11 @@ var Messaging = tabris.NativeObject.extend({
         this.trigger('message', this, event.data);
       }
     }
-  },
+  }
+
+});
+
+Object.assign(Messaging.prototype, {
 
   _dispose() {
     throw new Error('Messaging can not be disposed');
@@ -40,6 +44,7 @@ var Messaging = tabris.NativeObject.extend({
     this._nativeCall('resetInstanceId');
     return this;
   }
+
 });
 
 module.exports = new Messaging();
