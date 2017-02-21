@@ -10,8 +10,11 @@ const files = [
 files.forEach(file => {
   const src = path.join('res/android', file);
   const dst = path.join('platforms/android/res', file);
-  if (fs.existsSync(src) && fs.existsSync(path.dirname(dst))) {
-    console.log(`copying ${src} to ${dst}`);
-    fs.createReadStream(src).pipe(fs.createWriteStream(dst));
+  const dstDirname = path.dirname(dst);
+  if (!fs.existsSync(src)) return;
+  if (!fs.existsSync(dstDirname)) {
+    fs.mkdirSync(dstDirname);
   }
+  console.log(`copying ${src} to ${dst}`);
+  fs.createReadStream(src).pipe(fs.createWriteStream(dst));
 });
