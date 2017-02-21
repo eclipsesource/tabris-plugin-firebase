@@ -3,6 +3,6 @@
   "description": "Example for the Tabris firebase plugin.",
   "main": "app.js",
   "dependencies": {
-    "tabris": "https://tabrisjs.com/downloads/nightly-2.x/tabris.tgz"
+    "tabris": "2.0.0-beta1"
   }
 }
