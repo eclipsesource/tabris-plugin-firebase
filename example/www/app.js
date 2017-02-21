@@ -8,9 +8,7 @@ var navigationView = new tabris.NavigationView({
 
 var mainPage = new tabris.Page({
   title: 'Firebase examples'
-});
-
-navigationView.stack.push(mainPage);
+}).appendTo(navigationView);
 
 pages.forEach(createPageButton);
 
@@ -20,6 +18,6 @@ function createPageButton(pageConstructor) {
     left: 16, top: 'prev() 16', right: 16,
     text: 'Show \'' + page.title.toLowerCase() + '\' example'
   }).on('select', function() {
-    navigationView.stack.push(page);
+    page.appendTo(navigationView);
   }).appendTo(mainPage);
 }
