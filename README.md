@@ -12,10 +12,10 @@ The following snippet shows how the `tabris-plugin-firebase` plugin can be used 
 console.log('Token to send to server: ' + firebase.Messaging.token);
 
 firebase.Messaging.on('change:token',
-    (messaging, token) => console.log('Server token refreshed: ' + token));
+    ({value: token}) => console.log('Server token refreshed: ' + token));
 
 firebase.Messaging.on('message',
-    (messaging, data) => console.log('Received message data: ' + JSON.stringify(data)));
+    ({data}) => console.log('Received message data: ' + JSON.stringify(data)));
 
 console.log('Message data from app cold start: ' + firebase.Messaging.launchData);
 ```
@@ -54,10 +54,10 @@ To fetch the latest development version use the GitHub url:
 <plugin name="tabris-plugin-firebase" spec="https://github.com/eclipsesource/tabris-plugin-firebase" />
 ```
 
-#### Provide the firebase credentials 
+#### Provide the firebase credentials
 
 To enable the firebase support in your app, you have to [provide the `google-services.json` file](https://firebase.google.com/docs/android/setup#add_firebase_to_your_app) which contains the apps ids and credentials. The file can be obtained from the [firebase console](https://console.firebase.google.com).
-  
+
 To make the `google-services.json` file available to the `tabris-plugins-firebase` you have to place it in the same folder as your apps `config.xml` file. If the file is missing the plugin will print an appropriate error message.
 
 #### Notification icon (optional)
@@ -129,17 +129,17 @@ All `Messaging` properties are read only.
 ##### `instanceId` : _string_
 
 * A stable identifier that uniquely identifies the app installation. Note that on Android the instance id can become invalid as noted in the [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html).
-  
+
 ##### `token` : _string_
 
-* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `change:token` events. When resetting the `instanceId`, the token is not available until the `change:token` event fired. 
+* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `change:token` events. When resetting the `instanceId`, the token is not available until the `change:token` event fired.
 
 ##### `launchData` : _object_
 
 * Contains the cloud message data when the app is cold started from a notification. There are two scenarios of message data delivery:
-  1. When the app is in the foreground (or running in the background and the user taps on the notification) the `message` event callback is invoked. 
+  1. When the app is in the foreground (or running in the background and the user taps on the notification) the `message` event callback is invoked.
   2. In case the app process is not running and the app is freshly launched (cold started) from a notification, the data contained within that notification is available in the `launchData` object.
- 
+
 * The recommended way to make sure your app receives all messaging data is to check the `firebase.Messaging.launchData` object on app startup and to register for the `message` event to receive follow-up messages.
 
 #### Events
@@ -176,12 +176,12 @@ All `Messaging` properties are read only.
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `data` : _object_
   * The message `data` object as send from the server side
-  
+
 #### Methods
-  
+
 ##### `resetInstanceId()`
 
-* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `change:instanceId` event. Resetting the `instanceId` also resets the associated registration `token`. A `change:token` event will be fired once a new token is available. 
+* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `change:instanceId` event. Resetting the `instanceId` also resets the associated registration `token`. A `change:token` event will be fired once a new token is available.
 
 ## Compatibility
 
