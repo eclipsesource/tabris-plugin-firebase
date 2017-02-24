@@ -7,7 +7,7 @@ exports.create = function() {
   }).once('appear', createExample);
 };
 
-function createExample(page) {
+function createExample({target: page}) {
 
   var instanceIdText = new tabris.TextView({
     left: MARGIN, top: MARGIN, right: MARGIN
@@ -30,7 +30,7 @@ function createExample(page) {
 
   firebase.Messaging.on('change:token', updateMessagingDetails);
 
-  firebase.Messaging.on('message', function(messaging, data) {
+  firebase.Messaging.on('message', ({data}) => {
     messageText.text = 'Received message:\n\n' + JSON.stringify(data);
   });
 
