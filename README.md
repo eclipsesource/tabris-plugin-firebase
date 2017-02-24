@@ -148,9 +148,9 @@ All `Messaging` properties are read only.
 
 * The `change:instanceId` event is fired asynchronously when the `resetInstanceId()` method is invoked.
 
-###### Parameter:
+###### Event Parameters:
 
-* `messaging` : _Messaging_
+* `target` : _Messaging_
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `instanceId` : _string_
   * The new `instanceId` of the app
@@ -159,9 +159,9 @@ All `Messaging` properties are read only.
 
 * The `change:token` event is fired when the current registration token has changed. Check the firebase [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html) for details when that might be the case.
 
-###### Parameter:
+###### Event Parameters:
 
-* `messaging` : _Messaging_
+* `target` : _Messaging_
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `token` : _string_
   * The new registration `token` to send to the server
@@ -170,9 +170,9 @@ All `Messaging` properties are read only.
 
 * The `message` event is fired when a cloud message is received by a running app. This can either be while the app is in the foreground or the user clicks on a notification while the app is running in the background. To get the message data while the app is cold launched from a notification see the `launchData` property.
 
-###### Parameter:
+###### Event Parameters:
 
-* `messaging` : _Messaging_
+* `target` : _Messaging_
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `data` : _object_
   * The message `data` object as send from the server side
