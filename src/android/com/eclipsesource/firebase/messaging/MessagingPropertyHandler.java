@@ -1,11 +1,11 @@
 
 package com.eclipsesource.firebase.messaging;
 
-import com.eclipsesource.tabris.android.TabrisPropertyHandler;
+import com.eclipsesource.tabris.android.PropertyHandler;
 import com.eclipsesource.tabris.client.core.model.Properties;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-class MessagingPropertyHandler implements TabrisPropertyHandler<Messaging> {
+class MessagingPropertyHandler implements PropertyHandler<Messaging> {
 
   private static final String PROP_INSTANCE_ID = "instanceId";
   private static final String PROP_TOKEN = "token";

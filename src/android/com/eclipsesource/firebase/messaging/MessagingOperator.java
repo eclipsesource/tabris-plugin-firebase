@@ -3,12 +3,12 @@ package com.eclipsesource.firebase.messaging;
 
 import android.app.Activity;
 
-import com.eclipsesource.tabris.android.AbstractTabrisOperator;
+import com.eclipsesource.tabris.android.AbstractOperator;
+import com.eclipsesource.tabris.android.PropertyHandler;
 import com.eclipsesource.tabris.android.TabrisContext;
-import com.eclipsesource.tabris.android.TabrisPropertyHandler;
 import com.eclipsesource.tabris.client.core.model.Properties;
 
-public class MessagingOperator extends AbstractTabrisOperator<Messaging> {
+public class MessagingOperator extends AbstractOperator<Messaging> {
 
   private static final String TYPE = "com.eclipsesource.firebase.Messaging";
   private static final String METHOD_RESET_INSTANCE_ID = "resetInstanceId";
@@ -24,7 +24,7 @@ public class MessagingOperator extends AbstractTabrisOperator<Messaging> {
   }
 
   @Override
-  public TabrisPropertyHandler<Messaging> getPropertyHandler( Messaging messaging ) {
+  public PropertyHandler<Messaging> getPropertyHandler( Messaging messaging ) {
     return propertyHandler;
   }
 
