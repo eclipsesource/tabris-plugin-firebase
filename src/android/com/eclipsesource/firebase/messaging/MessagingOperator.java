@@ -4,9 +4,9 @@ package com.eclipsesource.firebase.messaging;
 import android.app.Activity;
 
 import com.eclipsesource.tabris.android.AbstractOperator;
+import com.eclipsesource.tabris.android.Properties;
 import com.eclipsesource.tabris.android.PropertyHandler;
 import com.eclipsesource.tabris.android.TabrisContext;
-import com.eclipsesource.tabris.client.core.model.Properties;
 
 public class MessagingOperator extends AbstractOperator<Messaging> {
 

@@ -1,8 +1,8 @@
 
 package com.eclipsesource.firebase.messaging;
 
+import com.eclipsesource.tabris.android.Properties;
 import com.eclipsesource.tabris.android.PropertyHandler;
-import com.eclipsesource.tabris.client.core.model.Properties;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 class MessagingPropertyHandler implements PropertyHandler<Messaging> {

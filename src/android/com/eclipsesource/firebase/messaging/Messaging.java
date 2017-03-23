@@ -8,11 +8,11 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.eclipsesource.tabris.android.RemoteObject;
 import com.eclipsesource.tabris.android.TabrisActivity;
 import com.eclipsesource.tabris.android.TabrisContext;
 import com.eclipsesource.tabris.android.internal.toolkit.AppState;
 import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener;
-import com.eclipsesource.tabris.client.core.RemoteObject;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
