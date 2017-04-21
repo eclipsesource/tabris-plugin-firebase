@@ -53,7 +53,7 @@
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-messaging:10.2.0" />
+    <framework src="com.google.firebase:firebase-messaging:10.2.1" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.java"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
