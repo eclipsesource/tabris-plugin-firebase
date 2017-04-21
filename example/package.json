@@ -1,8 +1,8 @@
 {
   "title": "Tabris Firebase Example",
   "description": "Example for the Tabris firebase plugin.",
-  "main": "app.js",
+  "main": "src/app.js",
   "dependencies": {
-    "tabris": "2.0.0-beta1"
+    "tabris": "nightly"
   }
 }

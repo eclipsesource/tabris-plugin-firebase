@@ -8,7 +8,7 @@
 
   <preference name="EnableDeveloperConsole" value="true" />
 
-  <plugin name="tabris-plugin-firebase" spec="1.0.0">
+  <plugin name="tabris-plugin-firebase" spec="../">
     <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_stat_trend" />
   </plugin>
 
