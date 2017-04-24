@@ -2,10 +2,8 @@ package com.eclipsesource.firebase.messaging;
 
 import android.app.Activity;
 
+import com.eclipsesource.tabris.android.PropertyHandler;
 import com.eclipsesource.tabris.android.TabrisContext;
-import com.eclipsesource.tabris.android.TabrisPropertyHandler;
-import com.eclipsesource.firebase.messaging.MessagingOperator;
-import com.eclipsesource.firebase.messaging.MessagingPropertyHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +29,7 @@ public class MessagingOperator_Test {
 
   @Test
   public void testGetPropertyHandler() {
-    TabrisPropertyHandler propertyHandler = operator.getPropertyHandler( mock( Messaging.class ) );
+    PropertyHandler propertyHandler = operator.getPropertyHandler( mock( Messaging.class ) );
 
     assertThat( propertyHandler ).isInstanceOf( MessagingPropertyHandler.class );
   }
