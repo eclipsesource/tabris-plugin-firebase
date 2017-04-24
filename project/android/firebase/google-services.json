@@ -13,7 +13,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:213213213:android:fe9b8717654185dc",
         "android_client_info": {
-          "package_name": "com.eclipsesource.tabris.firebase"
+          "package_name": "com.eclipsesource.firebase"
         }
       },
       "oauth_client": [
