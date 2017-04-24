@@ -1,23 +1,21 @@
-var MARGIN = 16;
+const MARGIN = 16;
 
-exports.create = function() {
-  return new tabris.Page({
-    title: 'Messaging',
-    autoDispose: false
-  }).once('appear', createExample);
-};
+exports.create = () => new tabris.Page({
+  title: 'Messaging',
+  autoDispose: false
+}).once('appear', createExample);
 
 function createExample({target: page}) {
 
-  var instanceIdText = new tabris.TextView({
+  const instanceIdText = new tabris.TextView({
     left: MARGIN, top: MARGIN, right: MARGIN
   }).appendTo(page);
 
-  var tokenText = new tabris.TextView({
+  const tokenText = new tabris.TextView({
     left: MARGIN, top: ['prev()', MARGIN], right: MARGIN
   }).appendTo(page);
 
-  var messageText = new tabris.TextView({
+  const messageText = new tabris.TextView({
     left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
     text: 'Waiting for message...'
   }).appendTo(page);
@@ -30,23 +28,21 @@ function createExample({target: page}) {
 
   firebase.Messaging.on('change:token', updateMessagingDetails);
 
-  firebase.Messaging.on('message', ({data}) => {
-    messageText.text = 'Received message:\n\n' + JSON.stringify(data);
-  });
+  firebase.Messaging.on('message', ({data}) => messageText.text = `Message received:\n\n${JSON.stringify(data)}`);
 
   new tabris.Button({
     left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
     text: 'Reset InstanceId'
-  }).on('select', function() {
-    firebase.Messaging.resetInstanceId();
-  }).appendTo(page);
+  }).on('select', () => firebase.Messaging.resetInstanceId())
+    .appendTo(page);
 
   updateMessagingDetails();
 
   function updateMessagingDetails() {
-    var token = firebase.Messaging.token;
+    const token = firebase.Messaging.token;
     console.log('Token: ' + token);
     tokenText.text = token ? 'Use the following token to send messages to this device:\n\n' + token : 'Loading token...';
     instanceIdText.text = 'InstanceId: ' + firebase.Messaging.instanceId;
   }
+
 }
