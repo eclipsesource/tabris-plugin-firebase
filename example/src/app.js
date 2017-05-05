@@ -1,6 +1,7 @@
 const messagingPage = require('./pages/messaging');
+const analyticsPage = require('./pages/analytics');
 
-const pages = [messagingPage];
+const pages = [messagingPage, analyticsPage];
 
 const navigationView = new tabris.NavigationView({
   left: 0, top: 0, right: 0, bottom: 0

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Firebase" parent="@style/Theme.Tabris.Light.DarkAppBar">
+        <item name="colorPrimary">#039be5</item>
+        <item name="colorPrimaryDark">#0288d1</item>
+        <item name="colorAccent">#ffa712</item>
+    </style>
+
+</resources>

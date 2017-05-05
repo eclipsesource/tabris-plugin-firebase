@@ -2,8 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
+    def playServicesVersion = '10.2.1'
     compile 'com.eclipsesource.tabris:tabris-android:2.0.0'
-    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile "com.google.firebase:firebase-messaging:$playServicesVersion"
+    compile "com.google.firebase:firebase-analytics:$playServicesVersion"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.9.5'
