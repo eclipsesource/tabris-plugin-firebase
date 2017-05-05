@@ -5,6 +5,10 @@ module.exports = {
     accent: '#ffa712',
     pageBackground: '#eeeeee',
     textInputLabel: '#757575',
+    textPrimary: '#212121',
+    textSecondary: '#757575',
+    textDisabled: '#9e9e9e',
+    dividers: '#e0e0e0'
   },
   dimen: {
     marginSmall: 8,
