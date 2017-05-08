@@ -17,7 +17,7 @@ class Card extends tabris.Composite {
       left: MARGIN, right: MARGIN, top: MARGIN,
       text: title,
       font: 'medium 16px',
-      textColor: res.color.primaryDark
+      textColor: res.color.textSecondary
     }).appendTo(this);
   }
 }

@@ -12,7 +12,8 @@ const navigationView = new tabris.NavigationView({
 }).appendTo(tabris.ui.contentView);
 
 const mainPage = new tabris.Page({
-  title: 'Firebase examples'
+  title: 'Firebase Examples',
+  background: res.color.pageBackground
 }).appendTo(navigationView);
 
 new tabris.CollectionView({
