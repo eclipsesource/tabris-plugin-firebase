@@ -58,7 +58,7 @@ module.exports = class MessagingPage extends tabris.Page {
 
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Reset instance id',
+      text: 'Reset instance id'
     }).on('tap', () => firebase.Messaging.resetInstanceId())
       .appendTo(instanceIdCard);
 
@@ -68,11 +68,11 @@ module.exports = class MessagingPage extends tabris.Page {
       messageText.text = 'App launched with data:\n\n' + JSON.stringify(firebase.Messaging.launchData);
     }
 
-    firebase.Messaging.on('change:instanceId', updateMessagingDetails);
-
-    firebase.Messaging.on('change:token', updateMessagingDetails);
-
-    firebase.Messaging.on('message', ({data}) => messageText.text = `Message received:\n\n${JSON.stringify(data)}`);
+    firebase.Messaging.on({
+      instanceIdChanged: updateMessagingDetails,
+      tokenChanged: updateMessagingDetails,
+      message: ({data}) => messageText.text = `Message received:\n\n${JSON.stringify(data)}`
+    });
 
     updateMessagingDetails();
 

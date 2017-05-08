@@ -112,11 +112,11 @@ class Messaging implements IAppStateListener {
               RemoteObject remoteObject = tabrisContext.getObjectRegistry().getRemoteObjectForObject( Messaging.this );
               if( remoteObject != null ) {
                 String instanceId = FirebaseInstanceId.getInstance().getId();
-                remoteObject.notify( "change:instanceId", "instanceId", instanceId );
+                remoteObject.notify( "instanceIdChanged", "value", instanceId );
               }
             }
           } );
-          FirebaseInstanceId.getInstance().getToken(); // will trigger a "change:token" event
+          FirebaseInstanceId.getInstance().getToken(); // will trigger a "tokenChanged" event
         } catch( IOException e ) {
           Log.e( Messaging.class.getSimpleName(), "Could not reset firebase messaging instance id", e );
         }
@@ -143,7 +143,7 @@ class Messaging implements IAppStateListener {
       if( intent.getAction().equals( ACTION_TOKEN_REFRESH ) ) {
         String token = intent.getStringExtra( EXTRA_TOKEN );
         tabrisContext.getObjectRegistry().getRemoteObjectForObject( Messaging.this )
-            .notify( "change:token", "token", token );
+            .notify( "tokenChanged", "value", token );
       }
     }
 
