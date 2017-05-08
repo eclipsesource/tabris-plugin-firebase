@@ -47,7 +47,7 @@ module.exports = class AnalyticsPage extends tabris.Page {
 
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Set screen name',
+      text: 'Set screen name'
     }).on('tap', () => firebase.Analytics.screenName = screenName.text)
       .appendTo(screenNameCard);
 
@@ -83,7 +83,7 @@ module.exports = class AnalyticsPage extends tabris.Page {
       id: 'logValue1',
       left: logKey1, right: MARGIN, baseline: logKey1,
       message: 'Log data value 1',
-      text: 'news article',
+      text: 'news article'
     }).appendTo(eventCard);
 
     const logKey2 = new tabris.TextInput({
@@ -95,12 +95,12 @@ module.exports = class AnalyticsPage extends tabris.Page {
       id: 'logValue2',
       left: logKey2, right: MARGIN, baseline: logKey2,
       message: 'Log data value 2',
-      text: 'Plugin released',
+      text: 'Plugin released'
     }).appendTo(eventCard);
 
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Send event',
+      text: 'Send event'
     }).on('tap', () => {
       firebase.Analytics.logEvent(eventName.text, {
         [logKey1.text]: logValue1.text,
@@ -134,12 +134,12 @@ module.exports = class AnalyticsPage extends tabris.Page {
       id: 'userPropertyValue',
       left: userPropertyKey, right: MARGIN, baseline: userPropertyKey,
       message: 'User property value',
-      text: 'true',
+      text: 'true'
     }).appendTo(userPropertiesCard);
 
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Set property',
+      text: 'Set property'
     }).on('tap', () => firebase.Analytics.setUserProperty(userPropertyKey.text, userPropertyValue.text))
       .appendTo(userPropertiesCard);
 
@@ -153,7 +153,7 @@ module.exports = class AnalyticsPage extends tabris.Page {
 
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Set user id',
+      text: 'Set user id'
     }).on('tap', () => firebase.Analytics.userId = userId.text)
       .appendTo(userIdCard);
 
