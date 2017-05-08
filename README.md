@@ -28,6 +28,13 @@ To enable the firebase support in your app, you have to [provide the `google-ser
 
 To make the `google-services.json` file available to the `tabris-plugins-firebase` you have to place it in the same folder as your apps `config.xml` file. If the file is missing the plugin will print an appropriate error message.
 
+## Documentation
+
+The Tabris.js Firebase Plugin supports the following features
+
+* [Firebase Cloud Messaging](doc/cloud-messaging.md)
+* [Firebase Analytics](doc/analytics.md)
+
 ## Compatibility
 
 Compatible with [Tabris.js 2.0.0](https://github.com/eclipsesource/tabris-js/releases/tag/v2.0.0)

@@ -21,7 +21,7 @@ firebase.Messaging.on('message',
 console.log('Message data from app cold start: ' + firebase.Messaging.launchData);
 ```
 
-A more elaborate example can be found in the [example](example/) folder. It provides a Tabris.js cordova project that demonstrates the various features of the `tabris-plugin-firebase` integration. When building the example project make sure to run `npm install` inside its `www` folder to fetch the Tabris.js dependencies.
+A more elaborate example can be found in the [example](../example/) folder. It provides a Tabris.js cordova project that demonstrates the various features of the `tabris-plugin-firebase` integration. When building the example project make sure to run `npm install` inside its `www` folder to fetch the Tabris.js dependencies.
 
 To [send a message](https://firebase.google.com/docs/cloud-messaging/send-message) from the server side a `curl` command similar to the following `POST` request can be used:
 
@@ -39,7 +39,7 @@ curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/
 
 ### Custom notification icon (optional)
 
-An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](example/cordova/scripts/android/copy-ressources.js) for a snippet to get you started.
+An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](../example/cordova/scripts/android/copy-ressources.js) for a snippet to get you started.
 
 The icon can be configured inside your apps `config.xml`:
 
