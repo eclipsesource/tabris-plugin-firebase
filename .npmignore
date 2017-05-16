@@ -1,4 +1,6 @@
+doc/
 example/
 project/
 .idea/
 .gitignore
+.eslintrc
