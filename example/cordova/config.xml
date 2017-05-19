@@ -12,7 +12,7 @@
     <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_stat_trend" />
   </plugin>
 
-  <hook type="after_platform_add" src="scripts/android/copy-ressources.js" />
+  <hook type="after_platform_add" src="scripts/android/copy-resources.js" />
 
   <platform name="android">
     <preference name="Theme" value="@style/Theme.Firebase" />
