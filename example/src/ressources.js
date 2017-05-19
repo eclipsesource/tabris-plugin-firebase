@@ -3,7 +3,7 @@ module.exports = {
     primary: '#039be5',
     primaryDark: '#0288d1',
     accent: '#ffa712',
-    pageBackground: '#eeeeee',
+    pageBackground: '#fafafa',
     textInputLabel: '#757575',
     textPrimary: '#212121',
     textSecondary: '#757575',
@@ -13,6 +13,6 @@ module.exports = {
   dimen: {
     marginSmall: 8,
     margin: 16,
-    marginLarge: 24,
+    marginLarge: 24
   }
 };
