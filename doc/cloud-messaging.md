@@ -10,10 +10,10 @@ The `tabris-plugin-firebase` plugin project provides a [Tabris.js](https://tabri
 The following snippet shows how the `tabris-plugin-firebase` plugin can be used to receive a cloud message in a Tabris.js app.
 
 ```js
-console.log('Token to send to server: ' + firebase.Messaging.token);
+console.log('Token to send to backend: ' + firebase.Messaging.token);
 
 firebase.Messaging.on('tokenChanged',
-    ({value: token}) => console.log('Server token refreshed: ' + token));
+    ({token}) => console.log('Server token refreshed: ' + token));
 
 firebase.Messaging.on('message',
     ({data}) => console.log('Received message data: ' + JSON.stringify(data)));
@@ -141,7 +141,7 @@ All `Messaging` properties are read only.
 * `target` : _Messaging_
   * The `Messaging` object which allows to interact with firebase cloud messaging
 * `token` : _string_
-  * The new registration `token` to send to the server
+  * The new registration `token` to send to backend server
 
 ##### `message`
 
