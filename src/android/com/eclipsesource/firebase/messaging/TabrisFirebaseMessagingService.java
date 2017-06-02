@@ -24,8 +24,8 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
 
   private static final String META_DATA_ICON = "com.google.firebase.messaging.default_notification_icon";
   private static final String DATA_KEY_ID = "id";
-  private static final String DATA_KEY_TEXT = "text";
   private static final String DATA_KEY_TITLE = "title";
+  private static final String DATA_KEY_BODY = "body";
 
   // There are two types of messages data messages and notification messages. Data messages are handled
   // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -50,10 +50,10 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
     if( data != null ) {
       int id = getId( data );
       String title = data.get( DATA_KEY_TITLE );
-      String text = data.get( DATA_KEY_TEXT );
-      if( !( isEmpty( title ) && isEmpty( text ) ) ) {
+      String body = data.get( DATA_KEY_BODY );
+      if( !( isEmpty( title ) && isEmpty( body ) ) ) {
         NotificationManagerCompat.from( this )
-            .notify( id, createNotification( id, title, text, data ) );
+            .notify( id, createNotification( id, title, body, data ) );
       }
     }
   }

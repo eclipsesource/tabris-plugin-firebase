@@ -30,7 +30,7 @@ curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/
     "to": "<token>",
     "data": {
       "title": "New data",
-      "text": "The new data arrived",
+      "body": "The new data arrived",
       "payload": "custom data"
     }
   }
@@ -69,7 +69,7 @@ To configure the notification several properties can be set:
 
 - `id` : `number`
 - `title` : `string`
-- `text` : `string`
+- `body` : `string`
 
 The following message send from a server would create a notification similar to the [screenshot](doc/img/firebase.png) above:
 
@@ -83,7 +83,7 @@ Content-Type: application/json
   "to": "<token>",
   "data": {
     "title": "New data available",
-    "text": "The new data can be used in a multitude of ways",
+    "body": "The new data can be used in a multitude of ways",
     "payload": "custom data"
   }
 }
