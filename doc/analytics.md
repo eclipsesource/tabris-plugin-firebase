@@ -16,7 +16,7 @@ The firebase analytics API is represented as the global object `firebase.Analyti
 
 #### Properties
 
-All `Analytics` properties are read write.
+All `Analytics` properties are write only.
 
 ##### `analyticsCollectionEnabled` : _boolean_
 
