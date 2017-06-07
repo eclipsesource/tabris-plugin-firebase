@@ -36,64 +36,64 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
   // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
 
   @Override
-  public void onMessageReceived( RemoteMessage remoteMessage ) {
-    Intent intent = new Intent( Messaging.ACTION_MESSAGE );
-    intent.putExtra( Messaging.EXTRA_DATA, new HashMap<>( remoteMessage.getData() ) );
-    if( !LocalBroadcastManager.getInstance( getApplicationContext() ).sendBroadcast( intent ) ) {
+  public void onMessageReceived(RemoteMessage remoteMessage) {
+    Intent intent = new Intent(Messaging.ACTION_MESSAGE);
+    intent.putExtra(Messaging.EXTRA_DATA, new HashMap<>(remoteMessage.getData()));
+    if (!LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent)) {
       // if nobody consumed the message broadcast the app is in the background
-      showNotification( remoteMessage );
+      showNotification(remoteMessage);
     }
   }
 
-  private void showNotification( RemoteMessage remoteMessage ) {
+  private void showNotification(RemoteMessage remoteMessage) {
     Map<String, String> data = remoteMessage.getData();
-    if( data != null ) {
-      int id = getId( data );
-      String title = data.get( DATA_KEY_TITLE );
-      String body = data.get( DATA_KEY_BODY );
-      if( !( isEmpty( title ) && isEmpty( body ) ) ) {
-        NotificationManagerCompat.from( this )
-            .notify( id, createNotification( id, title, body, data ) );
+    if (data != null) {
+      int id = getId(data);
+      String title = data.get(DATA_KEY_TITLE);
+      String body = data.get(DATA_KEY_BODY);
+      if (!(isEmpty(title) && isEmpty(body))) {
+        NotificationManagerCompat.from(this)
+            .notify(id, createNotification(id, title, body, data));
       }
     }
   }
 
-  private int getId( Map<String, String> data ) {
+  private int getId(Map<String, String> data) {
     try {
-      return Integer.parseInt( data.get( DATA_KEY_ID ) );
-    } catch( Exception ignored ) {
+      return Integer.parseInt(data.get(DATA_KEY_ID));
+    } catch (Exception ignored) {
       return new Random().nextInt();
     }
   }
 
-  private Notification createNotification( int id, String title, String text, Map<String, String> data ) {
-    PendingIntent contentIntent = PendingIntent.getBroadcast( this, id,
-        createLaunchIntent( data ), PendingIntent.FLAG_UPDATE_CURRENT );
-    return new NotificationCompat.Builder( this )
-        .setContentTitle( title )
-        .setContentText( text )
-        .setStyle( new NotificationCompat.BigTextStyle().bigText( text ) )
-        .setAutoCancel( true )
-        .setSmallIcon( getIcon() )
-        .setContentIntent( contentIntent ).build();
+  private Notification createNotification(int id, String title, String text, Map<String, String> data) {
+    PendingIntent contentIntent = PendingIntent.getBroadcast(this, id,
+        createLaunchIntent(data), PendingIntent.FLAG_UPDATE_CURRENT);
+    return new NotificationCompat.Builder(this)
+        .setContentTitle(title)
+        .setContentText(text)
+        .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
+        .setAutoCancel(true)
+        .setSmallIcon(getIcon())
+        .setContentIntent(contentIntent).build();
   }
 
   private int getIcon() {
     int defaultIcon = getApplicationInfo().icon;
     try {
-      ApplicationInfo info = getPackageManager().getApplicationInfo( getPackageName(), GET_META_DATA );
-      return info.metaData.getInt( META_DATA_ICON, defaultIcon );
-    } catch( Exception e ) {
+      ApplicationInfo info = getPackageManager().getApplicationInfo(getPackageName(), GET_META_DATA);
+      return info.metaData.getInt(META_DATA_ICON, defaultIcon);
+    } catch (Exception e) {
       return defaultIcon;
     }
   }
 
   @NonNull
-  private Intent createLaunchIntent( Map<String, String> data ) {
-    Intent intent = new Intent( this, NotificationOpenedReceiver.class );
+  private Intent createLaunchIntent(Map<String, String> data) {
+    Intent intent = new Intent(this, NotificationOpenedReceiver.class);
     Bundle bundle = new Bundle();
-    bundle.putSerializable( Messaging.EXTRA_DATA, new HashMap<>( data ) );
-    intent.putExtras( bundle );
+    bundle.putSerializable(Messaging.EXTRA_DATA, new HashMap<>(data));
+    intent.putExtras(bundle);
     return intent;
   }
 

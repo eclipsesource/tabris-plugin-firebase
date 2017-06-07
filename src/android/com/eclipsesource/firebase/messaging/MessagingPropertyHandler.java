@@ -1,4 +1,3 @@
-
 package com.eclipsesource.firebase.messaging;
 
 import com.eclipsesource.tabris.android.Properties;
@@ -12,8 +11,8 @@ class MessagingPropertyHandler implements PropertyHandler<Messaging> {
   private static final String PROP_LAUNCH_DATA = "launchData";
 
   @Override
-  public Object get( Messaging messaging, String property ) {
-    switch( property ) {
+  public Object get(Messaging messaging, String property) {
+    switch (property) {
       case PROP_INSTANCE_ID:
         return FirebaseInstanceId.getInstance().getId();
       case PROP_TOKEN:
@@ -25,7 +24,7 @@ class MessagingPropertyHandler implements PropertyHandler<Messaging> {
   }
 
   @Override
-  public void set( Messaging messaging, Properties properties ) {
+  public void set(Messaging messaging, Properties properties) {
     // setting any properties is not supported
   }
 

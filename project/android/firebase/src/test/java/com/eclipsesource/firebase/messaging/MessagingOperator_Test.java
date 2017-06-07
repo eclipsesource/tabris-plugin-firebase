@@ -17,21 +17,21 @@ public class MessagingOperator_Test {
 
   @Before
   public void setUp() {
-    operator = new MessagingOperator( mock( Activity.class ), mock( TabrisContext.class ) );
+    operator = new MessagingOperator(mock(Activity.class), mock(TabrisContext.class));
   }
 
   @Test
   public void testGetType() {
     String type = operator.getType();
 
-    assertThat( type ).isEqualTo( "com.eclipsesource.firebase.Messaging" );
+    assertThat(type).isEqualTo("com.eclipsesource.firebase.Messaging");
   }
 
   @Test
   public void testGetPropertyHandler() {
-    PropertyHandler propertyHandler = operator.getPropertyHandler( mock( Messaging.class ) );
+    PropertyHandler propertyHandler = operator.getPropertyHandler(mock(Messaging.class));
 
-    assertThat( propertyHandler ).isInstanceOf( MessagingPropertyHandler.class );
+    assertThat(propertyHandler).isInstanceOf(MessagingPropertyHandler.class);
   }
 
 }

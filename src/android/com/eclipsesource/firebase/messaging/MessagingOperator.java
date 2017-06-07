@@ -1,4 +1,3 @@
-
 package com.eclipsesource.firebase.messaging;
 
 import android.app.Activity;
@@ -17,14 +16,14 @@ public class MessagingOperator extends AbstractOperator<Messaging> {
   private final TabrisContext tabrisContext;
   private final MessagingPropertyHandler propertyHandler;
 
-  public MessagingOperator( Activity activity, TabrisContext tabrisContext ) {
+  public MessagingOperator(Activity activity, TabrisContext tabrisContext) {
     this.activity = activity;
     this.tabrisContext = tabrisContext;
     propertyHandler = new MessagingPropertyHandler();
   }
 
   @Override
-  public PropertyHandler<Messaging> getPropertyHandler( Messaging messaging ) {
+  public PropertyHandler<Messaging> getPropertyHandler(Messaging messaging) {
     return propertyHandler;
   }
 
@@ -34,20 +33,20 @@ public class MessagingOperator extends AbstractOperator<Messaging> {
   }
 
   @Override
-  public Messaging create( String id, Properties properties ) {
-    return new Messaging( activity, tabrisContext );
+  public Messaging create(String id, Properties properties) {
+    return new Messaging(activity, tabrisContext);
   }
 
   @Override
-  public Object call( Messaging messaging, String method, Properties properties ) {
-    if( method.equals( METHOD_RESET_INSTANCE_ID ) ) {
+  public Object call(Messaging messaging, String method, Properties properties) {
+    if (method.equals(METHOD_RESET_INSTANCE_ID)) {
       messaging.resetInstanceId();
     }
     return null;
   }
 
   @Override
-  public void destroy( Messaging messaging ) {
+  public void destroy(Messaging messaging) {
     messaging.unregisterAllListeners();
   }
 

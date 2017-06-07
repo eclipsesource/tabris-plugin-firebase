@@ -1,4 +1,3 @@
-
 package com.eclipsesource.firebase.analytics;
 
 import android.app.Activity;
@@ -21,13 +20,13 @@ public class AnalyticsOperator extends AbstractOperator<Analytics> {
   private final AnalyticsPropertyHandler propertyHandler;
   private final Activity activity;
 
-  public AnalyticsOperator( Activity activity, TabrisContext tabrisContext ) {
+  public AnalyticsOperator(Activity activity, TabrisContext tabrisContext) {
     this.activity = activity;
     propertyHandler = new AnalyticsPropertyHandler();
   }
 
   @Override
-  public PropertyHandler<Analytics> getPropertyHandler( Analytics analytics ) {
+  public PropertyHandler<Analytics> getPropertyHandler(Analytics analytics) {
     return propertyHandler;
   }
 
@@ -37,20 +36,20 @@ public class AnalyticsOperator extends AbstractOperator<Analytics> {
   }
 
   @Override
-  public Analytics create( String id, Properties properties ) {
-    return new Analytics( activity );
+  public Analytics create(String id, Properties properties) {
+    return new Analytics(activity);
   }
 
   @Override
-  public Object call( Analytics analytics, String method, Properties properties ) {
-    switch( method ) {
+  public Object call(Analytics analytics, String method, Properties properties) {
+    switch (method) {
       case METHOD_LOG_EVENT:
-        analytics.logEvent( properties.getString( PROP_NAME ),
-            properties.getProperties( PROP_DATA ).getAll() );
+        analytics.logEvent(properties.getString(PROP_NAME),
+            properties.getProperties(PROP_DATA).getAll());
         break;
       case METHOD_SET_USER_PROPERTY:
-        analytics.setUserProperty( properties.getString( PROP_KEY ),
-            properties.getString( PROP_VALUE ) );
+        analytics.setUserProperty(properties.getString(PROP_KEY),
+            properties.getString(PROP_VALUE));
         break;
     }
     return null;

@@ -10,9 +10,9 @@ public class TabrisFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
   @Override
   public void onTokenRefresh() {
-    Intent intent = new Intent( Messaging.ACTION_TOKEN_REFRESH );
-    intent.putExtra( Messaging.EXTRA_TOKEN, FirebaseInstanceId.getInstance().getToken() );
-    LocalBroadcastManager.getInstance( getApplicationContext() ).sendBroadcast( intent );
+    Intent intent = new Intent(Messaging.ACTION_TOKEN_REFRESH);
+    intent.putExtra(Messaging.EXTRA_TOKEN, FirebaseInstanceId.getInstance().getToken());
+    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
   }
 
 }

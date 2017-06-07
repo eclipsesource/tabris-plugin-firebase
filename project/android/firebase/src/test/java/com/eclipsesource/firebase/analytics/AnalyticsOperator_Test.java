@@ -17,21 +17,21 @@ public class AnalyticsOperator_Test {
 
   @Before
   public void setUp() {
-    operator = new AnalyticsOperator( mock( Activity.class ), mock( TabrisContext.class ) );
+    operator = new AnalyticsOperator(mock(Activity.class), mock(TabrisContext.class));
   }
 
   @Test
   public void testGetType() {
     String type = operator.getType();
 
-    assertThat( type ).isEqualTo( "com.eclipsesource.firebase.Analytics" );
+    assertThat(type).isEqualTo("com.eclipsesource.firebase.Analytics");
   }
 
   @Test
   public void testGetPropertyHandler() {
-    PropertyHandler propertyHandler = operator.getPropertyHandler( mock( Analytics.class ) );
+    PropertyHandler propertyHandler = operator.getPropertyHandler(mock(Analytics.class));
 
-    assertThat( propertyHandler ).isInstanceOf( AnalyticsPropertyHandler.class );
+    assertThat(propertyHandler).isInstanceOf(AnalyticsPropertyHandler.class);
   }
 
 }
