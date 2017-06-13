@@ -91,4 +91,22 @@
 
   </platform>
 
+  <platform name="ios">
+    <!-- Frameworks -->
+    <!-- Analytics -->
+    <framework src="src/ios/frameworks/FirebaseAnalytics.framework" custom="true" />
+    <framework src="src/ios/frameworks/FirebaseCore.framework" custom="true" />
+    <framework src="src/ios/frameworks/FirebaseCoreDiagnostics.framework" custom="true" />
+    <framework src="src/ios/frameworks/FirebaseInstanceID.framework" custom="true" />
+    <framework src="src/ios/frameworks/FirebaseNanoPB.framework" custom="true" />
+    <framework src="src/ios/frameworks/GoogleToolboxForMac.framework" custom="true" />
+    <!-- Messaging -->
+    <framework src="src/ios/frameworks/FirebaseMessaging.framework" custom="true" />
+    <framework src="src/ios/frameworks/Protobuf.framework" custom="true" />
+
+    <!-- Sources -->
+    <!-- Analytics -->
+    <!-- Messaging -->
+  </platform>
+
 </plugin>
