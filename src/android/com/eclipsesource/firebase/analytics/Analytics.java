@@ -48,11 +48,11 @@ class Analytics {
         } else if (value instanceof Long) {
           bundle.putLong(entry.getKey(), (long)value);
         } else if (value instanceof Integer) {
-          bundle.putLong(entry.getKey(), (long)value);
+          bundle.putLong(entry.getKey(), (int)value);
         } else if (value instanceof Double) {
           bundle.putDouble(entry.getKey(), (double)value);
         } else if (value instanceof Float) {
-          bundle.putDouble(entry.getKey(), (double)value);
+          bundle.putDouble(entry.getKey(), (float)value);
         }
       }
     }
