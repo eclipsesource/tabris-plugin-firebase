@@ -92,6 +92,9 @@
   </platform>
 
   <platform name="ios">
+    <!-- Scripts -->
+    <hook type="after_plugin_install" src="scripts/ios/custom-widget.js" />
+
     <!-- Frameworks -->
     <!-- Analytics -->
     <framework src="src/ios/frameworks/FirebaseAnalytics.framework" custom="true" />
@@ -106,7 +109,12 @@
 
     <!-- Sources -->
     <!-- Analytics -->
+    <header-file src="src/ios/src/ESFBAnalytics.h" />
+    <source-file src="src/ios/src/ESFBAnalytics.m" />
     <!-- Messaging -->
+
+    <!-- Resources -->
+    <resource-file src="src/ios/resources/GoogleService-Info.plist" />
   </platform>
 
 </plugin>
