@@ -24,15 +24,17 @@ To fetch the latest development version use the GitHub url:
 
 #### Provide the firebase credentials
 
-To enable the firebase support in your app, you have to [provide the `google-services.json` file](https://firebase.google.com/docs/android/setup#add_firebase_to_your_app) which contains the apps ids and credentials. The file can be obtained from the [firebase console](https://console.firebase.google.com).
+To enable the firebase support in your app, you have to [provide the `google-services.json` file](https://firebase.google.com/docs/android/setup#add_firebase_to_your_app) for Android or [GoogleService-Info.plist file](https://firebase.google.com/docs/ios/setup#add_firebase_to_your_app) for iOS which contains the apps ids and credentials. The file can be obtained from the [firebase console](https://console.firebase.google.com).
 
 To make the `google-services.json` file available to the `tabris-plugins-firebase` you have to place it in the same folder as your apps `config.xml` file. If the file is missing the plugin will print an appropriate error message.
+
+Please include `GoogleService-Info.plist` file as a resource in `config.xml` of your project. You can find out more about including resources [here](https://cordova.apache.org/docs/en/latest/config_ref/#resource-file).
 
 ## Documentation
 
 The Tabris.js Firebase Plugin supports the following features
 
-* [Firebase Cloud Messaging](doc/cloud-messaging.md)
+* [Firebase Cloud Messaging](doc/cloud-messaging.md) (Android-only)
 * [Firebase Analytics](doc/analytics.md)
 
 ## Compatibility
