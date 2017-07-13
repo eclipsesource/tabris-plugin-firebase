@@ -28,7 +28,9 @@ To enable the firebase support in your app, you have to [provide the `google-ser
 
 To make the `google-services.json` file available to the `tabris-plugins-firebase` you have to place it in the same folder as your apps `config.xml` file. If the file is missing the plugin will print an appropriate error message.
 
-Please include `GoogleService-Info.plist` file as a resource in `config.xml` of your project. You can find out more about including resources [here](https://cordova.apache.org/docs/en/latest/config_ref/#resource-file).
+Please include `GoogleService-Info.plist` file as a resource in `config.xml` of your project. You can find out more about including resources [here](https://cordova.apache.org/docs/en/latest/config_ref/#resource-file). Example below:
+
+`<resource-file src="GoogleService-Info.plist" />`
 
 ## Documentation
 
