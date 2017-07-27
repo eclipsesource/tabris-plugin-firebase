@@ -24,6 +24,10 @@
     <clobbers target="firebase.Analytics" />
   </js-module>
 
+  <js-module src="www/Reference.js" name="reference">
+    <clobbers target="firebase.Reference" />
+  </js-module>
+
 
   <platform name="android">
 
@@ -54,9 +58,9 @@
           android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.analytics"
           android:value="com.eclipsesource.firebase.analytics.AnalyticsOperator" />
       <meta-data
-          android:name="com.google.firebase.messaging.default_notification_icon"
-          android:resource="$ANDROID_NOTIFICATION_ICON" />
-      <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+        android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.reference"
+        android:value="com.eclipsesource.firebase.reference.ReferenceOperator" />
+     <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
 
       <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
@@ -66,6 +70,7 @@
 
     <framework src="com.google.firebase:firebase-messaging:10.2.1" />
     <framework src="com.google.firebase:firebase-analytics:10.2.1" />
+    <framework src="com.google.firebase:firebase-database:10.2.1" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.java"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
@@ -86,6 +91,14 @@
                  target-dir="src/com/eclipsesource/firebase/analytics" />
     <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.java"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
+                 
+    
+    <source-file src="src/android/com/eclipsesource/firebase/reference/ReferenceOperator.java"
+                 target-dir="src/com/eclipsesource/firebase/reference" />
+    <source-file src="src/android/com/eclipsesource/firebase/reference/ReferencePropertyHandler.java"
+                 target-dir="src/com/eclipsesource/firebase/reference" />
+    <source-file src="src/android/com/eclipsesource/firebase/reference/Reference.java"
+                 target-dir="src/com/eclipsesource/firebase/reference" />
 
     <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
 
