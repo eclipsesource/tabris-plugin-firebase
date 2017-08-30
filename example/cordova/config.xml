@@ -18,6 +18,6 @@
   </platform>
 
   <platform name="ios">
-    <resource-file src="res/ios/GoogleService-Info.plist" />
+    <resource-file src="GoogleService-Info.plist" />
   </platform>
 </widget>
