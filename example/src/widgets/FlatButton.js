@@ -1,4 +1,4 @@
-const res = require('../ressources');
+const res = require('../resources');
 
 const HORIZONTAL_MARGIN = 8;
 

@@ -1,6 +1,6 @@
 const MessagingPage = require('./pages/messaging');
 const AnalyticsPage = require('./pages/analytics');
-const res = require('./ressources');
+const res = require('./resources');
 
 const MARGIN = res.dimen.margin;
 const MARGIN_LARGE = res.dimen.marginLarge;
