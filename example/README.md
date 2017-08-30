@@ -4,15 +4,7 @@
 
 1. To run the example it is recommended to use the [Tabris.js CLI](https://www.npmjs.com/package/tabris-cli).
 
-2. For Android place your `google-services.json` file in the root directory of the example project.
-
-2. For iOS place your `GoogleService-Info.plist` file in the root directory of the example project and reference it as a `resource-file`:
-
-```xml
-<platform name="ios">
-  <resource-file src="GoogleService-Info.plist" />
-</platform>
-```
+2. Place the Firebase credential files `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) in the `cordova/` directory of the example project.
 
 ## Running the Example
 
