@@ -1,3 +1,4 @@
+const {Composite, Page, ScrollView, TextView} = require('tabris');
 const Card = require('../widgets/Card');
 const FlatButton = require('../widgets/FlatButton');
 const res = require('../resources');
@@ -5,52 +6,56 @@ const res = require('../resources');
 const MARGIN = res.dimen.margin;
 const MARGIN_SMALL = res.dimen.marginSmall;
 
-module.exports = class MessagingPage extends tabris.Page {
+module.exports = class MessagingPage extends Page {
 
   constructor(properties) {
-    super(properties);
-    this.title = 'Firebase Cloud Messaging';
-    this.description = 'Use Cloud Messaging to have custom data pushed to your device without a persistent connection.';
-    this.autoDispose = false;
-    this.background = res.color.pageBackground;
-    this.once('appear', this._createPageContent);
+    super(Object.assign({
+      title: 'Firebase Cloud Messaging',
+      autoDispose: false,
+      background: res.color.pageBackground,
+    }, properties));
+    this._createContent();
   }
 
-  _createPageContent({target: page}) {
+  get DESCRIPTION() {
+    return 'Use Cloud Messaging to have custom data pushed to your device without a persistent connection.';
+  }
 
-    const scrollView = new tabris.ScrollView({
+  _createContent() {
+
+    let scrollView = new ScrollView({
       left: 0, right: 0, top: 0, bottom: 0
-    }).appendTo(page);
+    }).appendTo(this);
 
-    let messageCard = new Card({title: 'Cloud Message'}).appendTo(scrollView);
+    let messageCard = this._createCard('Cloud Message').appendTo(scrollView);
 
-    new tabris.TextView({
+    new TextView({
       left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
       text: 'Use the following token to send messages to this device:'
     }).appendTo(messageCard);
 
-    const tokenText = new tabris.TextView({
+    let tokenText = new TextView({
       left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
       font: '14px monospace',
       selectable: true
     }).appendTo(messageCard);
 
-    const messageText = new tabris.TextView({
+    let messageText = new TextView({
       left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
       text: 'Waiting for message...'
     }).appendTo(messageCard);
 
     // composite is a workaround for tabris-android bug where setting bottom would collapse messageText
-    new tabris.Composite({top: 'prev()', height: MARGIN}).appendTo(messageCard);
+    new Composite({top: 'prev()', height: MARGIN}).appendTo(messageCard);
 
-    let instanceIdCard = new Card({title: 'Instance Id'}).appendTo(scrollView);
+    let instanceIdCard = this._createCard('Instance Id').appendTo(scrollView);
 
-    new tabris.TextView({
+    new TextView({
       left: MARGIN, top: ['prev()', MARGIN],
       text: 'Instance id:'
     }).appendTo(instanceIdCard);
 
-    const instanceIdText = new tabris.TextView({
+    let instanceIdText = new TextView({
       left: ['prev()', MARGIN_SMALL], baseline: 'prev()', right: MARGIN,
       selectable: true,
       font: '14px monospace'
@@ -62,7 +67,7 @@ module.exports = class MessagingPage extends tabris.Page {
     }).on('tap', () => firebase.Messaging.resetInstanceId())
       .appendTo(instanceIdCard);
 
-    new tabris.Composite({top: 'prev()', height: MARGIN}).appendTo(scrollView);
+    new Composite({top: 'prev()', height: MARGIN}).appendTo(scrollView);
 
     if (firebase.Messaging.launchData) {
       messageText.text = 'App launched with data:\n\n' + JSON.stringify(firebase.Messaging.launchData);
@@ -77,11 +82,18 @@ module.exports = class MessagingPage extends tabris.Page {
     updateMessagingDetails();
 
     function updateMessagingDetails() {
-      const token = firebase.Messaging.token;
+      let token = firebase.Messaging.token;
       tokenText.text = token ? token : 'Loading token...';
       instanceIdText.text = firebase.Messaging.instanceId;
     }
 
+  }
+
+  _createCard(title) {
+    return new Card({
+      left: MARGIN, right: MARGIN, top: ['prev()', MARGIN],
+      title
+    });
   }
 
 };
