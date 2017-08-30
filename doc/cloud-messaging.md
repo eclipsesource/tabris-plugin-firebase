@@ -21,7 +21,7 @@ firebase.Messaging.on('message',
 console.log('Message data from app cold start: ' + firebase.Messaging.launchData);
 ```
 
-A more elaborate example can be found in the [example](../example/) folder. It provides a Tabris.js cordova project that demonstrates the various features of the `tabris-plugin-firebase` integration. When building the example project make sure to run `npm install` inside its `www` folder to fetch the Tabris.js dependencies.
+A more elaborate example can be found in the [example](../example/) folder. It provides a Tabris.js app that demonstrates the various features of the `tabris-plugin-firebase` integration.
 
 To [send a message](https://firebase.google.com/docs/cloud-messaging/send-message) from the server side a `curl` command similar to the following `POST` request can be used:
 
@@ -47,12 +47,6 @@ The icon can be configured inside your apps `config.xml`:
 <plugin name="tabris-plugin-firebase" spec="1.0.0">
   <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_notification" />
 </plugin>
-```
-
-Alternatively the image can be added during the `cordova plugin add` command:
-
-```bash
-cordova plugin add <path-to-tabris-firebase-plugin> --variable ANDROID_NOTIFICATION_ICON=`icon_drawable_name`
 ```
 
 When no notification icon is specified, the outline of the app icon is used.

@@ -6,14 +6,14 @@ The `tabris-plugin-firebase` plugin provides a [Tabris.js](https://tabrisjs.com)
 
 ## Integrating the plugin
 
-Using the plugin follows the standard cordova plugin mechanism. The Tabris.js website provides detailed information on how to [integrate custom plugins](https://tabrisjs.com/documentation/latest/build#adding-plugins) in your Tabris.js app.
+The Tabris.js website provides detailed information on how to [integrate custom plugins](https://tabrisjs.com/documentation/latest/build#adding-plugins) in your Tabris.js app.
 
 ### Add the plugin to your project
 
 The plugin should be added as an entry in the apps `config.xml` file:
 
 ```xml
-<plugin name="tabris-plugin-firebase" spec="1.0.0" /> 
+<plugin name="tabris-plugin-firebase" spec="1.0.0" />
 ```
 
 To fetch the latest development version use the GitHub url:
