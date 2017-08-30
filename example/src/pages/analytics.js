@@ -1,6 +1,6 @@
 const Card = require('../widgets/Card');
 const FlatButton = require('../widgets/FlatButton');
-const res = require('../ressources');
+const res = require('../resources');
 
 const MARGIN_SMALL = res.dimen.marginSmall;
 const MARGIN = res.dimen.margin;

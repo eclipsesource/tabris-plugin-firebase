@@ -1,4 +1,4 @@
-const res = require('../ressources');
+const res = require('../resources');
 
 const MARGIN = res.dimen.margin;
 

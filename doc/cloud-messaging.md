@@ -39,7 +39,7 @@ curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/
 
 ### Custom notification icon (optional)
 
-An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](../example/cordova/scripts/android/copy-ressources.js) for a snippet to get you started.
+An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](../example/cordova/scripts/android/copy-resources.js) for a snippet to get you started.
 
 The icon can be configured inside your apps `config.xml`:
 
