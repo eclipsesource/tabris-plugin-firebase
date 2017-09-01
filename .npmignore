@@ -5,3 +5,13 @@ project/
 .gitignore
 .eslintrc
 .github
+.DS_Store
+.gradle/
+.history/
+build/
+node_modules/
+platforms/
+plugins/
+*.iml
+local.properties
+npm-debug.log*
