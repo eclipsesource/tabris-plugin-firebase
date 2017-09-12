@@ -20,6 +20,6 @@ function copyRecursiveSync(src, dest) {
     fs.readdirSync(src)
       .forEach(childItemName => copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName)));
   } else {
-    fs.linkSync(src, dest);
+    fs.writeFileSync(dest, fs.readFileSync(src));
   }
 }
