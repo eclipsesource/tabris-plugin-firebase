@@ -13,7 +13,7 @@
   </plugin>
 
   <platform name="android">
-    <hook type="after_platform_add" src="scripts/android/copy-resources.js" />
+    <hook type="after_prepare" src="scripts/android/copy-resources.js" />
     <preference name="Theme" value="@style/Theme.Firebase" />
   </platform>
 
