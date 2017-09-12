@@ -1,33 +1,28 @@
-const EVENT_TYPES = ['tokenChanged', 'instanceIdChanged', 'message'];
+var EVENT_TYPES = ['tokenChanged', 'instanceIdChanged', 'message'];
 
-const readOnly = {
-  set: name => console.warn(`Can not set read-only property "${name}"`)
+var readOnly = {
+  set: function(name) {
+    console.warn(`Can not set read-only property "${name}"`)
+  }
 };
 
-class Messaging extends tabris.NativeObject {
+var Messaging = tabris.NativeObject.extend('com.eclipsesource.firebase.Messaging');
 
-  constructor() {
-    super();
-    this._create('com.eclipsesource.firebase.Messaging');
+Messaging.prototype._listen = function(name, listening) {
+  if (EVENT_TYPES.indexOf(name) > -1) {
+    this._nativeListen(name, listening);
+  } else {
+    tabris.Widget.prototype._listen.call(this, name, listening);
   }
+};
 
-  _listen(name, listening) {
-    if (EVENT_TYPES.indexOf(name) > -1) {
-      this._nativeListen(name, listening);
-    } else {
-      super._listen(name, listening);
-    }
-  }
+Messaging.prototype._dispose = function() {
+  throw new Error('Messaging can not be disposed');
+}
 
-  _dispose() {
-    throw new Error('Messaging can not be disposed');
-  }
-
-  resetInstanceId() {
-    this._nativeCall('resetInstanceId');
-    return this;
-  }
-
+Messaging.prototype.resetInstanceId = function() {
+  this._nativeCall('resetInstanceId');
+  return this;
 }
 
 tabris.NativeObject.defineProperties(Messaging.prototype, {
