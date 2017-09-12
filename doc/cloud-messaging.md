@@ -44,7 +44,7 @@ An Android [notification icon](https://developer.android.com/guide/practices/ui_
 The icon can be configured inside your apps `config.xml`:
 
 ```xml
-<plugin name="tabris-plugin-firebase" spec="1.0.0">
+<plugin name="tabris-plugin-firebase" spec="^1.0.0">
   <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_notification" />
 </plugin>
 ```
