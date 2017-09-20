@@ -27,8 +27,8 @@ if (rootdir) {
 
     var updateIOSAppDelegate = function() {
       var appDelegate = getProjectFile("ios", "Classes/AppDelegate.m");
-      var importReplace = "#import \"AppDelegate.h\"";
-      var registerReplace = "self.client.delegate = self;"
+      var importReplace = "/* HOOK: import classes for registration */";
+      var registerReplace = "/* HOOK: tabrisClientWillStartExecuting */";
       replace(appDelegate, importReplace, importReplace + "\n#import <FirebaseAnalytics/FirebaseAnalytics.h>");
       replace(appDelegate, importReplace, importReplace + "\n#import \"ESFBAnalytics.h\"");
       replace(appDelegate, registerReplace, "[self.client addRemoteObject:[ESFBAnalytics class]];" + "\n\t" + registerReplace);
