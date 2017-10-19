@@ -30,7 +30,7 @@
     <!-- The default value "@mipmap/icon" is the resource used by the tabris-android cordova platform for the app icon -->
     <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/icon" />
 
-    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+    <config-file target="AndroidManifest.xml" parent="/manifest">
 
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
       <uses-permission android:name="android.permission.INTERNET" />
