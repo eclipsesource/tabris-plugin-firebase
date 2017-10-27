@@ -32,7 +32,7 @@ if (rootdir) {
       replace(appDelegate, importReplace, importReplace + "\n#import <FirebaseAnalytics/FirebaseAnalytics.h>");
       replace(appDelegate, importReplace, importReplace + "\n#import \"ESFBAnalytics.h\"");
       replace(appDelegate, registerReplace, "[self.client addRemoteObject:[ESFBAnalytics class]];" + "\n\t" + registerReplace);
-      replace(appDelegate, registerReplace, registerReplace + "\n\tif ([[NSBundle mainBundle] pathForResource:@\"GoogleService-Info\" ofType:@\"plist\"]) { [FIRApp configure]; }");
+      replace(appDelegate, "/* HOOK: applicationDidFinishLaunching */", "/* HOOK: applicationDidFinishLaunching */" + "\n\tif ([[NSBundle mainBundle] pathForResource:@\"GoogleService-Info\" ofType:@\"plist\"]) { [FIRApp configure]; }");
     };
 
     updateIOSAppDelegate();
