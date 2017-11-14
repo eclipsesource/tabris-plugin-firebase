@@ -1,7 +1,10 @@
 package com.eclipsesource.firebase.messaging;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static android.app.NotificationManager.IMPORTANCE_DEFAULT;
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.text.TextUtils.isEmpty;
 
@@ -26,6 +30,7 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
   private static final String DATA_KEY_ID = "id";
   private static final String DATA_KEY_TITLE = "title";
   private static final String DATA_KEY_BODY = "body";
+  private static final String NOTIFICATION_CHANNEL_DEFAULT = "default";
 
   // There are two types of messages data messages and notification messages. Data messages are handled
   // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
@@ -52,8 +57,7 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
       String title = data.get(DATA_KEY_TITLE);
       String body = data.get(DATA_KEY_BODY);
       if (!(isEmpty(title) && isEmpty(body))) {
-        NotificationManagerCompat.from(this)
-            .notify(id, createNotification(id, title, body, data));
+        NotificationManagerCompat.from(this).notify(id, createNotification(id, title, body, data));
       }
     }
   }
@@ -67,15 +71,32 @@ public class TabrisFirebaseMessagingService extends FirebaseMessagingService {
   }
 
   private Notification createNotification(int id, String title, String text, Map<String, String> data) {
+    createNotificationChannel();
     PendingIntent contentIntent = PendingIntent.getBroadcast(this, id,
         createLaunchIntent(data), PendingIntent.FLAG_UPDATE_CURRENT);
-    return new NotificationCompat.Builder(this)
+    return new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_DEFAULT)
         .setContentTitle(title)
         .setContentText(text)
         .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
         .setAutoCancel(true)
         .setSmallIcon(getIcon())
         .setContentIntent(contentIntent).build();
+  }
+
+  private void createNotificationChannel() {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      NotificationManager notificationManager = (NotificationManager) getBaseContext()
+          .getSystemService(Context.NOTIFICATION_SERVICE);
+      if (notificationManager != null
+          && notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT) == null) {
+        notificationManager.createNotificationChannel(
+            new NotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, getAppName(), IMPORTANCE_DEFAULT));
+      }
+    }
+  }
+
+  private CharSequence getAppName() {
+    return getPackageManager().getApplicationLabel(getApplicationInfo());
   }
 
   private int getIcon() {
