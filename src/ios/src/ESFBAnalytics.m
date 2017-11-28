@@ -8,6 +8,7 @@
 
 #import "ESFBAnalytics.h"
 #import <FirebaseAnalytics/FirebaseAnalytics.h>
+#import "ESFirebaseHelper.h"
 
 @implementation ESFBAnalytics
 
@@ -35,6 +36,10 @@
 
 - (UIView *)view {
     return nil;
+}
+
++ (void)setup {
+    [ESFirebaseHelper setup];
 }
 
 - (NSString *)screenName {

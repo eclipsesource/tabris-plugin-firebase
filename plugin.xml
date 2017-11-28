@@ -99,6 +99,14 @@
     <!-- Scripts -->
     <hook type="after_plugin_install" src="scripts/ios/custom-widget.js" />
 
+    <!-- Add entries to TabrisPlugins.plist -->
+    <config-file target="*TabrisPlugins.plist" parent="classes">
+    	<array>
+	    	<string>ESFBMessaging</string>
+	    	<string>ESFBAnalytics</string>
+    	</array>
+    </config-file>
+
     <!-- Frameworks -->
     <!-- Analytics -->
     <framework src="src/ios/frameworks/FirebaseAnalytics.framework" custom="true" />
@@ -118,6 +126,11 @@
     <header-file src="src/ios/src/ESFBAnalytics.h" />
     <source-file src="src/ios/src/ESFBAnalytics.m" />
     <!-- Messaging -->
+    <header-file src="src/ios/src/ESFBMessaging.h" />
+    <source-file src="src/ios/src/ESFBMessaging.m" />
+    <!-- Helper classes -->
+    <header-file src="src/ios/src/ESFirebaseHelper.h" />
+    <source-file src="src/ios/src/ESFirebaseHelper.m" />
   </platform>
 
 </plugin>
