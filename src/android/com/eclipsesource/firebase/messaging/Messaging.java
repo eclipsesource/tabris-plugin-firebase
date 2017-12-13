@@ -65,6 +65,7 @@ class Messaging implements IAppStateListener {
   }
 
   private void registerMessageReceiver() {
+    getBroadcastManager().unregisterReceiver(messageReceiver);
     getBroadcastManager().registerReceiver(messageReceiver, new IntentFilter(ACTION_MESSAGE));
   }
 
