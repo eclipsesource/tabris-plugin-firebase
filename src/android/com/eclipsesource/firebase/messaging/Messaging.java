@@ -80,6 +80,7 @@ class Messaging implements IAppStateListener {
   void unregisterAllListeners() {
     getBroadcastManager().unregisterReceiver(tokenReceiver);
     getBroadcastManager().unregisterReceiver(messageReceiver);
+    getBroadcastManager().unregisterReceiver(launchTabrisActivityReceiver);
   }
 
   private LocalBroadcastManager getBroadcastManager() {
