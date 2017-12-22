@@ -1,4 +1,8 @@
 buildscript {
+    ext {
+        playServicesVersion = '11.8.0'
+        kotlinVersion = '1.2.10'
+    }
     repositories {
         google()
         jcenter()
@@ -6,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -15,9 +20,8 @@ allprojects {
         jcenter()
         maven {
             // provides tabris from directory repository
-            url new File( System.getenv('TABRIS_ANDROID_PLATFORM') +
-                    '/bin/templates/project/m2repository' ).toURI()
-                    .toURL().toString()
+            url new File(System.getenv('TABRIS_ANDROID_PLATFORM') +
+                    '/bin/templates/project/m2repository').toURI().toURL().toString()
         }
     }
 }

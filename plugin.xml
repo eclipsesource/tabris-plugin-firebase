@@ -72,24 +72,24 @@
     <framework src="com.google.firebase:firebase-messaging:11.8.0" />
     <framework src="com.google.firebase:firebase-analytics:11.8.0" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingPropertyHandler.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingPropertyHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.java"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsOperator.java"
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsOperator.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsPropertyHandler.java"
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsPropertyHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.java"
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
 
     <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
