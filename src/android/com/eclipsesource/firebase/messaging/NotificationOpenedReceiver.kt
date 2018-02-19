@@ -25,16 +25,14 @@ class NotificationOpenedReceiver : BroadcastReceiver() {
     }
   }
 
-  private fun sendDataBroadcast(context: Context, action: String, data: Serializable): Boolean {
-    val broadcastManager = LocalBroadcastManager.getInstance(context.applicationContext)
-    return broadcastManager.sendBroadcast(Intent(action).apply { putExtra(EXTRA_DATA, data) })
-  }
+  private fun sendDataBroadcast(context: Context, action: String, data: Serializable) =
+      LocalBroadcastManager.getInstance(context.applicationContext)
+          .sendBroadcast(Intent(action).apply { putExtra(EXTRA_DATA, data) })
 
-  private fun createAppIntent(context: Context, data: Serializable): Intent? {
-    return context.packageManager.getLaunchIntentForPackage(context.packageName)?.let {
-      it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-      it.putExtra(EXTRA_DATA, data)
-    }
-  }
+  private fun createAppIntent(context: Context, data: Serializable) =
+      context.packageManager.getLaunchIntentForPackage(context.packageName)?.let {
+        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        it.putExtra(EXTRA_DATA, data)
+      }
 
 }

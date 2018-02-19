@@ -51,6 +51,7 @@ class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : 
       START -> registerMessageReceiver()
       NEW_INTENT -> notifyOfMessage(intent)
       STOP -> broadcastManager.unregisterReceiver(messageReceiver)
+      else -> Unit
     }
   }
 
@@ -77,8 +78,8 @@ class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : 
 
   private fun notifyOfMessage(intent: Intent?) {
     if (intent != null && intent.hasExtra(EXTRA_DATA)) {
-      val remoteObject = tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-      remoteObject?.notify(EVENT_MESSAGE, PROP_DATA, intent.getSerializableExtra(EXTRA_DATA))
+      tabrisContext.objectRegistry.getRemoteObjectForObject(this)
+          ?.notify(EVENT_MESSAGE, PROP_DATA, intent.getSerializableExtra(EXTRA_DATA))
     }
   }
 
@@ -88,8 +89,8 @@ class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : 
         val instanceId = FirebaseInstanceId.getInstance()
         instanceId.deleteInstanceId()
         tabrisContext.widgetToolkit.executeInUiThread {
-          val remoteObject = tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-          remoteObject?.notify(EVENT_INSTANCE_ID_CHANGED, PROP_INSTANCE_ID, instanceId.id)
+          tabrisContext.objectRegistry.getRemoteObjectForObject(this)
+              ?.notify(EVENT_INSTANCE_ID_CHANGED, PROP_INSTANCE_ID, instanceId.id)
         }
         instanceId.token // will trigger a "tokenChanged" event
       } catch (e: IOException) {
@@ -112,8 +113,8 @@ class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : 
 
     override fun onReceive(context: Context, intent: Intent) {
       if (intent.action == ACTION_TOKEN_REFRESH) {
-        val remoteObject = tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-        remoteObject?.notify(EVENT_TOKEN_CHANGED, PROP_TOKEN, intent.getStringExtra(EXTRA_TOKEN))
+        tabrisContext.objectRegistry.getRemoteObjectForObject(this)
+            ?.notify(EVENT_TOKEN_CHANGED, PROP_TOKEN, intent.getStringExtra(EXTRA_TOKEN))
       }
     }
 
