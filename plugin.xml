@@ -108,6 +108,14 @@
     	</array>
     </config-file>
 
+    <config-file target="*Entitlements-Debug.plist" parent="aps-environment">
+        <string>development</string>
+    </config-file>
+
+    <config-file target="*Entitlements-Release.plist" parent="aps-environment">
+        <string>production</string>
+    </config-file>
+
     <!-- Frameworks -->
     <!-- Analytics -->
     <framework src="src/ios/frameworks/FirebaseAnalytics.framework" custom="true" />
