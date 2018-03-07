@@ -29,9 +29,8 @@ if (rootdir) {
       var appDelegate = getProjectFile("ios", "Classes/AppDelegate.m");
       var importReplace = "/* HOOK: import classes for registration */";
       var registerReplace = "/* HOOK: tabrisClientWillStartExecuting */";
-      replace(appDelegate, importReplace, importReplace + "\n#define DISABLE_PUSH_NOTIFICATIONS");
-      replace(appDelegate, importReplace, importReplace + "\n#import \"ESFBMessaging.h\"");
-      replace(appDelegate, "#ifndef DISABLE_PUSH_NOTIFICATIONS", "- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {" + "\n\t" +"[ESFBMessaging setLaunchData:userInfo];" + "\n\t" + "completionHandler(UIBackgroundFetchResultNewData);\n}" + "\n\n" + "#ifndef DISABLE_PUSH_NOTIFICATIONS")
+      replace(appDelegate, importReplace, "#import \"ESFBMessaging.h\"" + importReplace);
+      replace(appDelegate, "@end", "- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {" + "\n\t" +"[ESFBMessaging setLaunchData:userInfo];" + "\n\t" + "completionHandler(UIBackgroundFetchResultNewData);\n}" + "\n\n" + "@end")
     };
 
     updateIOSAppDelegate();

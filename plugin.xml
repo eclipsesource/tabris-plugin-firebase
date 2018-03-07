@@ -116,6 +116,12 @@
         <string>production</string>
     </config-file>
 
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+        <array>
+            <string>remote-notification</string>
+        </array>
+    </config-file>
+
     <!-- Frameworks -->
     <!-- Analytics -->
     <framework src="src/ios/frameworks/FirebaseAnalytics.framework" custom="true" />
