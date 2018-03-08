@@ -16,5 +16,6 @@
 @property (assign) BOOL instanceIdChangedListener;
 @property (assign) BOOL messageListener;
 + (void)registerForNotifiations;
-+ (void)setLaunchData:(NSDictionary *)aLaunchData;
++ (void)notificationReceived:(NSDictionary *)data;
++ (void)setLaunchData:(NSDictionary *)launchOptions;
 @end

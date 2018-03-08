@@ -66,8 +66,17 @@ static NSDictionary *launchData;
     return @"com.eclipsesource.firebase.Messaging";
 }
 
-+ (void)setLaunchData:(NSDictionary *)aLaunchData {
-    launchData = aLaunchData;
++ (void)notificationReceived:(NSDictionary *)data {
+    if (launchData != data) {
+        [messagingDelegate.instance sendMessage:data];
+    }
+}
+
++ (void)setLaunchData:(NSDictionary *)launchOptions {
+    NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (data) {
+        launchData = data;
+    }
 }
 
 - (NSDictionary *)launchData {
@@ -154,7 +163,6 @@ static NSDictionary *launchData;
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:authOptions completionHandler:^(BOOL granted, NSError * _Nullable error) {}];
 #endif
     }
-
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 

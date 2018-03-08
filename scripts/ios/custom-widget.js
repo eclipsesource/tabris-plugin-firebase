@@ -28,9 +28,10 @@ if (rootdir) {
     var updateIOSAppDelegate = function() {
       var appDelegate = getProjectFile("ios", "Classes/AppDelegate.m");
       var importReplace = "/* HOOK: import classes for registration */";
-      var registerReplace = "/* HOOK: tabrisClientWillStartExecuting */";
-      replace(appDelegate, importReplace, "#import \"ESFBMessaging.h\"" + importReplace);
-      replace(appDelegate, "@end", "- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {" + "\n\t" +"[ESFBMessaging setLaunchData:userInfo];" + "\n\t" + "completionHandler(UIBackgroundFetchResultNewData);\n}" + "\n\n" + "@end")
+      var finishLaunchingReplace = "/* HOOK: applicationDidFinishLaunching */";
+      replace(appDelegate, importReplace, "#import \"ESFBMessaging.h\"\n" + importReplace);
+      replace(appDelegate, finishLaunchingReplace, "[ESFBMessaging setLaunchData:launchOptions];\n\t" + finishLaunchingReplace);
+      replace(appDelegate, "@end", "- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {" + "\n\t" + "[ESFBMessaging notificationReceived:userInfo];" + "\n\t" + "completionHandler(UIBackgroundFetchResultNewData);\n}" + "\n\n" + "@end")
     };
 
     updateIOSAppDelegate();
