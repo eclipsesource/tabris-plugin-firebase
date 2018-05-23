@@ -54,7 +54,7 @@ Feature | Supported platforms
 
 ## Compatibility
 
-Compatible with [Tabris.js 2.x](https://github.com/eclipsesource/tabris-js/releases/)
+Compatible with [Tabris.js](https://www.npmjs.com/package/tabris) ^2.2.0.
 
 ## Plugin development
 
