@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns="http://www.w3.org/ns/widgets"
         id="com.eclipsesource.tabris.firebase.example"
-        version="1.0.0">
+        version="2.0.0">
   <name>Tabris.js Firebase Plugin Example</name>
   <description>Examples for the Tabris.js firebase plugin.</description>
   <author email="tabris@eclipsesource.com" href="https://tabrisjs.com">EclipseSource</author>

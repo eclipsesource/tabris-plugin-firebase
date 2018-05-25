@@ -13,7 +13,7 @@ The Tabris.js website provides detailed information on how to [integrate custom 
 The plugin should be added as an entry in the apps `config.xml` file:
 
 ```xml
-<plugin name="tabris-plugin-firebase" spec="^1.0.0" />
+<plugin name="tabris-plugin-firebase" spec="^2.0.0" />
 ```
 
 To fetch the latest development version use the GitHub url:
