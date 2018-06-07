@@ -47,6 +47,7 @@ static NSDictionary *launchData;
     if (self) {
         messagingDelegate.instance = self;
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
+        [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
     }
     return self;
 }
@@ -89,7 +90,7 @@ static NSDictionary *launchData;
 
 + (void)setup {
     [ESFirebaseHelper setup];
-    [ESFBMessaging registerForNotifiations];
+    messagingDelegate = [ESFBMessagingDelegate new];
 }
 
 - (NSString *)instanceId {
@@ -100,8 +101,7 @@ static NSDictionary *launchData;
     return [FIRMessaging messaging].FCMToken;
 }
 
-+ (void)registerForNotifiations {
-    messagingDelegate = [ESFBMessagingDelegate new];
+- (void)registerForNotifications {
     [messagingDelegate registerForNotifications];
 }
 
