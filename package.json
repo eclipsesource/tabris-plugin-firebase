@@ -2,6 +2,10 @@
   "name": "tabris-plugin-firebase",
   "version": "2.0.0",
   "description": "A firebase plugin for Tabris.js",
+  "types": "./types/index.d.ts",
+  "peerDependencies": {
+    "tabris": "~2.5.1"
+  },
   "cordova": {
     "id": "tabris-plugin-firebase",
     "platforms": [
