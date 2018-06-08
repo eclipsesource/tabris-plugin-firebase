@@ -25,6 +25,15 @@ Messaging.prototype.resetInstanceId = function() {
   return this;
 }
 
+Messaging.prototype.requestPermissions = function() {
+  if (tabris.device.platform === 'iOS') {
+    this._nativeCall('requestPermissions');
+  } else {
+    console.warn('requestPermissions() is only supported on iOS.');
+  }
+  return this;
+}
+
 tabris.NativeObject.defineProperties(Messaging.prototype, {
   instanceId: {type: 'string', nocache: true, access: readOnly},
   token: {type: 'string', nocache: true, access: readOnly},

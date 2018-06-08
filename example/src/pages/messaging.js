@@ -1,4 +1,4 @@
-const {Composite, Page, ScrollView, TextView} = require('tabris');
+const {device, Button, Composite, Page, ScrollView, TextView} = require('tabris');
 const Card = require('../widgets/Card');
 const FlatButton = require('../widgets/FlatButton');
 const res = require('../resources');
@@ -66,6 +66,14 @@ module.exports = class MessagingPage extends Page {
       text: 'Reset instance id'
     }).on('tap', () => firebase.Messaging.resetInstanceId())
       .appendTo(instanceIdCard);
+
+    if (device.platform === 'iOS') {
+      new Button({
+        top: ['prev()', MARGIN_SMALL], centerX: 0,
+        text: 'Request permissions'
+      }).on('tap', () => firebase.Messaging.requestPermissions())
+        .appendTo(scrollView);
+    }
 
     new Composite({top: 'prev()', height: MARGIN}).appendTo(scrollView);
 
