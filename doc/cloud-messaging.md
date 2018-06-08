@@ -153,3 +153,7 @@ All `Messaging` properties are read only.
 ##### `resetInstanceId()`
 
 * Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `instanceIdChanged` event. Resetting the `instanceId` also resets the associated registration `token`. A `tokenChanged` event will be fired once a new token is available.
+
+##### `requestPermissions()` (iOS-only)
+
+* Shows the system dialog for requesting permissions for the first time. Does nothing if the permissions have been requested already. The dialog will only be shown again when calling this method if the app has been uninstalled for at least a day or if the device has been restored (see ["Resetting the Push Notifications Permissions Alert on iOS"](https://developer.apple.com/library/archive/technotes/tn2265/_index.html#//apple_ref/doc/uid/DTS40010376-CH1-TNTAG42) for more information).
