@@ -39,7 +39,9 @@ curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/
 
 ### Custom notification icon (optional)
 
-An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a resource id of an Android drawable inside the Android platforms `res` folder has to be specified. A build hook can be used to copy the notification icon from your project into the `android` platform `res` folder. See the [example project](../example/cordova/scripts/android/copy-resources.js) for a snippet to get you started.
+An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a 
+resource id of an Android drawable can be specified. The `<resource-file />` cordova directive can be used to copy the file into the Android folder `app/src/main/res/`. See the [example 
+ config.xml](../example/cordova/config.xml) for a snippet to get you started.
 
 The icon can be configured inside your apps `config.xml`:
 
@@ -47,6 +49,11 @@ The icon can be configured inside your apps `config.xml`:
 <plugin name="tabris-plugin-firebase" spec="^2.0.0">
   <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_notification" />
 </plugin>
+
+<platform name="android">
+  <resource-file src="res/android/drawable-xhdpi/ic_notification.png"
+                 target="app/src/main/res/drawable-xhdpi/ic_notification.png" />
+</platform>
 ```
 
 When no notification icon is specified, the outline of the app icon is used.
