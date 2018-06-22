@@ -13,7 +13,10 @@
   </plugin>
 
   <platform name="android">
-    <hook type="after_prepare" src="scripts/android/copy-resources.js" />
+    <resource-file src="res/android/drawable-xhdpi/ic_stat_trend.png"
+                   target="app/src/main/res/drawable-xhdpi/ic_stat_trend.png" />
+    <resource-file src="res/android/values/firebase_themes.xml"
+                   target="app/src/main/res/values/firebase_themes.xml" />
     <preference name="Theme" value="@style/Theme.Firebase" />
   </platform>
 
