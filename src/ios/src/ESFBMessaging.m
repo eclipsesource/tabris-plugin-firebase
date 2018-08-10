@@ -120,8 +120,7 @@ static NSDictionary *launchData;
 
 - (void)messaging:(FIRMessaging *)messaging didRefreshRegistrationToken:(NSString *)fcmToken {
     if (self.tokenChangedListener) {
-        Message<Notification> *message = [[self notifications] forObject:self];
-        [message fireEvent:@"tokenChanged" withAttributes:@{@"token":fcmToken}];
+        [self fireEventNamed:@"tokenChanged" withAttributes:@{@"token":fcmToken}];
     }
 }
 
@@ -131,15 +130,13 @@ static NSDictionary *launchData;
 
 - (void)instanceIdRefreshed:(NSNotification *)notification {
     if (self.instanceIdChangedListener) {
-        Message<Notification> *message = [[self notifications] forObject:self];
-        [message fireEvent:@"instanceIdChanged" withAttributes:@{@"instanceId":[FIRInstanceID instanceID].token}];
+        [self fireEventNamed:@"instanceIdChanged" withAttributes:@{@"instanceId":[FIRInstanceID instanceID].token}];
     }
 }
 
 - (void)sendMessage:(NSDictionary *)data {
     if (self.messageListener) {
-        Message<Notification> *message = [[self notifications] forObject:self];
-        [message fireEvent:@"message" withAttributes:@{@"data":data}];
+        [self fireEventNamed:@"message" withAttributes:@{@"data":data}];
     }
 }
 
