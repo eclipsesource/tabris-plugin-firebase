@@ -16,8 +16,8 @@
 @synthesize screenName = _screenName;
 @synthesize userId = _userId;
 
-- (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties andClient:(TabrisClient *)client {
-    self = [super initWithObjectId:objectId properties:properties andClient:client];
+- (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties inContext:(id<TabrisContext>)context {
+    self = [super initWithObjectId:objectId properties:properties inContext:context];
     if (self) {
         [self registerSelector:@selector(logEvent:) forCall:@"logEvent"];
         [self registerSelector:@selector(setUserProperty:) forCall:@"setUserProperty"];

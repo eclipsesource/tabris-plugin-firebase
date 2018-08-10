@@ -42,8 +42,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 static ESFBMessagingDelegate *messagingDelegate;
 static NSDictionary *launchData;
 
-- (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties andClient:(TabrisClient *)client {
-    self = [super initWithObjectId:objectId properties:properties andClient:client];
+- (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties inContext:(id<TabrisContext>)context {
+    self = [super initWithObjectId:objectId properties:properties inContext:context];
     if (self) {
         messagingDelegate.instance = self;
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
