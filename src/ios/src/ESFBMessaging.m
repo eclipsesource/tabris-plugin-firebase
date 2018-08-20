@@ -46,6 +46,7 @@ static NSDictionary *launchData;
     self = [super initWithObjectId:objectId properties:properties inContext:context];
     if (self) {
         messagingDelegate.instance = self;
+        [self getDeliveredNotifications];
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
     }
@@ -75,8 +76,16 @@ static NSDictionary *launchData;
 
 + (void)setLaunchData:(NSDictionary *)launchOptions {
     NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (data) {
-        launchData = data;
+    if (data && !launchData) {
+        launchData = @{@"notifications":@[data]};
+    } else if (data && launchData) {
+        NSMutableArray *notifications = [[launchData objectForKey:@"notifications"] mutableCopy];
+        if (notifications) {
+            [notifications addObject:data];
+            launchData = @{@"notifications":notifications};
+        } else {
+            launchData = @{@"notifications":@[data]};
+        }
     }
 }
 
@@ -91,6 +100,24 @@ static NSDictionary *launchData;
 + (void)setup {
     [ESFirebaseHelper setup];
     messagingDelegate = [ESFBMessagingDelegate new];
+}
+
+- (void)getDeliveredNotifications {
+#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    [[UNUserNotificationCenter currentNotificationCenter] getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+        if (notifications.count > 0) {
+            NSMutableArray *dictionaries = [NSMutableArray arrayWithCapacity:notifications.count];
+            for (UNNotification *notification in notifications) {
+                [dictionaries addObject:notification.request.content.userInfo];
+            }
+            launchData = @{@"notifications":dictionaries};
+        }
+        dispatch_group_leave(group);
+    }];
+    dispatch_group_wait(group, dispatch_time(DISPATCH_TIME_NOW,NSEC_PER_SEC * 1));
+#endif
 }
 
 - (NSString *)instanceId {
