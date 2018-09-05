@@ -1,4 +1,4 @@
-import { EventObject, Widget, WidgetEvents, WidgetProperties, NativeObject, PropertyChangedEvent } from 'tabris';
+import { EventObject, NativeObject, PropertyChangedEvent, Widget, WidgetEvents, WidgetProperties } from 'tabris';
 
 declare global {
   namespace firebase {
@@ -19,6 +19,10 @@ declare global {
       readonly instanceId: string;
       readonly token: string;
       readonly launchData: object;
+      readonly pendingMessages: {
+        getAll: () => object[],
+        clearAll: () => void
+      };
       resetInstanceId(): void;
       requestPermissions(): void;
       on(type: string, listener: (event: any) => void, context?: object): this;
