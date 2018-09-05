@@ -73,6 +73,16 @@ module.exports = class MessagingPage extends Page {
         text: 'Request permissions'
       }).on('tap', () => firebase.Messaging.requestPermissions())
         .appendTo(scrollView);
+      new Button({
+        top: ['prev()', MARGIN_SMALL], centerX: 0,
+        text: 'Print all pending messages'
+      }).on('tap', () => console.log(firebase.Messaging.pendingMessages.getAll()))
+        .appendTo(scrollView);
+      new Button({
+        top: ['prev()', MARGIN_SMALL], centerX: 0,
+        text: 'Clear all pending messages'
+      }).on('tap', () => console.log(firebase.Messaging.pendingMessages.clearAll()))
+        .appendTo(scrollView);
     }
 
     new Composite({top: 'prev()', height: MARGIN}).appendTo(scrollView);

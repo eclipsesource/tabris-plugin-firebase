@@ -34,6 +34,15 @@ Messaging.prototype.requestPermissions = function() {
   return this;
 }
 
+Object.defineProperty(Messaging.prototype, 'pendingMessages', {
+  get: function() {
+    return {
+      getAll: () => this._nativeCall('getAll') || [],
+      clearAll: () => this._nativeCall('clearAll')
+    }
+  }
+});
+
 tabris.NativeObject.defineProperties(Messaging.prototype, {
   instanceId: {type: 'string', nocache: true, access: readOnly},
   token: {type: 'string', nocache: true, access: readOnly},
