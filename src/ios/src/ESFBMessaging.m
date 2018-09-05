@@ -38,6 +38,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 @synthesize tokenChangedListener = _tokenChangedListener;
 @synthesize instanceIdChangedListener = _instanceIdChangedListener;
 @synthesize messageListener = _messageListener;
+@synthesize showBannersInForeground = _showBannersInForeground;
 
 static ESFBMessagingDelegate *messagingDelegate;
 static NSDictionary *launchData;
@@ -62,6 +63,7 @@ static NSDictionary *launchData;
     [properties addObject:@"tokenChangedListener"];
     [properties addObject:@"instanceIdChangedListener"];
     [properties addObject:@"messageListener"];
+    [properties addObject:@"showBannersInForeground"];
     return properties;
 }
 
@@ -205,7 +207,8 @@ static NSDictionary *launchData;
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
     [self.instance sendMessage:userInfo];
-    completionHandler(UNNotificationPresentationOptionNone);
+    UNNotificationPresentationOptions presentation = self.instance.showBannersInForeground ? UNNotificationPresentationOptionBadge : UNNotificationPresentationOptionNone;
+    completionHandler(presentation);
 }
 #endif
 
