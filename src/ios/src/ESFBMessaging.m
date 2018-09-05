@@ -40,15 +40,16 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 @synthesize messageListener = _messageListener;
 
 static ESFBMessagingDelegate *messagingDelegate;
-static NSArray *launchData;
+static NSDictionary *launchData;
 
 - (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties inContext:(id<TabrisContext>)context {
     self = [super initWithObjectId:objectId properties:properties inContext:context];
     if (self) {
         messagingDelegate.instance = self;
-        [self getDeliveredNotifications];
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
+        [self registerSelector:@selector(getAll) forCall:@"getAll"];
+        [self registerSelector:@selector(clearAll) forCall:@"clearAll"];
     }
     return self;
 }
@@ -73,21 +74,10 @@ static NSArray *launchData;
 }
 
 + (void)setLaunchData:(NSDictionary *)launchOptions {
-    NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (data && !launchData) {
-        launchData = @[data];
-    } else if (data && launchData) {
-        NSMutableArray *notifications = [launchData mutableCopy];
-        if (notifications) {
-            [notifications addObject:data];
-            launchData = notifications;
-        } else {
-            launchData = @[data];
-        }
-    }
+    launchData = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 }
 
-- (NSArray *)launchData {
+- (NSDictionary *)launchData {
     return launchData;
 }
 
@@ -100,7 +90,8 @@ static NSArray *launchData;
     messagingDelegate = [ESFBMessagingDelegate new];
 }
 
-- (void)getDeliveredNotifications {
+- (NSArray *)getAll {
+    __block NSArray *notifications;
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
@@ -110,15 +101,17 @@ static NSArray *launchData;
             for (UNNotification *notification in notifications) {
                 [dictionaries addObject:notification.request.content.userInfo];
             }
-            if (launchData) {
-                [dictionaries addObjectsFromArray:launchData];
-            }
-            launchData = dictionaries;
+            notifications = [dictionaries copy];
         }
         dispatch_group_leave(group);
     }];
     dispatch_group_wait(group, dispatch_time(DISPATCH_TIME_NOW,NSEC_PER_SEC * 1));
 #endif
+    return notifications;
+}
+
+- (void)clearAll {
+    [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 }
 
 - (NSString *)instanceId {
