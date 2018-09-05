@@ -93,7 +93,7 @@ static NSDictionary *launchData;
 }
 
 - (NSArray *)getAll {
-    __block NSArray *notifications;
+    __block NSArray *array;
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
@@ -103,13 +103,13 @@ static NSDictionary *launchData;
             for (UNNotification *notification in notifications) {
                 [dictionaries addObject:notification.request.content.userInfo];
             }
-            notifications = [dictionaries copy];
+            array = [dictionaries copy];
         }
         dispatch_group_leave(group);
     }];
     dispatch_group_wait(group, dispatch_time(DISPATCH_TIME_NOW,NSEC_PER_SEC * 1));
 #endif
-    return notifications;
+    return array;
 }
 
 - (void)clearAll {
