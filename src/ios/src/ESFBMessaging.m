@@ -40,7 +40,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 @synthesize messageListener = _messageListener;
 
 static ESFBMessagingDelegate *messagingDelegate;
-static NSDictionary *launchData;
+static NSArray *launchData;
 
 - (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties andClient:(TabrisClient *)client {
     self = [super initWithObjectId:objectId properties:properties andClient:client];
@@ -69,27 +69,25 @@ static NSDictionary *launchData;
 }
 
 + (void)notificationReceived:(NSDictionary *)data {
-    if (launchData != data) {
-        [messagingDelegate.instance sendMessage:data];
-    }
+    [messagingDelegate.instance sendMessage:data];
 }
 
 + (void)setLaunchData:(NSDictionary *)launchOptions {
     NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (data && !launchData) {
-        launchData = @{@"notifications":@[data]};
+        launchData = @[data];
     } else if (data && launchData) {
-        NSMutableArray *notifications = [[launchData objectForKey:@"notifications"] mutableCopy];
+        NSMutableArray *notifications = [launchData mutableCopy];
         if (notifications) {
             [notifications addObject:data];
-            launchData = @{@"notifications":notifications};
+            launchData = notifications;
         } else {
-            launchData = @{@"notifications":@[data]};
+            launchData = @[data];
         }
     }
 }
 
-- (NSDictionary *)launchData {
+- (NSArray *)launchData {
     return launchData;
 }
 
@@ -112,7 +110,10 @@ static NSDictionary *launchData;
             for (UNNotification *notification in notifications) {
                 [dictionaries addObject:notification.request.content.userInfo];
             }
-            launchData = @{@"notifications":dictionaries};
+            if (launchData) {
+                [dictionaries addObjectsFromArray:launchData];
+            }
+            launchData = dictionaries;
         }
         dispatch_group_leave(group);
     }];
