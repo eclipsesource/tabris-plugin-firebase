@@ -39,8 +39,8 @@ curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/
 
 ### Custom notification icon (optional)
 
-An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a 
-resource id of an Android drawable can be specified. The `<resource-file />` cordova directive can be used to copy the file into the Android folder `app/src/main/res/`. See the [example 
+An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a
+resource id of an Android drawable can be specified. The `<resource-file />` cordova directive can be used to copy the file into the Android folder `app/src/main/res/`. See the [example
  config.xml](../example/cordova/config.xml) for a snippet to get you started.
 
 The icon can be configured inside your apps `config.xml`:
@@ -107,6 +107,18 @@ All `Messaging` properties are read only.
 ##### `instanceId` : _string_
 
 * A stable identifier that uniquely identifies the app installation. Note that on Android the instance id can become invalid as noted in the [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html).
+
+##### `pendingMessages` : _{ getAll(), clearAll() }_
+
+* Represents messages provided by the system notification manager, which have arrived while the app hasn't been in the foreground and have not been consumed yet.
+
+###### `getAll()` (iOS-only) : _object[]_
+
+* Returns an array with all pending messages.
+
+###### `clearAll()` (iOS-only)
+
+* Clears all pending messages.
 
 ##### `token` : _string_
 
