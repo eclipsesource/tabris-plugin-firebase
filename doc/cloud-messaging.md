@@ -101,6 +101,18 @@ All `Messaging` properties are read only.
 
 * A stable identifier that uniquely identifies the app installation. Note that on Android the instance id can become invalid as noted in the [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html).
 
+##### `pendingMessages` : _{ getAll(), clearAll() }_
+
+* Represents messages provided by the system notification manager, which have arrived while the app hasn't been in the foreground and have not been consumed yet.
+
+###### `getAll()` (iOS-only) : _object[]_
+
+* Returns an array with all pending messages.
+
+###### `clearAll()` (iOS-only)
+
+* Clears all pending messages.
+
 ##### `token` : _string_
 
 * A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `tokenChanged` events. When resetting the `instanceId`, the token is not available until the `tokenChanged` event fired.
