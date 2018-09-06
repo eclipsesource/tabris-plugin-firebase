@@ -103,7 +103,7 @@ static NSDictionary *launchData;
             for (UNNotification *notification in notifications) {
                 [dictionaries addObject:notification.request.content.userInfo];
             }
-            array = [dictionaries copy];
+            array = [[[dictionaries reverseObjectEnumerator] allObjects] copy];
         }
         dispatch_group_leave(group);
     }];
