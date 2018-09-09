@@ -11,6 +11,18 @@ By default the plugin does _NOT_ track any usage data. You have to enable analyt
 firebase.Analytics.analyticsCollectionEnabled = true;
 ```
 
+## Features
+
+### Google Tag Manager
+
+To enable integration with the [Google Tag Manager](https://www.google.com/intl/de/tagmanager/), place your container JSON files in `cordova/tagmanager-container/ios` and/or `cordova/tagmanager-container/android` and set the FEATURES variable of the plugin to include the `"tagmanager"` feature:
+
+```xml
+  <plugin name="tabris-plugin-firebase" spec="(your plugin version)">
+      <variable name="FEATURES" value="tagmanager" />
+  </plugin>
+```
+
 ## Example
 
 The following example shows typical usage of the analytics API:
