@@ -1,6 +1,6 @@
 # Tabris.js Firebase Plugin
 
-The `tabris-plugin-firebase` plugin provides a [Tabris.js](https://tabrisjs.com) API to interact with various [firebase](https://firebase.google.com/) features. The plugin supports [firebase cloud messaging](https://firebase.google.com/docs/cloud-messaging/) and [firebase analytics](https://firebase.google.com/docs/analytics/) with support for more features underway.
+The `tabris-plugin-firebase` plugin provides a [Tabris.js](https://tabrisjs.com) API to interact with various [Firebase](https://firebase.google.com/) features. The plugin supports [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/) and [Firebase Analytics](https://firebase.google.com/docs/analytics/) with [Google Tag Manager](https://www.google.com/intl/de/tagmanager/) integration.
 
 ![Overview](doc/img/overview.png)
 
