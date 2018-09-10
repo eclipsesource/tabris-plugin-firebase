@@ -19,7 +19,7 @@ module.exports = function(ctx) {
       console.log(`Enabling "tabris-plugin-firebase" feature "${feature}"`);
       return;
     }
-    let regex = new RegExp(`<!-- BEGIN_FEATURE ${feature} -->(.|\\n)*<!-- END_FEATURE ${feature} -->`, 'g');
+    let regex = new RegExp(`<!-- BEGIN_FEATURE ${feature} -->(.|\\n)*?<!-- END_FEATURE ${feature} -->`, 'g');
     pluginXml = pluginXml.replace(regex, '');
   });
   fs.writeFileSync(pluginXmlPath, pluginXml);
