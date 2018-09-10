@@ -1,20 +1,21 @@
 package com.eclipsesource.firebase.messaging
 
 import android.app.Activity
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.*
 import android.content.IntentFilter
-import android.support.v4.content.LocalBroadcastManager
+import android.os.Build
 import android.util.Log
 import com.eclipsesource.tabris.android.TabrisActivity
 import com.eclipsesource.tabris.android.TabrisContext
 import com.eclipsesource.tabris.android.internal.toolkit.AppState
 import com.eclipsesource.tabris.android.internal.toolkit.AppState.*
 import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener
-import com.google.firebase.iid.FirebaseInstanceId
 import java.io.IOException
+import java.io.Serializable
 import java.util.concurrent.Executors
 
 internal const val ACTION_TOKEN_REFRESH = "com.eclipsesource.firebase.messaging.TOKEN_REFRESH"
@@ -30,7 +31,8 @@ private const val PROP_DATA = "data"
 private const val PROP_INSTANCE_ID = "instanceId"
 private const val PROP_TOKEN = "token"
 
-class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : IAppStateListener {
+class Messaging(private val activity: Activity, private val tabrisContext: TabrisContext)
+  : IAppStateListener {
 
   val launchData = (activity as TabrisActivity).intentOfCreate?.getSerializableExtra(EXTRA_DATA)
 
@@ -97,6 +99,20 @@ class Messaging(activity: Activity, private val tabrisContext: TabrisContext) : 
         Log.e(Messaging::class.java.simpleName, "Could not reset firebase messaging instance id", e)
       }
     }
+  }
+
+  fun clearAllPendingMessages() {
+    NotificationManagerCompat.from(activity).cancelAll()
+  }
+
+  fun getAllPendingMessages(): List<Serializable> {
+    val notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      return notificationManager.activeNotifications.map {
+        it.notification.extras.getSerializable(EXTRA_DATA)
+      }
+    }
+    return emptyList()
   }
 
   private class LaunchTabrisActivityReceiver : BroadcastReceiver() {
