@@ -11,6 +11,9 @@ module.exports = function(ctx) {
   let configParser = new ConfigParser(configXmlPath);
   let configuredFeaturesString = configParser.getPlugin('tabris-plugin-firebase').variables.FEATURES;
   let configuredFeatures = configuredFeaturesString ? configuredFeaturesString.split(' ') : [];
+  console.log('filepath: ' + ctx.opts.plugin.pluginInfo.filepath);
+  console.log('dir: ' + ctx.opts.plugin.pluginInfo.dir);
+  console.log('info: ' + ctx.opts.plugin.pluginInfo.getInfo());
   let pluginXmlPath = ctx.opts.plugin.pluginInfo.filepath;
   let pluginXml = fs.readFileSync(pluginXmlPath, 'utf-8');
   FEATURES.forEach(feature => {
