@@ -7,6 +7,8 @@ import com.eclipsesource.tabris.android.TabrisContext
 
 private const val TYPE = "com.eclipsesource.firebase.Messaging"
 private const val METHOD_RESET_INSTANCE_ID = "resetInstanceId"
+private const val METHOD_GET_ALL = "getAllPendingMessages"
+private const val METHOD_CLEAR_ALL = "clearAllPendingMessages"
 
 class MessagingOperator(private val activity: Activity, private val tabrisContext: TabrisContext)
   : AbstractOperator<Messaging>() {
@@ -19,8 +21,10 @@ class MessagingOperator(private val activity: Activity, private val tabrisContex
 
   override fun create(id: String, properties: Properties) = Messaging(activity, tabrisContext)
 
-  override fun call(messaging: Messaging, method: String, properties: Properties) = when (method) {
+  override fun call(messaging: Messaging, method: String, properties: Properties): Any? = when (method) {
     METHOD_RESET_INSTANCE_ID -> messaging.resetInstanceId()
+    METHOD_CLEAR_ALL -> messaging.clearAllPendingMessages()
+    METHOD_GET_ALL -> messaging.getAllPendingMessages()
     else -> null
   }
 
