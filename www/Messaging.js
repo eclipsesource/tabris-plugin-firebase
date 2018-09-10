@@ -37,8 +37,8 @@ Messaging.prototype.requestPermissions = function() {
 Object.defineProperty(Messaging.prototype, 'pendingMessages', {
   get: function() {
     return {
-      getAll: () => this._nativeCall('getAll') || [],
-      clearAll: () => this._nativeCall('clearAll')
+      getAll: () => this._nativeCall('getAllPendingMessages') || [],
+      clearAll: () => this._nativeCall('clearAllPendingMessages')
     }
   }
 });
