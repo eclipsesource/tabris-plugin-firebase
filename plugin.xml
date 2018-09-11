@@ -16,19 +16,12 @@
     <engine name="cordova-android" version=">=8.1.0" />
   </engines>
 
-  <js-module src="www/Messaging.js" name="messaging">
-    <clobbers target="firebase.Messaging" />
-  </js-module>
-
   <js-module src="www/Analytics.js" name="analytics">
     <clobbers target="firebase.Analytics" />
   </js-module>
 
 
   <platform name="android">
-
-    <!-- The default value "@mipmap/ic_launcher" is the resource used by the tabris-android cordova platform for the app icon -->
-    <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/ic_launcher" />
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
 
@@ -60,8 +53,6 @@
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
       <meta-data android:name="firebase_performance_logcat_enabled" android:value="true" />
 
-      <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
-
     </config-file>
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
@@ -91,13 +82,9 @@
   </platform>
 
   <platform name="ios">
-    <!-- Scripts -->
-    <hook type="after_plugin_install" src="scripts/ios/custom-widget.js" />
-
     <!-- Add entries to TabrisPlugins.plist -->
     <config-file target="*TabrisPlugins.plist" parent="classes">
     	<array>
-	    	<string>ESFBMessaging</string>
 	    	<string>ESFBAnalytics</string>
     	</array>
     </config-file>
@@ -124,14 +111,12 @@
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 6.4.2"/>
     <framework src="FirebaseMessaging" type="podspec" spec="~> 4.3.1"/>
     <framework src="FirebasePerformance" type="podspec" spec="~> 3.2.1"/>
+ 		<framework src="GoogleTagManager" type="podspec" spec="~> 7.1.4"/>
 
     <!-- Sources -->
     <!-- Analytics -->
     <header-file src="src/ios/src/ESFBAnalytics.h" />
     <source-file src="src/ios/src/ESFBAnalytics.m" />
-    <!-- Messaging -->
-    <header-file src="src/ios/src/ESFBMessaging.h" />
-    <source-file src="src/ios/src/ESFBMessaging.m" />
     <!-- Helper classes -->
     <header-file src="src/ios/src/ESFirebaseHelper.h" />
     <source-file src="src/ios/src/ESFirebaseHelper.m" />
