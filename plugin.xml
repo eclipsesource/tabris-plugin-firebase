@@ -16,10 +16,6 @@
     <engine name="cordova" version=">=3.8.0" />
   </engines>
 
-  <js-module src="www/Messaging.js" name="messaging">
-    <clobbers target="firebase.Messaging" />
-  </js-module>
-
   <js-module src="www/Analytics.js" name="analytics">
     <clobbers target="firebase.Analytics" />
   </js-module>
@@ -27,9 +23,6 @@
   <hook src="scripts/copy_tagmanager_containers.js" type="after_plugin_install" />
 
   <platform name="android">
-
-    <!-- The default value "@mipmap/icon" is the resource used by the tabris-android cordova platform for the app icon -->
-    <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/icon" />
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
 
@@ -41,36 +34,16 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
-      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService">
-        <intent-filter>
-          <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-      </service>
-      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseInstanceIDService">
-        <intent-filter>
-          <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-      </service>
-
-      <meta-data
-          android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.messaging"
-          android:value="com.eclipsesource.firebase.messaging.MessagingOperator" />
       <meta-data
           android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.analytics"
           android:value="com.eclipsesource.firebase.analytics.AnalyticsOperator" />
-      <meta-data
-          android:name="com.google.firebase.messaging.default_notification_icon"
-          android:resource="$ANDROID_NOTIFICATION_ICON" />
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
-
-      <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
     </config-file>
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
     <framework src="com.google.firebase:firebase-core:12.0.1" />
-    <framework src="com.google.firebase:firebase-messaging:12.0.1" />
     <framework src="com.google.firebase:firebase-analytics:12.0.1" />
     <framework src="com.google.android.gms:play-services-tagmanager:12.0.1" />
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
@@ -81,19 +54,6 @@
         </intent-filter>
       </receiver>
     </config-file>
-
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingPropertyHandler.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
 
     <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsOperator.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
@@ -107,13 +67,9 @@
   </platform>
 
   <platform name="ios">
-    <!-- Scripts -->
-    <hook type="after_plugin_install" src="scripts/ios/custom-widget.js" />
-
     <!-- Add entries to TabrisPlugins.plist -->
     <config-file target="*TabrisPlugins.plist" parent="classes">
     	<array>
-	    	<string>ESFBMessaging</string>
 	    	<string>ESFBAnalytics</string>
     	</array>
     </config-file>
@@ -126,24 +82,14 @@
         <string>production</string>
     </config-file>
 
-    <config-file target="*-Info.plist" parent="UIBackgroundModes">
-        <array>
-            <string>remote-notification</string>
-        </array>
-    </config-file>
-
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
-    <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2.0"/>
  		<framework src="GoogleTagManager" type="podspec" spec="~> 6.0.0"/>
 
     <!-- Sources -->
     <!-- Analytics -->
     <header-file src="src/ios/src/ESFBAnalytics.h" />
     <source-file src="src/ios/src/ESFBAnalytics.m" />
-    <!-- Messaging -->
-    <header-file src="src/ios/src/ESFBMessaging.h" />
-    <source-file src="src/ios/src/ESFBMessaging.m" />
     <!-- Helper classes -->
     <header-file src="src/ios/src/ESFirebaseHelper.h" />
     <source-file src="src/ios/src/ESFirebaseHelper.m" />
