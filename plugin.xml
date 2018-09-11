@@ -24,6 +24,7 @@
     <clobbers target="firebase.Analytics" />
   </js-module>
 
+  <hook src="scripts/copy_tagmanager_containers.js" type="after_plugin_install" />
 
   <platform name="android">
 
@@ -71,6 +72,15 @@
     <framework src="com.google.firebase:firebase-core:12.0.1" />
     <framework src="com.google.firebase:firebase-messaging:12.0.1" />
     <framework src="com.google.firebase:firebase-analytics:12.0.1" />
+    <framework src="com.google.android.gms:play-services-tagmanager:12.0.1" />
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <service android:name="com.google.android.gms.analytics.AnalyticsService" android:enabled="true" android:exported="false" />
+      <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true">
+        <intent-filter>
+          <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+        </intent-filter>
+      </receiver>
+    </config-file>
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
@@ -92,7 +102,7 @@
     <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
 
-    <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
+    <hook src="scripts/android/copy_google_services.js" type="after_plugin_install" />
 
   </platform>
 
@@ -125,6 +135,7 @@
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
     <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2.0"/>
+ 		<framework src="GoogleTagManager" type="podspec" spec="~> 6.0.0"/>
 
     <!-- Sources -->
     <!-- Analytics -->
