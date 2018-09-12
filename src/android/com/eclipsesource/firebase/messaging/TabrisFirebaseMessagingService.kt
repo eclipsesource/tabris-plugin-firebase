@@ -10,6 +10,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.GET_META_DATA
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.LocalBroadcastManager
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 
 // There are two types of messages data messages and notification messages. Data messages are handled
