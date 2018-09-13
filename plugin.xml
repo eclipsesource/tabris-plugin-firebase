@@ -89,20 +89,6 @@
     	</array>
     </config-file>
 
-    <config-file target="*Entitlements-Debug.plist" parent="aps-environment">
-        <string>development</string>
-    </config-file>
-
-    <config-file target="*Entitlements-Release.plist" parent="aps-environment">
-        <string>production</string>
-    </config-file>
-
-    <config-file target="*-Info.plist" parent="UIBackgroundModes">
-        <array>
-            <string>remote-notification</string>
-        </array>
-    </config-file>
-
     <config-file target="*-Info.plist" parent="FIREBASE_ANALYTICS_COLLECTION_ENABLED">
         <false/>
     </config-file>
