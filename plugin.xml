@@ -64,14 +64,6 @@
     	</array>
     </config-file>
 
-    <config-file target="*Entitlements-Debug.plist" parent="aps-environment">
-        <string>development</string>
-    </config-file>
-
-    <config-file target="*Entitlements-Release.plist" parent="aps-environment">
-        <string>production</string>
-    </config-file>
-
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
 
