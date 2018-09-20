@@ -49,8 +49,8 @@ static NSDictionary *launchData;
         messagingDelegate.instance = self;
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
-        [self registerSelector:@selector(getAll) forCall:@"getAll"];
-        [self registerSelector:@selector(clearAll) forCall:@"clearAll"];
+        [self registerSelector:@selector(getAllPendingMessages) forCall:@"getAllPendingMessages"];
+        [self registerSelector:@selector(clearAllPendingMessages) forCall:@"clearAllPendingMessages"];
     }
     return self;
 }
@@ -92,7 +92,7 @@ static NSDictionary *launchData;
     messagingDelegate = [ESFBMessagingDelegate new];
 }
 
-- (NSArray *)getAll {
+- (NSArray *)getAllPendingMessages {
     __block NSArray *array;
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
     dispatch_group_t group = dispatch_group_create();
@@ -112,7 +112,7 @@ static NSDictionary *launchData;
     return array;
 }
 
-- (void)clearAll {
+- (void)clearAllPendingMessages {
     [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 }
 
