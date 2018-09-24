@@ -61,6 +61,7 @@
           android:name="com.google.firebase.messaging.default_notification_icon"
           android:resource="$ANDROID_NOTIFICATION_ICON" />
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+      <meta-data android:name="firebase_performance_logcat_enabled" android:value="true" />
 
       <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
@@ -71,6 +72,7 @@
     <framework src="com.google.firebase:firebase-core:12.0.1" />
     <framework src="com.google.firebase:firebase-messaging:12.0.1" />
     <framework src="com.google.firebase:firebase-analytics:12.0.1" />
+    <framework src="com.google.firebase:firebase-perf:12.0.1" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
@@ -93,6 +95,7 @@
                  target-dir="src/com/eclipsesource/firebase/analytics" />
 
     <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
+    <hook src="scripts/android/patch_build_gradle.js" type="after_plugin_install" />
 
   </platform>
 
@@ -125,6 +128,7 @@
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
     <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2.0"/>
+    <framework src="FirebasePerformance" type="podspec" spec="~> 1.1.3"/>
 
     <!-- Sources -->
     <!-- Analytics -->
