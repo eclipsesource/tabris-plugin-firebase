@@ -2,7 +2,10 @@ package com.eclipsesource.firebase.analytics
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Parcelable
+import com.eclipsesource.tabris.android.Properties
 import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.ArrayList
 
 class Analytics(private val activity: Activity) {
 
@@ -37,9 +40,24 @@ class Analytics(private val activity: Activity) {
           is Int -> putLong(key, value.toLong())
           is Double -> putDouble(key, value)
           is Float -> putDouble(key, value.toDouble())
+          is Properties -> putParcelable(key, createLogDataBundle(value.all))
+          is List<*> -> {
+            if (value.all { it is String })
+              putStringArrayList(key, ArrayList(value.map { it as String } ))
+            else
+              putParcelableArrayList(key, ArrayList(value.map { mapListValue(it) }))
+          }
         }
       }
       return this;
+    }
+  }
+
+  private fun mapListValue(value: Any?): Parcelable {
+    return when (value) {
+      is Properties -> createLogDataBundle(value.all)
+      is List<*> -> mapListValue(value)
+      else -> throw IllegalArgumentException("Arrays may only contain objects or other arrays.")
     }
   }
 
