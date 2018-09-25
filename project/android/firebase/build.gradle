@@ -42,6 +42,3 @@ android {
 
 // the firebase plugin has to be at the bottom of the gradle file
 apply plugin: 'com.google.gms.google-services'
-repositories {
-    mavenCentral()
-}
