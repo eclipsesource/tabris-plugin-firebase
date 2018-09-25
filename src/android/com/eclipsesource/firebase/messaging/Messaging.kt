@@ -111,9 +111,11 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
   fun getAllPendingMessages(): List<Serializable> {
     val notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      return notificationManager.activeNotifications.map {
-        it.notification.extras.getSerializable(EXTRA_DATA)
-      }
+      return notificationManager.activeNotifications
+          .asSequence()
+          .sortedBy { it.postTime }
+          .map { it.notification.extras.getSerializable(EXTRA_DATA) }
+          .toList()
     }
     return emptyList()
   }
