@@ -7,16 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.*
 import android.content.IntentFilter
+import android.drm.DrmStore.Playback.STOP
 import android.os.Build
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
-import com.eclipsesource.tabris.android.TabrisActivity
-import com.eclipsesource.tabris.android.TabrisContext
-import com.eclipsesource.tabris.android.internal.toolkit.AppState
-import com.eclipsesource.tabris.android.internal.toolkit.AppState.*
-import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener
-import com.google.firebase.iid.FirebaseInstanceId
 import java.io.IOException
 import java.io.Serializable
 import java.util.concurrent.Executors
@@ -111,9 +104,11 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
   fun getAllPendingMessages(): List<Serializable> {
     val notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      return notificationManager.activeNotifications.map {
-        it.notification.extras.getSerializable(EXTRA_DATA)
-      }
+      return notificationManager.activeNotifications
+          .asSequence()
+          .sortedBy { it.postTime }
+          .map { it.notification.extras.getSerializable(EXTRA_DATA) }
+          .toList()
     }
     return emptyList()
   }
