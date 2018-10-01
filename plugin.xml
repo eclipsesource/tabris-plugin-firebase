@@ -131,6 +131,19 @@
             <string>remote-notification</string>
         </array>
     </config-file>
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+        <array>
+            <dict>
+                <key>CFBundleURLName</key>
+                <string>$PACKAGE_NAME</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>tagmanager.c.$PACKAGE_NAME</string>
+                </array>
+            </dict>
+        </array>
+    </config-file>
+
 
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
