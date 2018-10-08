@@ -8,8 +8,8 @@ import android.content.Intent
 import android.content.Intent.*
 import android.content.IntentFilter
 import android.os.Build
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.content.LocalBroadcastManager
+import androidx.core.app.NotificationManagerCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.util.Log
 import com.eclipsesource.tabris.android.TabrisActivity
 import com.eclipsesource.tabris.android.TabrisContext
