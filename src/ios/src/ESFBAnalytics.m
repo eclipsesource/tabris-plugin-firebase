@@ -27,6 +27,9 @@
 
 + (NSMutableSet *)remoteObjectProperties {
     NSMutableSet *properties = [super remoteObjectProperties];
+    [properties addObject:@"analyticsCollectionEnabled"];
+    [properties addObject:@"screenName"];
+    [properties addObject:@"userId"];
     return properties;
 }
 
@@ -40,6 +43,15 @@
 
 + (void)setup {
     [ESFirebaseHelper setup];
+}
+
+- (void)setAnalyticsCollectionEnabled:(BOOL)analyticsCollectionEnabled {
+    _analyticsCollectionEnabled = analyticsCollectionEnabled;
+    [[FIRAnalyticsConfiguration sharedInstance] setAnalyticsCollectionEnabled:analyticsCollectionEnabled];
+}
+
+- (BOOL)analyticsCollectionEnabled {
+    return _analyticsCollectionEnabled;
 }
 
 - (NSString *)screenName {
