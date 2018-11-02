@@ -7,9 +7,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.*
 import android.content.IntentFilter
-import android.drm.DrmStore.Playback.STOP
 import android.os.Build
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
+import com.eclipsesource.tabris.android.TabrisActivity
+import com.eclipsesource.tabris.android.TabrisContext
+import com.eclipsesource.tabris.android.internal.toolkit.AppState
+import com.eclipsesource.tabris.android.internal.toolkit.AppState.*
+import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener
+import com.google.firebase.iid.FirebaseInstanceId
 import java.io.IOException
 import java.io.Serializable
 import java.util.concurrent.Executors
