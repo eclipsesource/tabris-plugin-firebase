@@ -52,11 +52,11 @@
       </service>
 
       <meta-data
-          android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.messaging"
-          android:value="com.eclipsesource.firebase.messaging.MessagingOperator" />
+          android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.messaging"
+          android:value="com.eclipsesource.firebase.messaging.MessagingHandler" />
       <meta-data
-          android:name="com.eclipsesource.tabris.android.OPERATOR.com.eclipsesource.tabris.firebase.analytics"
-          android:value="com.eclipsesource.firebase.analytics.AnalyticsOperator" />
+          android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics"
+          android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
       <meta-data
           android:name="com.google.firebase.messaging.default_notification_icon"
           android:resource="$ANDROID_NOTIFICATION_ICON" />
@@ -72,9 +72,7 @@
     <framework src="com.google.firebase:firebase-messaging:12.0.1" />
     <framework src="com.google.firebase:firebase-analytics:12.0.1" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingOperator.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingPropertyHandler.kt"
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
@@ -85,9 +83,7 @@
     <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsOperator.kt"
-                 target-dir="src/com/eclipsesource/firebase/analytics" />
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsPropertyHandler.kt"
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
     <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />

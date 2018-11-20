@@ -1,6 +1,5 @@
 package com.eclipsesource.firebase.messaging
 
-import android.app.Activity
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,14 +7,13 @@ import android.content.Intent
 import android.content.Intent.*
 import android.content.IntentFilter
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import android.util.Log
-import com.eclipsesource.tabris.android.TabrisActivity
-import com.eclipsesource.tabris.android.TabrisContext
-import com.eclipsesource.tabris.android.internal.toolkit.AppState
-import com.eclipsesource.tabris.android.internal.toolkit.AppState.*
-import com.eclipsesource.tabris.android.internal.toolkit.IAppStateListener
+import com.eclipsesource.tabris.android.*
+import com.eclipsesource.tabris.android.ActivityState.NEW_INTENT
+import com.eclipsesource.tabris.android.ActivityState.START
+import com.eclipsesource.tabris.android.ActivityState.STOP
 import com.google.firebase.iid.FirebaseInstanceId
 import java.io.IOException
 import java.io.Serializable
@@ -27,32 +25,24 @@ internal const val ACTION_LAUNCH_TABRIS_ACTIVITY = "com.eclipsesource.firebase.m
 internal const val EXTRA_DATA = "com.eclipsesource.firebase.messaging.EXTRA_DATA"
 internal const val EXTRA_TOKEN = "com.eclipsesource.firebase.messaging.EXTRA_TOKEN"
 
-private const val EVENT_MESSAGE = "message"
-private const val EVENT_TOKEN_CHANGED = "tokenChanged"
-private const val EVENT_INSTANCE_ID_CHANGED = "instanceIdChanged"
-private const val PROP_DATA = "data"
-private const val PROP_INSTANCE_ID = "instanceId"
-private const val PROP_TOKEN = "token"
+class Messaging(private val scope: ActivityScope) : Events.ActivityStateListener {
 
-class Messaging(private val activity: Activity, private val tabrisContext: TabrisContext)
-  : IAppStateListener {
-
-  val launchData = (activity as TabrisActivity).intentOfCreate?.getSerializableExtra(EXTRA_DATA)
+  val launchData: Serializable? = scope.activityCreationIntent.getSerializableExtra(EXTRA_DATA)
 
   private val tokenReceiver = TokenReceiver()
   private val messageReceiver = MessageReceiver()
   private val launchTabrisActivityReceiver = LaunchTabrisActivityReceiver()
-  private val broadcastManager = LocalBroadcastManager.getInstance(activity.applicationContext)
+  private val broadcastManager = LocalBroadcastManager.getInstance(scope.context)
 
   init {
-    tabrisContext.widgetToolkit.addAppStateListener(this)
+    scope.events.addActivityStateListener(this)
     registerMessageReceiver()
     registerTokenReceiver()
     registerLaunchTabrisActivityReceiver()
   }
 
-  override fun stateChanged(appState: AppState, intent: Intent?) {
-    when (appState) {
+  override fun activityStateChanged(activityState: ActivityState, intent: Intent?) {
+    when (activityState) {
       START -> registerMessageReceiver()
       NEW_INTENT -> notifyOfMessage(intent)
       STOP -> broadcastManager.unregisterReceiver(messageReceiver)
@@ -82,9 +72,8 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
   }
 
   private fun notifyOfMessage(intent: Intent?) {
-    if (intent != null && intent.hasExtra(EXTRA_DATA)) {
-      tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-          ?.notify(EVENT_MESSAGE, PROP_DATA, intent.getSerializableExtra(EXTRA_DATA))
+    intent?.getSerializableExtra(EXTRA_DATA)?.let {
+      scope.remoteObject(this)?.notify("message", "data", it)
     }
   }
 
@@ -93,10 +82,7 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
       try {
         val instanceId = FirebaseInstanceId.getInstance()
         instanceId.deleteInstanceId()
-        tabrisContext.widgetToolkit.executeInUiThread {
-          tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-              ?.notify(EVENT_INSTANCE_ID_CHANGED, PROP_INSTANCE_ID, instanceId.id)
-        }
+        scope.post { remoteObject(this)?.notify("instanceIdChanged", "instanceId", instanceId.id) }
         instanceId.token // will trigger a "tokenChanged" event
       } catch (e: IOException) {
         Log.e(Messaging::class.java.simpleName, "Could not reset firebase messaging instance id", e)
@@ -105,13 +91,12 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
   }
 
   fun clearAllPendingMessages() {
-    NotificationManagerCompat.from(activity).cancelAll()
+    NotificationManagerCompat.from(scope.context).cancelAll()
   }
 
   fun getAllPendingMessages(): List<Serializable> {
-    val notificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      return notificationManager.activeNotifications
+      return (scope.context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).activeNotifications
           .asSequence()
           .sortedBy { it.postTime }
           .map { it.notification.extras.getSerializable(EXTRA_DATA) }
@@ -134,8 +119,7 @@ class Messaging(private val activity: Activity, private val tabrisContext: Tabri
 
     override fun onReceive(context: Context, intent: Intent) {
       if (intent.action == ACTION_TOKEN_REFRESH) {
-        tabrisContext.objectRegistry.getRemoteObjectForObject(this)
-            ?.notify(EVENT_TOKEN_CHANGED, PROP_TOKEN, intent.getStringExtra(EXTRA_TOKEN))
+        scope.remoteObject(this)?.notify("tokenChanged", "token", intent.getStringExtra(EXTRA_TOKEN))
       }
     }
 
