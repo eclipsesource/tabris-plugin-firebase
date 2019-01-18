@@ -122,6 +122,10 @@
         </array>
     </config-file>
 
+    <config-file target="*-Info.plist" parent="FIREBASE_ANALYTICS_COLLECTION_ENABLED">
+        <false/>
+    </config-file>
+
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
     <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2.0"/>
