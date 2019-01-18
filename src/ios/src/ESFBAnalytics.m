@@ -19,6 +19,7 @@
 - (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties andClient:(TabrisClient *)client {
     self = [super initWithObjectId:objectId properties:properties andClient:client];
     if (self) {
+        self.analyticsCollectionEnabled = NO;
         [self registerSelector:@selector(logEvent:) forCall:@"logEvent"];
         [self registerSelector:@selector(setUserProperty:) forCall:@"setUserProperty"];
     }
@@ -43,6 +44,7 @@
 
 + (void)setup {
     [ESFirebaseHelper setup];
+    [[FIRAnalyticsConfiguration sharedInstance] setAnalyticsCollectionEnabled:NO];
 }
 
 - (void)setAnalyticsCollectionEnabled:(BOOL)analyticsCollectionEnabled {
