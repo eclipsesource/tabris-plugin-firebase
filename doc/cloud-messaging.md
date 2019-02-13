@@ -46,7 +46,7 @@ resource id of an Android drawable can be specified. The `<resource-file />` cor
 The icon can be configured inside your apps `config.xml`:
 
 ```xml
-<plugin name="tabris-plugin-firebase" spec="^2.0.0">
+<plugin name="tabris-plugin-firebase" spec="3.x">
   <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_notification" />
 </plugin>
 

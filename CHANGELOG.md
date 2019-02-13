@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+## Version 3.0.0
+
+* Minimum required Tabris.js version is 3.x 
+
 ## Version 2.0.0
 
 * Make plugin compatible with Tabris.js 2.2.0+.

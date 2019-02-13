@@ -1,10 +1,10 @@
 {
   "name": "tabris-plugin-firebase",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A firebase plugin for Tabris.js",
   "types": "./types/index.d.ts",
   "peerDependencies": {
-    "tabris": "~2.5.1"
+    "tabris": "3.0.x"
   },
   "cordova": {
     "id": "tabris-plugin-firebase",
@@ -25,12 +25,13 @@
     "tabris.js",
     "firebase"
   ],
-  "engines": [
-    {
-      "name": "cordova",
-      "version": ">=3.8.0"
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": { "cordova-android": "<6.0.0"},
+      "2.0.0": { "cordova-android": "<8.0.0"},
+      "3.0.0": { "cordova-android": ">=8.0.0"}
     }
-  ],
+  },
   "author": "EclipseSource",
   "license": "Revised BSD License (3-clause license)",
   "bugs": {
