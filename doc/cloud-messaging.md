@@ -112,11 +112,11 @@ All `Messaging` properties are read only.
 
 * Represents messages provided by the system notification manager, which have arrived while the app hasn't been in the foreground and have not been consumed yet.
 
-###### `getAll()` (iOS-only) : _object[]_
+###### `getAll()` : _object[]_
 
 * Returns an array with all pending messages.
 
-###### `clearAll()` (iOS-only)
+###### `clearAll()`
 
 * Clears all pending messages.
 
