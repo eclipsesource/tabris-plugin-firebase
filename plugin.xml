@@ -27,7 +27,7 @@
 
   <platform name="android">
 
-    <!-- The default value "@mipmap/icon" is the resource used by the tabris-android cordova platform for the app icon -->
+    <!-- The default value "@mipmap/ic_launcher" is the resource used by the tabris-android cordova platform for the app icon -->
     <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/ic_launcher" />
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
