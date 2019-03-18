@@ -31,7 +31,6 @@ if (rootdir) {
       var finishLaunchingReplace = "/* HOOK: applicationDidFinishLaunching */";
       replace(appDelegate, importReplace, "#import \"ESFBMessaging.h\"\n" + importReplace);
       replace(appDelegate, finishLaunchingReplace, "[ESFBMessaging setLaunchData:launchOptions];\n\t" + finishLaunchingReplace);
-      replace(appDelegate, "@end", "- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {" + "\n\t" + "[ESFBMessaging notificationReceived:userInfo];" + "\n\t" + "completionHandler(UIBackgroundFetchResultNewData);\n}" + "\n\n" + "@end")
     };
 
     updateIOSAppDelegate();
