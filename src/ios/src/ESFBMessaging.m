@@ -38,8 +38,14 @@ static NSDictionary *launchData;
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
         [self registerSelector:@selector(getAllPendingMessages) forCall:@"getAllPendingMessages"];
         [self registerSelector:@selector(clearAllPendingMessages) forCall:@"clearAllPendingMessages"];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(instanceIdRefreshed:) name:kFIRInstanceIDTokenRefreshNotification object:nil];
     }
     return self;
+}
+
+- (void)destroy {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super destroy];
 }
 
 + (NSMutableSet *)remoteObjectProperties {
@@ -111,16 +117,7 @@ static NSDictionary *launchData;
 }
 
 - (void)resetInstanceId {
-    NSString *apnsToken = [[FIRMessaging messaging].APNSToken base64EncodedStringWithOptions:0];
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"GoogleService-Info" ofType: @"plist"];
-    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile: path];
-    __weak ESFBMessaging *weakSelf = self;
-    [[FIRInstanceID instanceID] tokenWithAuthorizedEntity:[plist objectForKey:@"GCM_SENDER_ID"] scope:kFIRInstanceIDScopeFirebaseMessaging options:@{@"apns_token":apnsToken} handler:^(NSString * _Nullable token, NSError * _Nullable error) {
-        if (!error && token) {
-            __strong ESFBMessaging *strongSelf = weakSelf;
-            [strongSelf messaging:nil didReceiveRegistrationToken:token];
-        }
-    }];
+    [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError * _Nullable error) {}];
 }
 
 - (void)sendMessage:(NSDictionary *)data {
