@@ -1,4 +1,4 @@
-const {CollectionView, Composite, NavigationView, Page, TextView, ui} = require('tabris');
+const {CollectionView, Composite, NavigationView, Page, TextView, contentView} = require('tabris');
 const MessagingPage = require('./pages/messaging');
 const AnalyticsPage = require('./pages/analytics');
 const res = require('./resources');
@@ -10,7 +10,7 @@ let pages = [new MessagingPage(), new AnalyticsPage()];
 
 let navigationView = new NavigationView({
   left: 0, top: 0, right: 0, bottom: 0
-}).appendTo(ui.contentView);
+}).appendTo(contentView);
 
 let mainPage = new Page({
   title: 'Firebase Examples',
@@ -44,7 +44,7 @@ new CollectionView({
     titleView.text = pages[index].title;
     titleView.top = index === 0 ? MARGIN_LARGE : MARGIN;
     cell.find('#descriptionView').first().text = pages[index].DESCRIPTION;
+    cell.onTap(() => pages[index].appendTo(navigationView));
   }
-}).on('select', ({index}) => pages[index].appendTo(navigationView))
-  .appendTo(mainPage);
+}).appendTo(mainPage);
 
