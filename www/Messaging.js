@@ -1,11 +1,5 @@
 const EVENT_TYPES = ['tokenChanged', 'instanceIdChanged', 'message'];
 
-const readOnly = {
-  set: function(name) {
-    console.warn(`Can not set read-only property "${name}"`);
-  }
-};
-
 const Messaging = tabris.NativeObject.extend('com.eclipsesource.firebase.Messaging');
 
 Messaging.prototype._listen = function(name, listening) {
@@ -44,9 +38,9 @@ Object.defineProperty(Messaging.prototype, 'pendingMessages', {
 });
 
 tabris.NativeObject.defineProperties(Messaging.prototype, {
-  instanceId: {type: 'string', nocache: true, access: readOnly},
-  token: {type: 'string', nocache: true, access: readOnly},
-  launchData: {type: 'string', nocache: true, access: readOnly}
+  instanceId: {type: 'string', nocache: true, readonly: true},
+  token: {type: 'string', nocache: true, readonly: true},
+  launchData: {type: 'string', nocache: true, readonly: true}
 });
 
 module.exports = new Messaging();

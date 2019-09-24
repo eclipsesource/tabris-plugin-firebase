@@ -1,9 +1,3 @@
-var writeOnly = {
-  get: function(name) {
-    console.warn('Can not get write-only property "' + name + '"')
-  }
-};
-
 var Analytics = tabris.NativeObject.extend('com.eclipsesource.firebase.Analytics');
 
 Analytics.prototype._dispose = function() {
@@ -27,9 +21,9 @@ Analytics.prototype.setUserProperty = function(key, value) {
 }
 
 tabris.NativeObject.defineProperties(Analytics.prototype, {
-  analyticsCollectionEnabled: {type: 'boolean', nocache: true, access: writeOnly},
-  screenName: {type: 'string', nocache: true, access: writeOnly},
-  userId: {type: 'string', nocache: true, access: writeOnly}
+  analyticsCollectionEnabled: {type: 'boolean', default: null},
+  screenName: {type: 'string', default: null},
+  userId: {type: 'string', default: null}
 });
 
 module.exports = new Analytics();
