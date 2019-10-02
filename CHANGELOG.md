@@ -1,9 +1,12 @@
 Change Log
 ==========
+## Version 4.0.0
+
+* Compatible with Tabris.js version 3.0.0+
 
 ## Version 3.0.0
 
-* Minimum required Tabris.js version is 3.x 
+* Compatible with Tabris.js version 3.0 and 3.1
 
 ## Version 2.0.0
 
