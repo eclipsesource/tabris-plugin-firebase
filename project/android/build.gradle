@@ -1,16 +1,21 @@
 buildscript {
     ext {
-        playServicesVersion = '12.0.1'
-        kotlinVersion = '1.3.21'
+        playServicesVersion = '15.0.0'
+        kotlinVersion = '1.3.50'
+        crashlyticsVersion = '2.10.1'
     }
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
-        classpath 'com.google.gms:google-services:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.google.gms:google-services:4.3.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'io.fabric.tools:gradle:1.31.2'
     }
 }
 

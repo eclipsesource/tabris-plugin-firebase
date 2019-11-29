@@ -1,5 +1,13 @@
 Change Log
 ==========
+## Version 5.0.0
+
+(thx to [fax1ty](https://github.com/fax1ty))
+
+* Firebase Performance implementation (Android only)
+* Firebase Crashlytics implementation (Android only)
+* Android project dependencies versions have been increased
+
 ## Version 4.0.0
 
 * Compatible with Tabris.js version 3.0.0+

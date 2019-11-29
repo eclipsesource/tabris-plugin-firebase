@@ -1,6 +1,6 @@
 {
   "name": "tabris-plugin-firebase",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "A firebase plugin for Tabris.js",
   "types": "./types/index.d.ts",
   "peerDependencies": {

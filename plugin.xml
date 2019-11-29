@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        id="tabris-plugin-firebase"
-        version="3.0.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android" id="tabris-plugin-firebase" version="3.0.0">
 
   <name>Tabris.js Firebase Plugin</name>
   <description>A firebase for Tabris.js. The plugin allows to handle cloud messages.</description>
@@ -22,6 +20,14 @@
 
   <js-module src="www/Analytics.js" name="analytics">
     <clobbers target="firebase.Analytics" />
+  </js-module>
+
+  <js-module src="www/Performance.js" name="performance">
+    <clobbers target="firebase.Performance" />
+  </js-module>
+
+  <js-module src="www/Crashlytics.js" name="crashlytics">
+    <clobbers target="firebase.Crashlytics" />
   </js-module>
 
 
@@ -51,16 +57,16 @@
         </intent-filter>
       </service>
 
-      <meta-data
-          android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.messaging"
-          android:value="com.eclipsesource.firebase.messaging.MessagingHandler" />
-      <meta-data
-          android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics"
-          android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
-      <meta-data
-          android:name="com.google.firebase.messaging.default_notification_icon"
-          android:resource="$ANDROID_NOTIFICATION_ICON" />
+      <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.messaging" android:value="com.eclipsesource.firebase.messaging.MessagingHandler" />
+      <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics" android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
+      <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.performance" android:value="com.eclipsesource.firebase.performance.PerformanceHandler" />
+      <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.crashlytics" android:value="com.eclipsesource.firebase.crashlytics.CrashlyticsHandler" />
+
+      <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="$ANDROID_NOTIFICATION_ICON" />
+
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+      <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+      <meta-data android:name="firebase_performance_collection_enabled" android:value="false" />
 
       <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
@@ -70,22 +76,23 @@
 
     <framework src="com.google.firebase:firebase-core:16.0.7" />
     <framework src="com.google.firebase:firebase-messaging:17.3.4" />
+    <framework src="com.google.firebase:firebase-perf:17.0.2" />
+    <framework src="com.crashlytics.sdk.android:crashlytics:2.10.1" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
+    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
 
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
-                 target-dir="src/com/eclipsesource/firebase/analytics" />
-    <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.kt"
-                 target-dir="src/com/eclipsesource/firebase/analytics" />
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt" target-dir="src/com/eclipsesource/firebase/analytics" />
+    <source-file src="src/android/com/eclipsesource/firebase/analytics/Analytics.kt" target-dir="src/com/eclipsesource/firebase/analytics" />
+
+    <source-file src="src/android/com/eclipsesource/firebase/performance/PerformanceHandler.kt" target-dir="src/com/eclipsesource/firebase/performance" />
+    <source-file src="src/android/com/eclipsesource/firebase/performance/Performance.kt" target-dir="src/com/eclipsesource/firebase/performance" />
+
+    <source-file src="src/android/com/eclipsesource/firebase/crashlytics/CrashlyticsHandler.kt" target-dir="src/com/eclipsesource/firebase/crashlytics" />
+    <source-file src="src/android/com/eclipsesource/firebase/crashlytics/Crashlytics.kt" target-dir="src/com/eclipsesource/firebase/crashlytics" />
 
     <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
 
@@ -97,28 +104,28 @@
 
     <!-- Add entries to TabrisPlugins.plist -->
     <config-file target="*TabrisPlugins.plist" parent="classes">
-    	<array>
-	    	<string>ESFBMessaging</string>
-	    	<string>ESFBAnalytics</string>
-    	</array>
+      <array>
+        <string>ESFBMessaging</string>
+        <string>ESFBAnalytics</string>
+      </array>
     </config-file>
 
     <config-file target="*Entitlements-Debug.plist" parent="aps-environment">
-        <string>development</string>
+      <string>development</string>
     </config-file>
 
     <config-file target="*Entitlements-Release.plist" parent="aps-environment">
-        <string>production</string>
+      <string>production</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="UIBackgroundModes">
-        <array>
-            <string>remote-notification</string>
-        </array>
+      <array>
+        <string>remote-notification</string>
+      </array>
     </config-file>
 
     <config-file target="*-Info.plist" parent="FIREBASE_ANALYTICS_COLLECTION_ENABLED">
-        <false/>
+      <false/>
     </config-file>
 
     <!-- Frameworks -->
