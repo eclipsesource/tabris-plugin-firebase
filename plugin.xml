@@ -74,7 +74,7 @@
 
     </config-file>
 
-    <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+    <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
     <framework src="com.google.firebase:firebase-core:$TABRIS_PLAY_SERVICES_VERSION" />
     <framework src="com.google.firebase:firebase-messaging:$TABRIS_PLAY_SERVICES_VERSION" />
