@@ -35,8 +35,10 @@
 
     <!-- The default value "@mipmap/ic_launcher" is the resource used by the tabris-android cordova platform for the app icon -->
     <preference name="ANDROID_NOTIFICATION_ICON" default="@mipmap/ic_launcher" />
-    <preference name="TABRIS_PLAY_SERVICES_VERSION" default="17.0.0"/>
-    <preference name="TABRIS_CRASHLYTICS_VERSION" default="2.10.1"/>
+    <preference name="TABRIS_FIREBASE_ANALYTICS_VERSION" default="17.2.1"/>
+    <preference name="TABRIS_FIREBASE_MESSAGING_VERSION" default="20.0.1"/>
+    <preference name="TABRIS_FIREBASE_PERFORMANCE_VERSION" default="19.0.2"/>
+    <preference name="TABRIS_FIREBASE_CRASHLYTICS_VERSION" default="2.10.1"/>
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
 
@@ -76,10 +78,10 @@
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-core:$TABRIS_PLAY_SERVICES_VERSION" />
-    <framework src="com.google.firebase:firebase-messaging:$TABRIS_PLAY_SERVICES_VERSION" />
-    <framework src="com.google.firebase:firebase-perf:$TABRIS_PLAY_SERVICES_VERSION" />
-    <framework src="com.crashlytics.sdk.android:crashlytics:$TABRIS_CRASHLYTICS_VERSION" />
+    <framework src="com.google.firebase:firebase-analytics:$TABRIS_FIREBASE_ANALYTICS_VERSION" />
+    <framework src="com.google.firebase:firebase-messaging:$TABRIS_FIREBASE_MESSAGING_VERSION" />
+    <framework src="com.google.firebase:firebase-perf:$TABRIS_FIREBASE_PERFORMANCE_VERSION" />
+    <framework src="com.crashlytics.sdk.android:crashlytics:$TABRIS_FIREBASE_CRASHLYTICS_VERSION" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt" target-dir="src/com/eclipsesource/firebase/messaging" />
