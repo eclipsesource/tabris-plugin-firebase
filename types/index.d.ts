@@ -1,4 +1,4 @@
-import { EventObject, NativeObject, PropertyChangedEvent, Widget, WidgetEvents, WidgetProperties } from 'tabris';
+import { EventObject, NativeObject, PropertyChangedEvent, Widget } from 'tabris';
 
 declare global {
   namespace firebase {
@@ -21,6 +21,15 @@ declare global {
       setBool(key: string, value: boolean): void;
       setString(key: string, value: string): void;
       setInt(key: string, value: number): void;
+    }
+    const RemoteConfig: RemoteConfig;
+    interface RemoteConfig extends NativeObject {
+      minimumFetchIntervalInSeconds: number;
+      setDefaults(values: Object): void;
+      getBoolean(key: string): boolean;
+      getDouble(key: string): number;
+      getLong(key: string): number;
+      getString(key: string): string;
     }
 
     const Analytics: Analytics;

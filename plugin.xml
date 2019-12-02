@@ -65,6 +65,7 @@
       <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics" android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
       <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.performance" android:value="com.eclipsesource.firebase.performance.PerformanceHandler" />
       <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.crashlytics" android:value="com.eclipsesource.firebase.crashlytics.CrashlyticsHandler" />
+      <meta-data android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.remote_config" android:value="com.eclipsesource.firebase.crashlytics.RemoteConfigHandler" />
 
       <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="$ANDROID_NOTIFICATION_ICON" />
 
@@ -97,6 +98,9 @@
 
     <source-file src="src/android/com/eclipsesource/firebase/crashlytics/CrashlyticsHandler.kt" target-dir="src/com/eclipsesource/firebase/crashlytics" />
     <source-file src="src/android/com/eclipsesource/firebase/crashlytics/Crashlytics.kt" target-dir="src/com/eclipsesource/firebase/crashlytics" />
+
+    <source-file src="src/android/com/eclipsesource/firebase/remote_config/RemoteConfigHandler.kt" target-dir="src/com/eclipsesource/firebase/remote_config" />
+    <source-file src="src/android/com/eclipsesource/firebase/remote_config/RemoteConfig.kt" target-dir="src/com/eclipsesource/firebase/remote_config" />
 
     <hook src="scripts/android/copy_google_services.js" type="after_prepare" />
 

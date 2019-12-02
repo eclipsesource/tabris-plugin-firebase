@@ -2,9 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 dependencies {
-    implementation "com.google.firebase:firebase-core:$playServicesVersion"
-    implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
-    implementation "com.google.firebase:firebase-analytics:$playServicesVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
     testImplementation 'junit:junit:4.12'
@@ -15,8 +12,10 @@ dependencies {
     implementation 'com.eclipsesource.tabris.android:tabris:3.2.1'
     implementation "com.eclipsesource.j2v8:j2v8_win32_x86_64:4.6.0"
 
-    implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
-    implementation "com.google.firebase:firebase-perf:$playServicesVersion"
+    implementation "com.google.firebase:firebase-messaging:20.0.1"
+    implementation "com.google.firebase:firebase-analytics:17.2.1"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+    implementation "com.google.firebase:firebase-perf:19.0.2"
 }
 
 android {

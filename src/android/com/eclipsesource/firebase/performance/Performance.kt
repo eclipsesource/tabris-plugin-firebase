@@ -26,6 +26,6 @@ class Performance(private val activity: Activity) {
 
     fun stopTrace(name: String) = traces[name]?.stop()
 
-    fun incrementMetrics(name: String, counter: String, value: Long) = traces[name]?.incrementCounter(counter, value)
+    fun incrementMetrics(name: String, counter: String, value: Long) = traces[name]?.incrementMetric(counter, value)
 
 }

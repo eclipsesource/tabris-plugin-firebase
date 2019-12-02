@@ -1,8 +1,11 @@
 Change Log
 ==========
-## Version 5.0.0
+## Version 6.0.0
 
-(thx to [fax1ty](https://github.com/fax1ty))
+* Firebase Remote Config implementation (Android only)
+* Added variables to specify the version of dependencies
+
+## Version 5.0.0
 
 * Firebase Performance implementation (Android only)
 * Firebase Crashlytics implementation (Android only)
