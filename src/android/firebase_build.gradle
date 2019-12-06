@@ -16,7 +16,15 @@ dependencies {
 }
 }
 
+
+dependencies {
+    compile('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+       transitive = true
+    }
+}
+
+
 ext.postBuildExtras = {
     apply plugin: 'com.google.gms.google-services'
-    apply plugin: 'com.crashlytics.tools.gradle.CrashlyticsPlugin'
+    apply plugin: 'io.fabric'
 }
