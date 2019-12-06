@@ -17,6 +17,6 @@ dependencies {
 }
 
 ext.postBuildExtras = {
-    apply plugin: 'com.google.gms.googleservices.GoogleServicesPlugin'
-    apply plugin: 'io.fabric.tools.gradle.CrashlyticsPlugin'
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.crashlytics.tools.gradle.CrashlyticsPlugin'
 }
