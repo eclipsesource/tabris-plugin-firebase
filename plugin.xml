@@ -77,7 +77,7 @@
 
     </config-file>
 
-    <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+    <framework src="src/android/firebase_build.gradle" custom="true" type="gradleReference" />
 
     <framework src="com.google.firebase:firebase-analytics:$TABRIS_FIREBASE_ANALYTICS_VERSION" />
     <framework src="com.google.firebase:firebase-messaging:$TABRIS_FIREBASE_MESSAGING_VERSION" />
