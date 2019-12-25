@@ -9,3 +9,4 @@ plugins/
 *.iml
 local.properties
 npm-debug.log*
+.vscode/

@@ -1,5 +1,16 @@
 Change Log
 ==========
+## Version 6.0.0
+
+* Firebase Remote Config implementation (Android only)
+* Added variables to specify the version of dependencies
+
+## Version 5.0.0
+
+* Firebase Performance implementation (Android only)
+* Firebase Crashlytics implementation (Android only)
+* Android project dependencies versions have been increased
+
 ## Version 4.0.0
 
 * Compatible with Tabris.js version 3.0.0+

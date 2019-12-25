@@ -52,6 +52,9 @@ Feature | Supported platforms
 --- | ---
 [Firebase Cloud Messaging](doc/cloud-messaging.md) | Android, iOS
 [Firebase Analytics](doc/analytics.md) | Android, iOS
+[Firebase Crashlytics](doc/crashlytics.md) | Android
+[Firebase Performance](doc/performance.md) | Android
+[Firebase Remote Config](doc/remote-config.md) | Android
 
 ## Compatibility
 
