@@ -10,7 +10,7 @@ Analytics.prototype.logEvent = function(name, data) {
   }
   this._nativeCall('logEvent', {name, data: data ? data : {}});
   return this;
-}
+};
 
 Analytics.prototype.setUserProperty = function(key, value) {
   if (typeof key !== 'string') {
@@ -18,7 +18,7 @@ Analytics.prototype.setUserProperty = function(key, value) {
   }
   this._nativeCall('setUserProperty', {key, value});
   return this;
-}
+};
 
 tabris.NativeObject.defineProperties(Analytics.prototype, {
   analyticsCollectionEnabled: {type: 'boolean', default: null},
