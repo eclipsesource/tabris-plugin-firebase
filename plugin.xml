@@ -13,7 +13,7 @@
 
   <!-- cordova -->
   <engines>
-    <engine name="cordova-android" version=">=7.0.0" />
+    <engine name="cordova-android" version=">=8.1.0" />
   </engines>
 
   <js-module src="www/Messaging.js" name="messaging">
@@ -45,11 +45,6 @@
           <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>
       </service>
-      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseInstanceIDService">
-        <intent-filter>
-          <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-      </service>
 
       <meta-data
           android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.messaging"
@@ -68,16 +63,14 @@
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-core:16.0.7" />
-    <framework src="com.google.firebase:firebase-messaging:17.3.4" />
+    <framework src="com.google.firebase:firebase-core:17.2.2" />
+    <framework src="com.google.firebase:firebase-messaging:20.1.0" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseInstanceIDService.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />

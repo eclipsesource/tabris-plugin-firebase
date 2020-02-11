@@ -10,20 +10,45 @@ class MessagingHandler(private val scope: ActivityScope) : ObjectHandler<Messagi
   override val type = "com.eclipsesource.firebase.Messaging"
 
   override val properties = listOf<Property<Messaging, *>>(
-      StringProperty("instanceId") { FirebaseInstanceId.getInstance().id },
-      StringProperty("token") { FirebaseInstanceId.getInstance().token },
-      V8ObjectProperty("launchData") { launchData }
+    StringProperty("instanceId") { FirebaseInstanceId.getInstance().id },
+    StringProperty("token") { FirebaseInstanceId.getInstance().token },
+    V8ObjectProperty("launchData") { launchData }
   )
 
   override fun create(id: String, properties: V8Object) = Messaging(scope)
 
-  override fun call(messaging: Messaging, method: String, properties: V8Object): Any? = when (method) {
-    "resetInstanceId" -> messaging.resetInstanceId()
-    "clearAllPendingMessages" -> messaging.clearAllPendingMessages()
-    "getAllPendingMessages" -> messaging.getAllPendingMessages()
-    else -> null
+  override fun call(messaging: Messaging, method: String, properties: V8Object): Any? =
+    when (method) {
+      "resetInstanceId" -> messaging.resetInstanceId()
+      "clearAllPendingMessages" -> messaging.clearAllPendingMessages()
+      "getAllPendingMessages" -> messaging.getAllPendingMessages()
+      else -> null
+    }
+
+  override fun destroy(nativeObject: Messaging) {
+    messaging = null
   }
 
-  override fun destroy(nativeObject: Messaging) = nativeObject.unregisterAllListeners()
+  companion object {
+
+    var messaging: Messaging? = null
+      set(value) {
+        if (value == null || field == null) {
+          field = value
+        } else {
+          throw IllegalStateException("Messaging object has already been created.")
+        }
+      }
+
+    fun tokenReceived(token: String) = messaging?.onTokenReceived(token)
+
+    fun messageReceived(data: Map<String, String>): Boolean {
+      messaging?.let {
+        it.onMessageReceived(data)
+        return true
+      }
+      return false
+    }
+  }
 
 }

@@ -3,31 +3,19 @@ package com.eclipsesource.firebase.messaging
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 import java.io.Serializable
 
 class NotificationOpenedReceiver : BroadcastReceiver() {
 
+  @Suppress("UNCHECKED_CAST")
   override fun onReceive(context: Context, intent: Intent) {
-    val data = intent.getSerializableExtra(EXTRA_DATA)
-    if (!sendDataBroadcast(context, ACTION_MESSAGE, data)) {
+    val data = intent.getSerializableExtra(EXTRA_DATA) as HashMap<String, String>
+    if (!MessagingHandler.messageReceived(data)) {
       // if nobody consumed the data broadcast the app is in the background
-      launchActivity(context, data)
-    }
-  }
-
-  private fun launchActivity(context: Context, data: Serializable) {
-    if (!sendDataBroadcast(context, ACTION_LAUNCH_TABRIS_ACTIVITY, data)) {
-      // if nobody resolved the action to launch the tabris activity into the foreground
-      // we launch the entire app
       context.startActivity(createAppIntent(context, data))
     }
   }
-
-  private fun sendDataBroadcast(context: Context, action: String, data: Serializable) =
-      LocalBroadcastManager.getInstance(context.applicationContext)
-          .sendBroadcast(Intent(action).apply { putExtra(EXTRA_DATA, data) })
 
   private fun createAppIntent(context: Context, data: Serializable) =
       context.packageManager.getLaunchIntentForPackage(context.packageName)?.let {
