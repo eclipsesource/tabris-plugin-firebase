@@ -28,9 +28,14 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
   override fun activityStateChanged(activityState: ActivityState, intent: Intent?) {
     when (activityState) {
       START -> MessagingHandler.messaging = this
-      NEW_INTENT -> notifyOfMessage(
-        requireNotNull(intent).getSerializableExtra(EXTRA_DATA) as Map<String, String>
-      )
+      NEW_INTENT -> {
+        intent?.let { data ->
+          @Suppress("UNCHECKED_CAST")
+          (data.getSerializableExtra(EXTRA_DATA) as? Map<String, String>)?.let {
+            notifyOfMessage(it)
+          }
+        }
+      }
       STOP -> MessagingHandler.messaging = null
       else -> Unit
     }
