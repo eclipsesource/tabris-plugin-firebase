@@ -7,12 +7,14 @@
 //
 
 #import "ESFBMessaging.h"
+#import <FirebaseCore/FirebaseCore.h>
 #import <FirebaseMessaging/FirebaseMessaging.h>
 #import <FirebaseInstanceID/FirebaseInstanceID.h>
 #import <UserNotifications/UserNotifications.h>
 #import "ESFirebaseHelper.h"
 
 @interface ESFBMessaging () <UNUserNotificationCenterDelegate, FIRMessagingDelegate>
+@property (strong, readwrite) NSString *instanceId;
 @end
 
 @implementation ESFBMessaging
@@ -33,12 +35,17 @@ static NSDictionary *launchData;
     if (self) {
         [UNUserNotificationCenter currentNotificationCenter].delegate = self;
         [FIRMessaging messaging].delegate = self;
-        [FIRMessaging messaging].shouldEstablishDirectChannel = YES;
         [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
         [self registerSelector:@selector(getAllPendingMessages) forCall:@"getAllPendingMessages"];
         [self registerSelector:@selector(clearAllPendingMessages) forCall:@"clearAllPendingMessages"];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(instanceIdRefreshed:) name:kFIRInstanceIDTokenRefreshNotification object:nil];
+        __weak ESFBMessaging *weakSelf = self;
+        [[FIRInstanceID instanceID] instanceIDWithHandler:^(FIRInstanceIDResult * _Nullable result, NSError * _Nullable error) {
+            if (!error) {
+                weakSelf.instanceId = result.token;
+            }
+        }];
     }
     return self;
 }
@@ -102,10 +109,6 @@ static NSDictionary *launchData;
     [[UNUserNotificationCenter currentNotificationCenter] removeAllDeliveredNotifications];
 }
 
-- (NSString *)instanceId {
-    return [FIRInstanceID instanceID].token;
-}
-
 - (NSString *)token {
     return [FIRMessaging messaging].FCMToken;
 }
@@ -144,13 +147,9 @@ static NSDictionary *launchData;
     }
 }
 
-- (void)messaging:(FIRMessaging *)messaging didReceiveMessage:(FIRMessagingRemoteMessage *)remoteMessage {
-    [self sendMessage:remoteMessage.appData];
-}
-
 - (void)instanceIdRefreshed:(NSNotification *)notification {
     if (self.instanceIdChangedListener) {
-        [self fireEventNamed:@"instanceIdChanged" withAttributes:@{@"instanceId":[FIRInstanceID instanceID].token}];
+        [self fireEventNamed:@"instanceIdChanged" withAttributes:@{@"instanceId":self.instanceId}];
     }
 }
 

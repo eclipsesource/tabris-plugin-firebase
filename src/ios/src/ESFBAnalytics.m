@@ -44,12 +44,12 @@
 
 + (void)setup {
     [ESFirebaseHelper setup];
-    [[FIRAnalyticsConfiguration sharedInstance] setAnalyticsCollectionEnabled:NO];
+    [FIRAnalytics setAnalyticsCollectionEnabled:NO];
 }
 
 - (void)setAnalyticsCollectionEnabled:(BOOL)analyticsCollectionEnabled {
     _analyticsCollectionEnabled = analyticsCollectionEnabled;
-    [[FIRAnalyticsConfiguration sharedInstance] setAnalyticsCollectionEnabled:analyticsCollectionEnabled];
+    [FIRAnalytics setAnalyticsCollectionEnabled:analyticsCollectionEnabled];
 }
 
 - (BOOL)analyticsCollectionEnabled {

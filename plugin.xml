@@ -115,8 +115,8 @@
     </config-file>
 
     <!-- Frameworks -->
-    <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2.0"/>
-    <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2.0"/>
+    <framework src="FirebaseAnalytics" type="podspec" spec="~> 6.4.2"/>
+    <framework src="FirebaseMessaging" type="podspec" spec="~> 4.3.1"/>
 
     <!-- Sources -->
     <!-- Analytics -->

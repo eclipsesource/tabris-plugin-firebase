@@ -6,7 +6,7 @@
 //
 
 #import "ESFirebaseHelper.h"
-#import <FirebaseAnalytics/FirebaseAnalytics.h>
+#import <FirebaseCore/FirebaseCore.h>
 
 @implementation ESFirebaseHelper
 
