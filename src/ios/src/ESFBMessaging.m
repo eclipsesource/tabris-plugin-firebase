@@ -135,7 +135,7 @@ static NSDictionary *launchData;
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
     [self sendMessage:userInfo];
-    UNNotificationPresentationOptions presentation = self.showBannersInForeground ? UNNotificationPresentationOptionBadge : UNNotificationPresentationOptionNone;
+    UNNotificationPresentationOptions presentation = self.showBannersInForeground ? UNNotificationPresentationOptionAlert : UNNotificationPresentationOptionNone;
     completionHandler(presentation);
 }
 
