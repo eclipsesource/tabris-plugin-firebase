@@ -143,7 +143,7 @@ static NSDictionary *launchData;
 
 - (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
     if (self.tokenChangedListener) {
-        [self fireEventNamed:@"tokenChanged" withAttributes:@{@"token":fcmToken}];
+        [self fireEventNamed:@"tokenChanged" withAttributes:@{@"token":fcmToken ? fcmToken : [NSNull null]}];
     }
 }
 
