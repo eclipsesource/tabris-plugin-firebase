@@ -28,7 +28,7 @@ if (rootdir) {
     var updateIOSAppDelegate = function() {
       var appDelegate = getProjectFile("ios", "Classes/AppDelegate.m");
       var importReplace = "/* HOOK: import classes for registration */";
-      var finishLaunchingReplace = "/* HOOK: applicationDidFinishLaunching */";
+      var finishLaunchingReplace = "[super application:application didFinishLaunchingWithOptions:launchOptions];";
       replace(appDelegate, importReplace, "#import \"ESFBMessaging.h\"\n" + importReplace);
       replace(appDelegate, finishLaunchingReplace, "[ESFBMessaging setLaunchData:launchOptions];\n\t" + finishLaunchingReplace);
     };
