@@ -58,7 +58,7 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
     NotificationManagerCompat.from(scope.context).cancelAll()
   }
 
-  fun getAllPendingMessages(): List<Serializable> {
+  fun getAllPendingMessages(): List<Serializable?> {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       return requireNotNull(scope.context.getSystemService<NotificationManager>()).activeNotifications
         .asSequence()
