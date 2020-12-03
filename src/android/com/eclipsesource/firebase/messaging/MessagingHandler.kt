@@ -26,7 +26,9 @@ class MessagingHandler(private val scope: ActivityScope) : ObjectHandler<Messagi
     }
 
   override fun destroy(nativeObject: Messaging) {
-    messaging = null
+    if (nativeObject == messaging) {
+      messaging = null
+    }
   }
 
   companion object {
