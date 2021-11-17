@@ -40,7 +40,9 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
-      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService">
+      <service 
+	  android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService"
+	  android:exported="true">
         <intent-filter>
           <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>
