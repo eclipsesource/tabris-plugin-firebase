@@ -65,8 +65,9 @@
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-core:17.2.2" />
-    <framework src="com.google.firebase:firebase-messaging:20.1.0" />
+    <framework src="com.google.firebase:firebase-core:21.1.1" />
+    <framework src="com.google.firebase:firebase-messaging:23.0.8" />
+    <framework src="com.google.firebase:firebase-iid:21.1.0" />
 
     <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
