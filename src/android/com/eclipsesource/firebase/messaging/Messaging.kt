@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
+import androidx.lifecycle.Lifecycle.State.RESUMED
+import androidx.lifecycle.Lifecycle.State.STARTED
 import com.eclipsesource.tabris.android.ActivityScope
 import com.eclipsesource.tabris.android.ActivityState
 import com.eclipsesource.tabris.android.ActivityState.*
@@ -23,6 +25,10 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
 
   init {
     scope.events.addActivityStateListener(this)
+    if (scope.activity.getLifecycle().getCurrentState() == STARTED ||
+            scope.activity.getLifecycle().getCurrentState() == RESUMED) {
+      MessagingHandler.messaging = this
+    }
   }
 
   override fun activityStateChanged(activityState: ActivityState, intent: Intent?) {
