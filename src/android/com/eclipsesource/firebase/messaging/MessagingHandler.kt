@@ -27,20 +27,25 @@ class MessagingHandler(private val scope: ActivityScope) : ObjectHandler<Messagi
 
   override fun destroy(nativeObject: Messaging) {
     if (nativeObject == messaging) {
-      messaging = null
+      resetMessaging()
     }
   }
 
   companion object {
 
-    var messaging: Messaging? = null
-      set(value) {
-        if (value == null || field == null) {
-          field = value
-        } else {
-          throw IllegalStateException("Messaging object has already been created.")
-        }
+    private var messaging: Messaging? = null
+
+    fun setMessaging(value: Messaging) {
+      if (messaging == null) {
+        messaging = value
+      } else {
+        throw IllegalStateException("Messaging object has already been created.")
       }
+    }
+
+    fun resetMessaging() {
+      messaging = null
+    }
 
     fun tokenReceived(token: String) = messaging?.onTokenReceived(token)
 

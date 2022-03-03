@@ -25,15 +25,16 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
 
   init {
     scope.events.addActivityStateListener(this)
-    if (scope.activity.getLifecycle().getCurrentState() == STARTED ||
-            scope.activity.getLifecycle().getCurrentState() == RESUMED) {
-      MessagingHandler.messaging = this
+    MessagingHandler.resetMessaging()
+    val currentState = scope.activity.lifecycle.currentState
+    if (currentState == STARTED || currentState == RESUMED) {
+      updateMessaging()
     }
   }
 
   override fun activityStateChanged(activityState: ActivityState, intent: Intent?) {
     when (activityState) {
-      START -> MessagingHandler.messaging = this
+      START -> updateMessaging()
       NEW_INTENT -> {
         intent?.let { data ->
           @Suppress("UNCHECKED_CAST")
@@ -42,7 +43,7 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
           }
         }
       }
-      STOP -> MessagingHandler.messaging = null
+      STOP -> MessagingHandler.resetMessaging()
       else -> Unit
     }
   }
@@ -86,6 +87,14 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
   private fun notifyOfMessage(data: Map<String, String>) {
     scope.post {
       scope.remoteObject(this@Messaging)?.notify("message", "data", data)
+    }
+  }
+
+  private fun updateMessaging() {
+    try {
+      MessagingHandler.setMessaging(this)
+    } catch (e: Exception) {
+      scope.log.error(e)
     }
   }
 
