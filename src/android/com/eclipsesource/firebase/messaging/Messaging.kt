@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
+import androidx.lifecycle.Lifecycle.State.RESUMED
+import androidx.lifecycle.Lifecycle.State.STARTED
 import com.eclipsesource.tabris.android.ActivityScope
 import com.eclipsesource.tabris.android.ActivityState
 import com.eclipsesource.tabris.android.ActivityState.*
@@ -23,11 +25,16 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
 
   init {
     scope.events.addActivityStateListener(this)
+    MessagingHandler.resetMessaging()
+    val currentState = scope.activity.lifecycle.currentState
+    if (currentState == STARTED || currentState == RESUMED) {
+      updateMessaging()
+    }
   }
 
   override fun activityStateChanged(activityState: ActivityState, intent: Intent?) {
     when (activityState) {
-      START -> MessagingHandler.messaging = this
+      START -> updateMessaging()
       NEW_INTENT -> {
         intent?.let { data ->
           @Suppress("UNCHECKED_CAST")
@@ -36,7 +43,7 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
           }
         }
       }
-      STOP -> MessagingHandler.messaging = null
+      STOP -> MessagingHandler.resetMessaging()
       else -> Unit
     }
   }
@@ -80,6 +87,14 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
   private fun notifyOfMessage(data: Map<String, String>) {
     scope.post {
       scope.remoteObject(this@Messaging)?.notify("message", "data", data)
+    }
+  }
+
+  private fun updateMessaging() {
+    try {
+      MessagingHandler.setMessaging(this)
+    } catch (e: Exception) {
+      scope.log.error(e)
     }
   }
 
