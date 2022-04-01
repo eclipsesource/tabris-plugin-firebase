@@ -48,9 +48,6 @@
       <meta-data
           android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics"
           android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
-      <meta-data
-          android:name="com.google.firebase.messaging.default_notification_icon"
-          android:resource="$ANDROID_NOTIFICATION_ICON" />
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
       <meta-data android:name="firebase_performance_logcat_enabled" android:value="true" />
 
