@@ -9,7 +9,7 @@ const IOS_PLATFORM = 'platforms/ios';
 module.exports = function(ctx) {
   let platform = ctx.opts.cordova.platforms[0];
   let containerSourceDir = platform === 'android' ? path.join('tagmanager-container', 'android') : path.join('tagmanager-container', 'ios');
-  let containerTargetDir = platform === 'android' ? path.join(ANDROID_PLATFORM, 'assets', 'containers') : path.join(IOS_PLATFORM, 'container');
+  let containerTargetDir = platform === 'android' ? path.join(ANDROID_PLATFORM, 'app', 'src', 'main', 'assets', 'containers') : path.join(IOS_PLATFORM, 'container');
   if (!fs.existsSync(containerSourceDir) || !fs.readdirSync(containerSourceDir).length) {
     throw new Error(
       `No containers found in /cordova/${containerSourceDir}. \n` +
