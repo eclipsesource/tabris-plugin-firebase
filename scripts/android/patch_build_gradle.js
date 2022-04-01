@@ -15,7 +15,7 @@ buildGradle = addPlugins(buildGradle);
 writeRootBuildGradle(buildGradle);
 
 function readRootBuildGradle() {
-  var target = path.join("platforms", "android", "build.gradle");
+  var target = path.join("platforms", "android", "app", "build.gradle");
   return fs.readFileSync(target, "utf-8");
 }
 
