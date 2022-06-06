@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const xcode = require('xcode');
 
 const ANDROID_PLATFORM = 'platforms/android';
 const IOS_PLATFORM = 'platforms/ios';
@@ -28,8 +29,7 @@ module.exports = function(ctx) {
   }
 }
 
-function addContainerResourceToPbxProject(context) {
-  let xcode = context.requireCordovaModule('xcode');
+function addContainerResourceToPbxProject() {
   let fileList = fs.readdirSync(IOS_PLATFORM);
   let xcodeProjectDirectory = fileList.find(file => file.match(/xcodeproj$/));
   let xcodeProjectFilePath = path.join(IOS_PLATFORM, xcodeProjectDirectory, 'project.pbxproj');

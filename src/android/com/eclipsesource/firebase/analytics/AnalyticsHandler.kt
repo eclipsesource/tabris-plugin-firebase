@@ -12,7 +12,6 @@ class AnalyticsHandler(private val scope: ActivityScope) : ObjectHandler<Analyti
 
   override val properties = listOf<Property<Analytics, *>>(
       BooleanProperty("analyticsCollectionEnabled", { setAnalyticsCollectionEnabled(it ?: false) }),
-      StringProperty("screenName", { setScreenName(it) }),
       StringProperty("userId", { setUserId(it.orEmpty()) })
   )
 

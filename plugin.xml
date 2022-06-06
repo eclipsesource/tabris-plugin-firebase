@@ -44,10 +44,9 @@
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-core:17.2.2" />
-    <framework src="com.google.firebase:firebase-analytics:17.2.2" />
-    <framework src="com.google.firebase:firebase-perf:19.0.5" />
-    <framework src="com.google.android.gms:play-services-tagmanager:17.0.1" />
+    <framework src="com.google.firebase:firebase-analytics:21.0.0" />
+    <framework src="com.google.firebase:firebase-perf:20.1.0" />
+    <framework src="com.google.android.gms:play-services-tagmanager:18.0.1" />
 
     <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
@@ -84,9 +83,16 @@
     </config-file>
 
     <!-- Frameworks -->
-    <framework src="FirebaseAnalytics" type="podspec" spec="~> 6.4.2"/>
-    <framework src="FirebasePerformance" type="podspec" spec="~> 3.2.1"/>
- 		<framework src="GoogleTagManager" type="podspec" spec="~> 7.1.4"/>
+    <podspec>
+      <config>
+        <source url="https://github.com/CocoaPods/Specs.git" />
+      </config>
+      <pods use-frameworks="true">
+        <pod name="FirebaseAnalytics" spec="~> 9.1.0"/>
+        <pod name="FirebasePerformance" spec="~> 9.1.0"/>
+        <pod name="GoogleTagManager" spec="~> 7.4.1"/>
+      </pods>
+    </podspec>
 
     <!-- Sources -->
     <!-- Analytics -->

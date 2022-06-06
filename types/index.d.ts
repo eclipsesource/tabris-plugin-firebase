@@ -46,7 +46,6 @@ declare global {
     namespace PropertyMixins {
       interface Analytics {
         analyticsCollectionEnabled: boolean;
-        screenName: string;
         userId: string;
       }
     }

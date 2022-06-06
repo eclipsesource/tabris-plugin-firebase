@@ -13,7 +13,6 @@
 @implementation ESFBAnalytics
 
 @synthesize analyticsCollectionEnabled = _analyticsCollectionEnabled;
-@synthesize screenName = _screenName;
 @synthesize userId = _userId;
 
 - (instancetype)initWithObjectId:(NSString *)objectId properties:(NSDictionary *)properties inContext:(id<TabrisContext>)context {
@@ -29,7 +28,6 @@
 + (NSMutableSet *)remoteObjectProperties {
     NSMutableSet *properties = [super remoteObjectProperties];
     [properties addObject:@"analyticsCollectionEnabled"];
-    [properties addObject:@"screenName"];
     [properties addObject:@"userId"];
     return properties;
 }
@@ -54,15 +52,6 @@
 
 - (BOOL)analyticsCollectionEnabled {
     return _analyticsCollectionEnabled;
-}
-
-- (NSString *)screenName {
-    return _screenName;
-}
-
-- (void)setScreenName:(NSString *)screenName {
-    _screenName = screenName;
-    [FIRAnalytics setScreenName:screenName screenClass:screenName];
 }
 
 - (NSString *)userId {

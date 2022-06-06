@@ -6,7 +6,7 @@
 var fs = require("fs");
 var path = require("path");
 
-const DEPENDENCIES = ['classpath \'com.google.firebase:firebase-plugins:1.1.5\''];
+const DEPENDENCIES = ['classpath \'com.google.firebase:perf-plugin:1.2.1\''];
 const PLUGINS = ['apply plugin: \'com.google.firebase.firebase-perf\''];
 
 var buildGradle = readRootBuildGradle();
@@ -35,6 +35,6 @@ function addPlugins(buildGradle) {
 }
 
 function writeRootBuildGradle(contents) {
-  var target = path.join("platforms", "android", "build.gradle");
+  var target = path.join("platforms", "android", "app", "build.gradle");
   fs.writeFileSync(target, contents);
 }

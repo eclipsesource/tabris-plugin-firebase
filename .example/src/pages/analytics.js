@@ -24,9 +24,9 @@ module.exports = class AnalyticsPage extends Page {
 
   _createContent() {
     firebase.Analytics.analyticsCollectionEnabled = true;
-    firebase.Analytics.screenName = 'details_screen';
     firebase.Analytics.userId = 'anonymous_user_id';
     firebase.Analytics.setUserProperty('priority_customer', 'true');
+    firebase.Analytics.logEvent('screen_view', {screen_name: 'details_screen'});
 
     let scrollView = new ScrollView({
       left: 0, right: 0, top: 0, bottom: 0
@@ -52,7 +52,7 @@ module.exports = class AnalyticsPage extends Page {
     new FlatButton({
       right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
       text: 'Set screen name'
-    }).on('tap', () => firebase.Analytics.screenName = screenName.text)
+    }).on('tap', () => firebase.Analytics.logEvent('screen_view', {screen_name: screenName.text}))
       .appendTo(screenNameCard);
 
     let eventCard = this._createCard('Event logging').appendTo(scrollView);

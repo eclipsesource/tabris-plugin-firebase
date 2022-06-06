@@ -16,8 +16,6 @@ class Analytics(private val activity: Activity) {
 
   fun setAnalyticsCollectionEnabled(enabled: Boolean) = firebaseAnalytics.setAnalyticsCollectionEnabled(enabled)
 
-  fun setScreenName(name: String?) = firebaseAnalytics.setCurrentScreen(activity, name, null)
-
   fun setUserProperty(key: String, value: String?) = firebaseAnalytics.setUserProperty(key, value)
 
   fun setUserId(userId: String?) = firebaseAnalytics.setUserId(userId)

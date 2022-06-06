@@ -22,7 +22,6 @@ Analytics.prototype.setUserProperty = function(key, value) {
 
 tabris.NativeObject.defineProperties(Analytics.prototype, {
   analyticsCollectionEnabled: {type: 'boolean', default: null},
-  screenName: {type: 'string', default: null},
   userId: {type: 'string', default: null}
 });
 

@@ -11,6 +11,5 @@
 
 @interface ESFBAnalytics : BasicWidget
 @property (nonatomic) BOOL analyticsCollectionEnabled;
-@property (nonatomic) NSString *screenName;
 @property (nonatomic) NSString *userId;
 @end

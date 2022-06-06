@@ -22,9 +22,6 @@ firebase.Analytics.analyticsCollectionEnabled = true;
 // provide more details about the current user
 firebase.Analytics.setUserPoperty(`power_user`, true);
 
-// set the screen name where subsequent events are tracked
-firebase.Analytics.screenName = 'main_screen';
-
 // track event triggered by user
 firebase.Analytics.logEvent('view_item', {description: 'full_membership'});
 ```
@@ -42,10 +39,6 @@ All `Analytics` properties are _write only_.
 ##### `analyticsCollectionEnabled` : _boolean_
 
 * Enables analytics data collection for this app. To make use of firebase analytics data collection _has to be enabled_ by the developer. The enablement persists across sessions.
-
-##### `screenName` : _string_
-
-* Sets the current screen name, which specifies the current visual context in your app. This helps identify the areas in your app where users spend their time and how they interact with your app.
 
 ##### `userId` : _string_
 
