@@ -34,17 +34,6 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
-      <service
-	  android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService"
-	  android:exported="true">
-        <intent-filter>
-          <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-      </service>
-
-      <meta-data
-          android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.messaging"
-          android:value="com.eclipsesource.firebase.messaging.MessagingHandler" />
       <meta-data
           android:name="com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.firebase.analytics"
           android:value="com.eclipsesource.firebase.analytics.AnalyticsHandler" />
@@ -56,19 +45,9 @@
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
     <framework src="com.google.firebase:firebase-core:17.2.2" />
-    <framework src="com.google.firebase:firebase-messaging:20.1.0" />
     <framework src="com.google.firebase:firebase-analytics:17.2.2" />
     <framework src="com.google.firebase:firebase-perf:19.0.5" />
     <framework src="com.google.android.gms:play-services-tagmanager:17.0.1" />
-
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/MessagingHandler.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
 
     <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
@@ -106,7 +85,6 @@
 
     <!-- Frameworks -->
     <framework src="FirebaseAnalytics" type="podspec" spec="~> 6.4.2"/>
-    <framework src="FirebaseMessaging" type="podspec" spec="~> 4.3.1"/>
     <framework src="FirebasePerformance" type="podspec" spec="~> 3.2.1"/>
  		<framework src="GoogleTagManager" type="podspec" spec="~> 7.1.4"/>
 
