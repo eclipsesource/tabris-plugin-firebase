@@ -70,7 +70,7 @@ class Messaging(private val scope: ActivityScope) : ActivityStateListener {
       return requireNotNull(scope.context.getSystemService<NotificationManager>()).activeNotifications
         .asSequence()
         .sortedBy { it.postTime }
-        .map { it.notification.extras.getSerializable(EXTRA_DATA) }
+        .mapNotNull { it.notification.extras.getSerializable(EXTRA_DATA) }
         .toList()
     }
     return emptyList()
