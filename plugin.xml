@@ -40,9 +40,8 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
-      <service 
-	  android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService"
-	  android:exported="true">
+      <service android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService"
+               android:exported="true">
         <intent-filter>
           <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>
@@ -62,8 +61,6 @@
       <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
 
     </config-file>
-
-    <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
     <framework src="com.google.firebase:firebase-core:17.2.2" />
     <framework src="com.google.firebase:firebase-messaging:20.1.0" />
