@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns="http://www.w3.org/ns/widgets"
         id="com.eclipsesource.tabris.firebase.example"
-        version="3.0.0">
+        version="3.0.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
   <name>Firebase Plugin Example for Tabris.js</name>
   <description>Examples for the Tabris.js firebase plugin.</description>
   <author email="tabris@eclipsesource.com" href="https://tabrisjs.com">EclipseSource</author>
@@ -11,6 +12,9 @@
   <plugin name="tabris-plugin-firebase" spec="../">
     <variable name="ANDROID_NOTIFICATION_ICON" value="@drawable/ic_stat_trend" />
   </plugin>
+  <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
+    <application android:usesCleartextTraffic="true" />
+  </edit-config>
 
   <platform name="android">
     <resource-file src="res/android/drawable-xhdpi/ic_stat_trend.png"
@@ -23,4 +27,5 @@
   <platform name="ios">
     <resource-file src="GoogleService-Info.plist" />
   </platform>
+  <hook type="before_platform_add" src="www/app/scripts/add-plugin-from-parent-directory.sh" />
 </widget>
