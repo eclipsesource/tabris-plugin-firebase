@@ -40,7 +40,7 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
 
-      <service 
+      <service
 	  android:name="com.eclipsesource.firebase.messaging.TabrisFirebaseMessagingService"
 	  android:exported="true">
         <intent-filter>
