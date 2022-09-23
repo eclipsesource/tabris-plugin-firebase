@@ -1,0 +1,11 @@
+{
+  "name": "tabris-plugin-firebase-example",
+  "devDependencies": {
+    "tabris-plugin-firebase": "../"
+  },
+  "cordova": {
+    "plugins": {
+      "tabris-plugin-firebase": {}
+    }
+  }
+}
