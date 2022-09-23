@@ -6,21 +6,21 @@
 var fs = require("fs");
 var path = require("path");
 
-const DEPENDENCIES = ['classpath \'com.google.firebase:perf-plugin:1.2.1\''];
-const PLUGINS = ['apply plugin: \'com.google.firebase.firebase-perf\''];
+const DEPENDENCIES = ['classpath "com.google.firebase:perf-plugin:1.2.1"'];
+const PLUGINS = ['apply plugin: "com.google.firebase.firebase-perf"'];
 
-var buildGradle = readRootBuildGradle();
+var buildGradle = readAppBuildGradle();
 buildGradle = addDependencies(buildGradle);
 buildGradle = addPlugins(buildGradle);
 writeRootBuildGradle(buildGradle);
 
-function readRootBuildGradle() {
+function readAppBuildGradle() {
   var target = path.join("platforms", "android", "app", "build.gradle");
   return fs.readFileSync(target, "utf-8");
 }
 
 function addDependencies(buildGradle) {
-  var buildToolsClasspath = /^(\s*)classpath 'com.android.tools.build(.*)/m;
+  var buildToolsClasspath = /^(\s*)classpath "com.android.tools.build(.*)/m;
   var match = buildGradle.match(buildToolsClasspath);
   var whitespace = match[1];
   var dependencies = DEPENDENCIES.map(dependency => whitespace + dependency + ' // source: tabris-plugin-firebase').join('\n');
