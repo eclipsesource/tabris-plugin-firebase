@@ -1,0 +1,13 @@
+{
+  "name": "send-test-notification",
+  "version": "1.0.0",
+  "description": "A helper to send a test notification.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "googleapis": "^52.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}

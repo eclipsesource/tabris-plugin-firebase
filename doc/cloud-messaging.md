@@ -23,20 +23,7 @@ console.log('Message data from app cold start: ' + firebase.Messaging.launchData
 
 A more elaborate example can be found in the [example](../example/) folder. It provides a Tabris.js app that demonstrates the various features of the `tabris-plugin-firebase` integration.
 
-To [send a message](https://firebase.google.com/docs/cloud-messaging/send-message) from the server side a `curl` command similar to the following `POST` request can be used:
-
-```shell
-curl -X POST -H "Authorization: key=<server-key>" -H "Content-Type: application/json" -d '{
-    "to": "<token>",
-    "data": {
-      "title": "New data",
-      "body": "The new data arrived",
-      "payload": "custom data"
-    }
-  }
-' https://fcm.googleapis.com/fcm/send
-```
-
+See `example/sendTestNotification` for a script to send a test notification.
 ### Custom notification icon (optional)
 
 An Android [notification icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_status_bar.html) can be provided via the plugin variable `ANDROID_NOTIFICATION_ICON`. To configure a notification icon a
@@ -72,27 +59,9 @@ To configure the notification several properties can be set:
 - `title` : `string`
 - `body` : `string`
 
-The following message send from a server would create a notification similar to the [screenshot](doc/img/firebase.png) above:
-
-```shell
-POST /fcm/send HTTP/1.1
-Host: fcm.googleapis.com
-Authorization: key=<server-key>
-Content-Type: application/json
-
-{
-  "to": "<token>",
-  "data": {
-    "title": "New data available",
-    "body": "The new data can be used in a multitude of ways",
-    "payload": "custom data"
-  }
-}
-```
-
-Note that the json object above does not contain a `notification` key. It only provides the `to` key to declare the message receiver and the data payload send to the app.
-
 Using the same `id` for multiple messages updates an existing notification on the users device. Omitting the `id` creates a random id on the device so that each message results in a unique notification.
+
+See `example/sendTestNotification` for a script to send a test notification.
 
 ## API
 
