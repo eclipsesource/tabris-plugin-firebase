@@ -117,8 +117,15 @@
     </config-file>
 
     <!-- Frameworks -->
-    <framework src="FirebaseAnalytics" type="podspec" spec="~> 6.4.2"/>
-    <framework src="FirebaseMessaging" type="podspec" spec="~> 4.3.1"/>
+    <podspec>
+      <config>
+        <source url="https://github.com/CocoaPods/Specs.git"/>
+      </config>
+      <pods use-frameworks="true">
+        <pod name="FirebaseAnalytics" spec="~> 7.2" />
+        <pod name="FirebaseMessaging" spec="~> 7.2" />
+      </pods>
+    </podspec>
 
     <!-- Sources -->
     <!-- Analytics -->
