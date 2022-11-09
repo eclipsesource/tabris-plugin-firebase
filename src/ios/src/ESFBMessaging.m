@@ -7,9 +7,7 @@
 //
 
 #import "ESFBMessaging.h"
-#import <FirebaseCore/FirebaseCore.h>
 #import <FirebaseMessaging/FirebaseMessaging.h>
-#import <FirebaseInstanceID/FirebaseInstanceID.h>
 #import <UserNotifications/UserNotifications.h>
 #import "ESFirebaseHelper.h"
 
@@ -39,11 +37,11 @@ static NSDictionary *launchData;
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
         [self registerSelector:@selector(getAllPendingMessages) forCall:@"getAllPendingMessages"];
         [self registerSelector:@selector(clearAllPendingMessages) forCall:@"clearAllPendingMessages"];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(instanceIdRefreshed:) name:kFIRInstanceIDTokenRefreshNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(instanceIdRefreshed:) name:FIRMessagingRegistrationTokenRefreshedNotification object:nil];
         __weak ESFBMessaging *weakSelf = self;
-        [[FIRInstanceID instanceID] instanceIDWithHandler:^(FIRInstanceIDResult * _Nullable result, NSError * _Nullable error) {
-            if (!error) {
-                weakSelf.instanceId = result.token;
+        [[FIRMessaging messaging] tokenWithCompletion:^(NSString * _Nullable token, NSError * _Nullable error) {
+            if(!error) {
+                weakSelf.instanceId = token;
             }
         }];
     }
@@ -120,7 +118,7 @@ static NSDictionary *launchData;
 }
 
 - (void)resetInstanceId {
-    [[FIRInstanceID instanceID] deleteIDWithHandler:^(NSError * _Nullable error) {}];
+    [[FIRMessaging messaging] deleteTokenWithCompletion:^(NSError * _Nullable error) {}];
 }
 
 - (void)sendMessage:(NSDictionary *)data {
@@ -157,7 +155,10 @@ static NSDictionary *launchData;
 
 - (void)instanceIdRefreshed:(NSNotification *)notification {
     if (self.instanceIdChangedListener) {
-        [self fireEventNamed:@"instanceIdChanged" withAttributes:@{@"instanceId":self.instanceId}];
+        NSDictionary* attributes = self.instanceId ?
+                                    @{@"instanceId":self.instanceId} : @{};
+        [self fireEventNamed:@"instanceIdChanged"
+              withAttributes:attributes];
     }
 }
 

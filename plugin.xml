@@ -119,8 +119,8 @@
         <source url="https://github.com/CocoaPods/Specs.git"/>
       </config>
       <pods use-frameworks="true">
-        <pod name="FirebaseAnalytics" spec="~> 7.2" />
-        <pod name="FirebaseMessaging" spec="~> 7.2" />
+        <pod name="FirebaseAnalytics" spec="~> 10.1.0" />
+        <pod name="FirebaseMessaging" spec="~> 10.1.0" />
       </pods>
     </podspec>
 
