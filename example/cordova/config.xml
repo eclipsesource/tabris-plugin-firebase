@@ -27,5 +27,4 @@
   <platform name="ios">
     <resource-file src="GoogleService-Info.plist" />
   </platform>
-  <hook type="before_platform_add" src="www/app/scripts/add-plugin-from-parent-directory.sh" />
 </widget>

@@ -12,16 +12,13 @@
 #import "ESFirebaseHelper.h"
 
 @interface ESFBMessaging () <UNUserNotificationCenterDelegate, FIRMessagingDelegate>
-@property (strong, readwrite) NSString *instanceId;
 @end
 
 @implementation ESFBMessaging
 
-@synthesize instanceId = _instanceId;
 @synthesize token = _token;
 @synthesize launchData = _launchData;
 @synthesize tokenChangedListener = _tokenChangedListener;
-@synthesize instanceIdChangedListener = _instanceIdChangedListener;
 @synthesize messageListener = _messageListener;
 @synthesize showBannersInForeground = _showBannersInForeground;
 
@@ -33,17 +30,9 @@ static NSDictionary *launchData;
     if (self) {
         [UNUserNotificationCenter currentNotificationCenter].delegate = self;
         [FIRMessaging messaging].delegate = self;
-        [self registerSelector:@selector(resetInstanceId) forCall:@"resetInstanceId"];
         [self registerSelector:@selector(registerForNotifications) forCall:@"requestPermissions"];
         [self registerSelector:@selector(getAllPendingMessages) forCall:@"getAllPendingMessages"];
         [self registerSelector:@selector(clearAllPendingMessages) forCall:@"clearAllPendingMessages"];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(instanceIdRefreshed:) name:FIRMessagingRegistrationTokenRefreshedNotification object:nil];
-        __weak ESFBMessaging *weakSelf = self;
-        [[FIRMessaging messaging] tokenWithCompletion:^(NSString * _Nullable token, NSError * _Nullable error) {
-            if(!error) {
-                weakSelf.instanceId = token;
-            }
-        }];
     }
     return self;
 }
@@ -55,11 +44,9 @@ static NSDictionary *launchData;
 
 + (NSMutableSet *)remoteObjectProperties {
     NSMutableSet *properties = [super remoteObjectProperties];
-    [properties addObject:@"instanceId"];
     [properties addObject:@"token"];
     [properties addObject:@"launchData"];
     [properties addObject:@"tokenChangedListener"];
-    [properties addObject:@"instanceIdChangedListener"];
     [properties addObject:@"messageListener"];
     [properties addObject:@"showBannersInForeground"];
     return properties;
@@ -117,10 +104,6 @@ static NSDictionary *launchData;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
-- (void)resetInstanceId {
-    [[FIRMessaging messaging] deleteTokenWithCompletion:^(NSError * _Nullable error) {}];
-}
-
 - (void)sendMessage:(NSDictionary *)data {
     if (self.messageListener) {
         [self fireEventNamed:@"message" withAttributes:@{@"data":data}];
@@ -150,15 +133,6 @@ static NSDictionary *launchData;
 - (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
     if (self.tokenChangedListener) {
         [self fireEventNamed:@"tokenChanged" withAttributes:@{@"token":fcmToken ? fcmToken : [NSNull null]}];
-    }
-}
-
-- (void)instanceIdRefreshed:(NSNotification *)notification {
-    if (self.instanceIdChangedListener) {
-        NSDictionary* attributes = self.instanceId ?
-                                    @{@"instanceId":self.instanceId} : @{};
-        [self fireEventNamed:@"instanceIdChanged"
-              withAttributes:attributes];
     }
 }
 

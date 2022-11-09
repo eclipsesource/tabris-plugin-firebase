@@ -1,4 +1,4 @@
-const EVENT_TYPES = ['tokenChanged', 'instanceIdChanged', 'message'];
+const EVENT_TYPES = ['tokenChanged', 'message'];
 
 const Messaging = tabris.NativeObject.extend('com.eclipsesource.firebase.Messaging');
 
@@ -12,11 +12,6 @@ Messaging.prototype._listen = function(name, listening) {
 
 Messaging.prototype._dispose = function() {
   throw new Error('Messaging can not be disposed');
-};
-
-Messaging.prototype.resetInstanceId = function() {
-  this._nativeCall('resetInstanceId');
-  return this;
 };
 
 Messaging.prototype.requestPermissions = function() {
@@ -38,7 +33,6 @@ Object.defineProperty(Messaging.prototype, 'pendingMessages', {
 });
 
 tabris.NativeObject.defineProperties(Messaging.prototype, {
-  instanceId: {type: 'string', nocache: true, readonly: true},
   token: {type: 'string', nocache: true, readonly: true},
   launchData: {type: 'string', nocache: true, readonly: true}
 });

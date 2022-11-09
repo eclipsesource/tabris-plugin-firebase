@@ -48,25 +48,6 @@ module.exports = class MessagingPage extends Page {
     // composite is a workaround for tabris-android bug where setting bottom would collapse messageText
     new Composite({top: 'prev()', height: MARGIN}).appendTo(messageCard);
 
-    let instanceIdCard = this._createCard('Instance Id').appendTo(scrollView);
-
-    new TextView({
-      left: MARGIN, top: ['prev()', MARGIN],
-      text: 'Instance id:'
-    }).appendTo(instanceIdCard);
-
-    let instanceIdText = new TextView({
-      left: ['prev()', MARGIN_SMALL], baseline: 'prev()', right: MARGIN,
-      selectable: true,
-      font: '14px monospace'
-    }).appendTo(instanceIdCard);
-
-    new FlatButton({
-      right: MARGIN, top: ['prev()', MARGIN_SMALL], bottom: MARGIN_SMALL,
-      text: 'Reset instance id'
-    }).on('tap', () => firebase.Messaging.resetInstanceId())
-      .appendTo(instanceIdCard);
-
     if (device.platform === 'iOS') {
       new Button({
         top: ['prev()', MARGIN_SMALL], centerX: 0,
@@ -93,7 +74,6 @@ module.exports = class MessagingPage extends Page {
     }
 
     firebase.Messaging.on({
-      instanceIdChanged: updateMessagingDetails,
       tokenChanged: updateMessagingDetails,
       message: ({data}) => messageText.text = `Message received:\n\n${JSON.stringify(data)}`
     });
@@ -103,7 +83,6 @@ module.exports = class MessagingPage extends Page {
     function updateMessagingDetails() {
       let token = firebase.Messaging.token;
       tokenText.text = token ? token : 'Loading token...';
-      instanceIdText.text = firebase.Messaging.instanceId;
     }
 
   }
