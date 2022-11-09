@@ -1,7 +1,7 @@
 {
   "name": "tabris-plugin-firebase-example",
   "devDependencies": {
-    "tabris-plugin-firebase": "../"
+    "tabris-plugin-firebase": "/Users/karolszafranski/git/tabris-plugin-firebase"
   },
   "cordova": {
     "plugins": {

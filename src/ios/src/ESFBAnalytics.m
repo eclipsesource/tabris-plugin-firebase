@@ -62,7 +62,11 @@
 
 - (void)setScreenName:(NSString *)screenName {
     _screenName = screenName;
-    [FIRAnalytics setScreenName:screenName screenClass:screenName];
+    [FIRAnalytics logEventWithName:kFIREventScreenView
+                        parameters: @{
+        kFIRParameterScreenName: screenName,
+        kFIRParameterScreenClass: screenName
+    }];
 }
 
 - (NSString *)userId {

@@ -73,10 +73,6 @@ The firebase messaging API is represented as the global object `firebase.Messagi
 
 All `Messaging` properties are read only.
 
-##### `instanceId` : _string_
-
-* A stable identifier that uniquely identifies the app installation. Note that on Android the instance id can become invalid as noted in the [documentation](https://firebase.google.com/docs/reference/android/com/google/firebase/iid/FirebaseInstanceId.html).
-
 ##### `pendingMessages` : _{ getAll(), clearAll() }_
 
 * Represents messages provided by the system notification manager, which have arrived while the app hasn't been in the foreground and have not been consumed yet.
@@ -91,7 +87,7 @@ All `Messaging` properties are read only.
 
 ##### `token` : _string_
 
-* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `tokenChanged` events. When resetting the `instanceId`, the token is not available until the `tokenChanged` event fired.
+* A registration `token` to be used on the server side to address an app installation. The registration `token` is usually available but can change during the apps lifetime. To get notified of a registration token updates you should listen for `tokenChanged` events.
 
 ##### `launchData` : _object_
 
@@ -102,17 +98,6 @@ All `Messaging` properties are read only.
 * The recommended way to make sure your app receives all messaging data is to check the `firebase.Messaging.launchData` object on app startup and to register for the `message` event to receive follow-up messages.
 
 #### Events
-
-##### `instanceIdChanged`
-
-* The `instanceIdChanged` event is fired asynchronously when the `resetInstanceId()` method is invoked.
-
-###### Event Parameters:
-
-* `target` : _Messaging_
-  * The `Messaging` object which allows to interact with firebase cloud messaging
-* `instanceId` : _string_
-  * The new `instanceId` of the app
 
 ##### `tokenChanged`
 
@@ -137,10 +122,6 @@ All `Messaging` properties are read only.
   * The message `data` object as send from the server side
 
 #### Methods
-
-##### `resetInstanceId()`
-
-* Invalidates the current `instanceId` and creates a new one asynchronously. To be notified when a new `instanceId` is available you should listen for the `instanceIdChanged` event. Resetting the `instanceId` also resets the associated registration `token`. A `tokenChanged` event will be fired once a new token is available.
 
 ##### `requestPermissions()` (iOS-only)
 
