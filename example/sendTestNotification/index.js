@@ -4,7 +4,7 @@
   const fetch = require('node-fetch');
 
   if (!fs.existsSync('./service-account-private-key.json')) {
-    throw new Error('Place your service account key in ./scripts/service-account-private-key.json. It can be generated on https://console.cloud.google.com/iam-admin/serviceaccounts for your project.\n\nMake sure that the service account has the permission "cloudmessaging.messages.create". It can be configured here: https://console.cloud.google.com/projectselector2/iam-admin/iam');
+    throw new Error('Place your service account key in ./service-account-private-key.json. It can be generated on https://console.cloud.google.com/iam-admin/serviceaccounts for your project.\n\nMake sure that the service account has the permission "cloudmessaging.messages.create". It can be configured here: https://console.cloud.google.com/projectselector2/iam-admin/iam');
   }
 
   if (!process.env.TABRIS_PLUGIN_FIREBASE_EXAMPLE_FCM_TOKEN) {

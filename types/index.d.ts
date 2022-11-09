@@ -16,14 +16,12 @@ declare global {
     }
 
     interface Messaging extends NativeObject {
-      readonly instanceId: string;
       readonly token: string;
       readonly launchData: object;
       readonly pendingMessages: {
         getAll: () => object[],
         clearAll: () => void
       };
-      resetInstanceId(): void;
       requestPermissions(): void;
       on(type: string, listener: (event: any) => void, context?: object): this;
       on(listeners: MessagingEvents): this;
@@ -34,7 +32,6 @@ declare global {
     }
 
     interface MessagingEvents {
-      instanceIdChanged?(event: PropertyChangedEvent<Messaging, string>): void;
       tokenChanged?(event: PropertyChangedEvent<Messaging, string>): void;
       message?(event: MessageEvent): void;
     }
