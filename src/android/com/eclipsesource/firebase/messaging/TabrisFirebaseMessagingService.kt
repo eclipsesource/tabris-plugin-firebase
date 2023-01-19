@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Intent
 import android.content.pm.PackageManager.GET_META_DATA
@@ -60,7 +61,7 @@ class TabrisFirebaseMessagingService : FirebaseMessagingService() {
   ): Notification {
     createNotificationChannel()
     val contentIntent =
-      PendingIntent.getBroadcast(this, id, createLaunchIntent(data), FLAG_UPDATE_CURRENT)
+      PendingIntent.getBroadcast(this, id, createLaunchIntent(data), FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
     return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_DEFAULT)
       .setExtras(Bundle().apply { putSerializable(EXTRA_DATA, HashMap(data)) })
       .setContentTitle(title)
