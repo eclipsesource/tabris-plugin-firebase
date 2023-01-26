@@ -7,6 +7,7 @@ import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
+import android.app.TaskStackBuilder
 import android.content.Intent
 import android.content.pm.PackageManager.GET_META_DATA
 import android.os.Bundle
@@ -51,17 +52,15 @@ class TabrisFirebaseMessagingService : FirebaseMessagingService() {
     val id = data[DATA_KEY_ID]?.toInt() ?: Random().nextInt()
     val title = data[DATA_KEY_TITLE]
     val body = data[DATA_KEY_BODY]
-    if (title != null && title.isNotEmpty() && body != null && body.isNotEmpty()) {
-      NotificationManagerCompat.from(this).notify(id, createNotification(id, title, body, data))
+    if (!title.isNullOrEmpty() && !body.isNullOrEmpty()) {
+      NotificationManagerCompat.from(this).notify(id, createNotification(title, body, data))
     }
   }
 
   private fun createNotification(
-    id: Int, title: String, text: String, data: Map<String, String>
+    title: String, text: String, data: Map<String, String>
   ): Notification {
     createNotificationChannel()
-    val contentIntent =
-      PendingIntent.getBroadcast(this, id, createLaunchIntent(data), FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
     return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_DEFAULT)
       .setExtras(Bundle().apply { putSerializable(EXTRA_DATA, HashMap(data)) })
       .setContentTitle(title)
@@ -69,13 +68,15 @@ class TabrisFirebaseMessagingService : FirebaseMessagingService() {
       .setStyle(NotificationCompat.BigTextStyle().bigText(text))
       .setAutoCancel(true)
       .setSmallIcon(getIcon())
-      .setContentIntent(contentIntent)
+      .setContentIntent(createContentIntent(data))
       .build()
   }
 
   private fun getIcon() = try {
-    packageManager.getApplicationInfo(packageName, GET_META_DATA)
-      .metaData.getInt(META_DATA_ICON, applicationInfo.icon)
+    packageManager.getApplicationInfo(packageName, GET_META_DATA).metaData.getInt(
+      META_DATA_ICON,
+      applicationInfo.icon
+    )
   } catch (e: Exception) {
     applicationInfo.icon
   }
@@ -96,9 +97,12 @@ class TabrisFirebaseMessagingService : FirebaseMessagingService() {
     }
   }
 
-  private fun createLaunchIntent(data: Map<String, String>) =
-    Intent(this, NotificationOpenedReceiver::class.java).apply {
-      putExtras(Bundle().apply { putSerializable(EXTRA_DATA, HashMap(data)) })
+  private fun createContentIntent(data: Map<String, String>): PendingIntent {
+    val intent = packageManager.getLaunchIntentForPackage(packageName)?.let {
+      it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+      it.putExtra(EXTRA_DATA, HashMap(data))
     }
+    return PendingIntent.getActivity(this, 0, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+  }
 
 }
