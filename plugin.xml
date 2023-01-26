@@ -59,8 +59,6 @@
           android:resource="$ANDROID_NOTIFICATION_ICON" />
       <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
 
-      <receiver android:name="com.eclipsesource.firebase.messaging.NotificationOpenedReceiver" />
-
     </config-file>
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
@@ -74,8 +72,6 @@
     <source-file src="src/android/com/eclipsesource/firebase/messaging/Messaging.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
     <source-file src="src/android/com/eclipsesource/firebase/messaging/TabrisFirebaseMessagingService.kt"
-                 target-dir="src/com/eclipsesource/firebase/messaging" />
-    <source-file src="src/android/com/eclipsesource/firebase/messaging/NotificationOpenedReceiver.kt"
                  target-dir="src/com/eclipsesource/firebase/messaging" />
 
     <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
