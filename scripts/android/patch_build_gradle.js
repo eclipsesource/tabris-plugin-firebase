@@ -6,7 +6,7 @@
 var fs = require("fs");
 var path = require("path");
 
-const DEPENDENCIES = ['classpath "com.google.firebase:perf-plugin:1.2.1"'];
+const DEPENDENCIES = ['classpath "com.google.firebase:perf-plugin:1.4.2"'];
 const PLUGINS = ['apply plugin: "com.google.firebase.firebase-perf"'];
 
 var buildGradle = readAppBuildGradle();

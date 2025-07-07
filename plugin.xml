@@ -44,9 +44,9 @@
 
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
 
-    <framework src="com.google.firebase:firebase-analytics:21.0.0" />
-    <framework src="com.google.firebase:firebase-perf:20.1.0" />
-    <framework src="com.google.android.gms:play-services-tagmanager:18.0.1" />
+    <framework src="com.google.firebase:firebase-analytics:22.0.2" />
+    <framework src="com.google.firebase:firebase-perf:20.1.1" />
+    <framework src="com.google.android.gms:play-services-tagmanager:18.1.1" />
 
     <source-file src="src/android/com/eclipsesource/firebase/analytics/AnalyticsHandler.kt"
                  target-dir="src/com/eclipsesource/firebase/analytics" />
