@@ -4,7 +4,7 @@
   "description": "A firebase plugin for Tabris.js",
   "types": "./types/index.d.ts",
   "peerDependencies": {
-    "tabris": "^3.9.0-dev"
+    "tabris": "^3.10.0"
   },
   "cordova": {
     "id": "tabris-plugin-firebase",
