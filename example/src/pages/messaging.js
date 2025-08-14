@@ -67,6 +67,22 @@ module.exports = class MessagingPage extends Page {
     }).on('tap', () => firebase.Messaging.resetInstanceId())
       .appendTo(instanceIdCard);
 
+    let apnsTokenCard = this._createCard('APNS Token').appendTo(scrollView);
+
+    new TextView({
+      left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
+      text: 'Use this APNS token to send notifications directly via Apple Push Notification service:'
+    }).appendTo(apnsTokenCard);
+
+    let apnsTokenText = new TextView({
+      left: MARGIN, top: ['prev()', MARGIN], right: MARGIN,
+      font: '14px monospace',
+      selectable: true
+    }).appendTo(apnsTokenCard);
+
+    // composite is a workaround for tabris-android bug where setting bottom would collapse text
+    new Composite({top: 'prev()', height: MARGIN}).appendTo(apnsTokenCard);
+
     if (device.platform === 'iOS') {
       new Button({
         top: ['prev()', MARGIN_SMALL], centerX: 0,
@@ -104,6 +120,8 @@ module.exports = class MessagingPage extends Page {
       let token = firebase.Messaging.token;
       tokenText.text = token ? token : 'Loading token...';
       instanceIdText.text = firebase.Messaging.instanceId;
+      let apnsToken = firebase.Messaging.apnsToken;
+      apnsTokenText.text = apnsToken ? apnsToken : 'APNS token not available (iOS only)';
     }
 
   }

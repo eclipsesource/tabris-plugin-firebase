@@ -59,6 +59,7 @@ static NSDictionary *launchData;
     NSMutableSet *properties = [super remoteObjectProperties];
     [properties addObject:@"instanceId"];
     [properties addObject:@"token"];
+    [properties addObject:@"apnsToken"];
     [properties addObject:@"launchData"];
     [properties addObject:@"tokenChangedListener"];
     [properties addObject:@"instanceIdChangedListener"];
@@ -111,6 +112,22 @@ static NSDictionary *launchData;
 
 - (NSString *)token {
     return [FIRMessaging messaging].FCMToken;
+}
+
+- (NSString *)apnsToken {
+    NSData *apnsToken = [FIRMessaging messaging].APNSToken;
+    if (apnsToken) {
+        const unsigned char *dataBuffer = (const unsigned char *)[apnsToken bytes];
+        if (!dataBuffer) {
+            return nil;
+        }
+        NSMutableString *hexString = [NSMutableString stringWithCapacity:([apnsToken length] * 2)];
+        for (int i = 0; i < [apnsToken length]; ++i) {
+            [hexString appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
+        }
+        return [NSString stringWithString:hexString];
+    }
+    return nil;
 }
 
 - (void)registerForNotifications {

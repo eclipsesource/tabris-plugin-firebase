@@ -11,6 +11,7 @@
 @interface ESFBMessaging : BasicWidget
 @property (strong, readonly) NSString *instanceId;
 @property (strong, readonly) NSString *token;
+@property (strong, readonly) NSString *apnsToken;
 @property (strong, readonly) NSDictionary *launchData;
 @property (assign) BOOL showBannersInForeground;
 @property (assign) BOOL tokenChangedListener;

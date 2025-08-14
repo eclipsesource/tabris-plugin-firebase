@@ -40,6 +40,7 @@ Object.defineProperty(Messaging.prototype, 'pendingMessages', {
 tabris.NativeObject.defineProperties(Messaging.prototype, {
   instanceId: {type: 'string', nocache: true, readonly: true},
   token: {type: 'string', nocache: true, readonly: true},
+  apnsToken: {type: 'string', nocache: true, readonly: true},
   launchData: {type: 'string', nocache: true, readonly: true}
 });
 
