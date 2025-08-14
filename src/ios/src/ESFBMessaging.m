@@ -13,6 +13,15 @@
 #import <UserNotifications/UserNotifications.h>
 #import "ESFirebaseHelper.h"
 
+// Set to 1 to log received notifications and tokens to NSLog and the JS console.
+#ifndef ESFB_VERBOSE_LOGGING
+#define ESFB_VERBOSE_LOGGING 0
+#endif
+
+#if ESFB_VERBOSE_LOGGING
+#import <Tabris/LogEntry.h>
+#endif
+
 @interface ESFBMessaging () <UNUserNotificationCenterDelegate, FIRMessagingDelegate>
 @property (strong, readwrite) NSString *instanceId;
 @end
@@ -146,11 +155,40 @@ static NSDictionary *launchData;
     }
 }
 
+#if ESFB_VERBOSE_LOGGING
+- (void)logToConsole:(NSString *)message {
+    if (self.context && self.context.console) {
+        LogEntry *entry = [LogEntry entryWithInfo:message];
+        [self.context.console display:entry];
+    }
+}
+#endif
+
 #pragma mark - UNUserNotificationCenterDelegate
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = response.notification.request.content.userInfo;
+#if ESFB_VERBOSE_LOGGING
+    UNNotificationContent *content = response.notification.request.content;
+
+    NSLog(@"📱 NOTIFICATION TAPPED:");
+    NSLog(@"  Title: %@", content.title ?: @"(no title)");
+    NSLog(@"  Body: %@", content.body ?: @"(no body)");
+    NSLog(@"  Badge: %@", content.badge ?: @"(no badge)");
+    NSLog(@"  Category: %@", content.categoryIdentifier ?: @"(no category)");
+    NSLog(@"  Sound: %@", content.sound ? content.sound.description : @"(no sound)");
+    NSLog(@"  UserInfo: %@", userInfo);
+    NSLog(@"  Response Action: %@", response.actionIdentifier);
+    
+    // Send notification details to JS console
+    NSString *consoleMessage = [NSString stringWithFormat:@"📱 NOTIFICATION TAPPED: %@ | %@ | UserInfo: %@", 
+                               content.title ?: @"(no title)", 
+                               content.body ?: @"(no body)", 
+                               userInfo];
+    [self logToConsole:consoleMessage];
+#endif
+
     if (userInfo != launchData) {
         [self sendMessage:userInfo];
     }
@@ -159,6 +197,26 @@ static NSDictionary *launchData;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSDictionary *userInfo = notification.request.content.userInfo;
+#if ESFB_VERBOSE_LOGGING
+    UNNotificationContent *content = notification.request.content;
+
+    NSLog(@"🔔 NOTIFICATION RECEIVED (APP IN FOREGROUND):");
+    NSLog(@"  Title: %@", content.title ?: @"(no title)");
+    NSLog(@"  Body: %@", content.body ?: @"(no body)");
+    NSLog(@"  Badge: %@", content.badge ?: @"(no badge)");
+    NSLog(@"  Category: %@", content.categoryIdentifier ?: @"(no category)");
+    NSLog(@"  Sound: %@", content.sound ? content.sound.description : @"(no sound)");
+    NSLog(@"  UserInfo: %@", userInfo);
+    NSLog(@"  Will show banner: %@", self.showBannersInForeground ? @"YES" : @"NO");
+    
+    // Send notification details to JS console
+    NSString *consoleMessage = [NSString stringWithFormat:@"🔔 NOTIFICATION RECEIVED (FOREGROUND): %@ | %@ | UserInfo: %@", 
+                               content.title ?: @"(no title)", 
+                               content.body ?: @"(no body)", 
+                               userInfo];
+    [self logToConsole:consoleMessage];
+#endif
+
     [self sendMessage:userInfo];
     UNNotificationPresentationOptions presentation = self.showBannersInForeground ? UNNotificationPresentationOptionAlert : UNNotificationPresentationOptionNone;
     completionHandler(presentation);
@@ -167,6 +225,22 @@ static NSDictionary *launchData;
 #pragma mark - FIRMessagingDelegate
 
 - (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken {
+#if ESFB_VERBOSE_LOGGING
+    NSLog(@"🔑 FCM TOKEN UPDATED:");
+    NSLog(@"  FCM Token: %@", fcmToken ? fcmToken : @"nil");
+    NSString *apns = [self apnsToken];
+    NSLog(@"  APNS Token: %@", apns ? apns : @"nil");
+    
+    // Send token info to JS console
+    NSString *consoleMessage = [NSString stringWithFormat:@"🔑 FCM TOKEN UPDATED: %@", fcmToken ? fcmToken : @"nil"];
+    [self logToConsole:consoleMessage];
+    
+    if (apns) {
+        NSString *apnsMessage = [NSString stringWithFormat:@"📱 APNS TOKEN: %@", apns];
+        [self logToConsole:apnsMessage];
+    }
+#endif
+
     if (self.tokenChangedListener) {
         [self fireEventNamed:@"tokenChanged" withAttributes:@{@"token":fcmToken ? fcmToken : [NSNull null]}];
     }

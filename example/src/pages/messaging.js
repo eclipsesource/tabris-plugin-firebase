@@ -102,6 +102,27 @@ module.exports = class MessagingPage extends Page {
     }).on('tap', () => console.log(firebase.Messaging.pendingMessages.clearAll()))
       .appendTo(scrollView);
 
+    new Button({
+      top: ['prev()', MARGIN_SMALL], centerX: 0,
+      text: 'Copy APNS token to clipboard'
+    }).on('tap', () => {
+      let apns = firebase.Messaging.apnsToken;
+      if (apns) {
+        // Copy to system clipboard if available
+        if (device.platform === 'iOS' && typeof navigator !== 'undefined' && navigator.clipboard) {
+          navigator.clipboard.writeText(apns).then(() => {
+            console.log('APNS token copied to clipboard');
+          }).catch(() => {
+            console.log('APNS Token (copy manually):', apns);
+          });
+        } else {
+          console.log('APNS Token (copy manually):', apns);
+        }
+      } else {
+        console.log('APNS token not available');
+      }
+    }).appendTo(scrollView);
+
     new Composite({top: 'prev()', height: MARGIN}).appendTo(scrollView);
 
     if (firebase.Messaging.launchData) {
