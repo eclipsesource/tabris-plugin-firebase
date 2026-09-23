@@ -40,13 +40,11 @@
   function getAccessToken() {
     let { client_email, private_key } = FCM_SERVICE_ACCOUNT_PRIVATE_KEY;
     return new Promise((resolve, reject) => {
-      let jwtClient = new google.auth.JWT(
-        client_email,
-        null,
-        private_key,
-        ['https://www.googleapis.com/auth/firebase.messaging'],
-        null
-      );
+      let jwtClient = new google.auth.JWT({
+        email: client_email,
+        key: private_key,
+        scopes: ['https://www.googleapis.com/auth/firebase.messaging']
+      });
       jwtClient.authorize((err, tokens) => {
         if (err) {
           reject(err);
