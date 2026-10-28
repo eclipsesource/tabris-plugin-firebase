@@ -33,25 +33,25 @@ class Analytics(private val activity: Activity) {
           is Int -> putLong(key, value.toLong())
           is Double -> putDouble(key, value)
           is Float -> putDouble(key, value.toDouble())
-          is V8Object -> putParcelable(key, createLogDataBundle(value))
+          // V8Array extends V8Object, so arrays must be handled first.
           is V8Array -> {
             if (value.asSequence<Any>().all { it is String })
               putStringArrayList(key, ArrayList(value.asSequence<String>().toList()))
             else
               putParcelableArrayList(key, ArrayList(value.asSequence<Any>().map { mapListValue(it) }.toList()))
           }
+          is V8Object -> putParcelable(key, createLogDataBundle(value))
         }
       }
       return this;
     }
   }
 
-  private fun mapListValue(value: Any?): Parcelable {
-    return when (value) {
-      is V8Object -> createLogDataBundle(value)
-      is V8Array -> mapListValue(value)
-      else -> throw IllegalArgumentException("V8Arrays may only contain V8Objects or V8Arrays.")
-    }
+  private fun mapListValue(value: Any?): Parcelable = when (value) {
+    is V8Object -> createLogDataBundle(value)
+    else -> throw IllegalArgumentException(
+      "Array elements must be objects that can be converted to Bundles."
+    )
   }
 
 }
