@@ -1,0 +1,4 @@
+<resources>
+    <!-- Synthetic project identifier: tests never use production Firebase credentials. -->
+    <string name="google_app_id" translatable="false">1:123456789:android:1234567890abcdef</string>
+</resources>
