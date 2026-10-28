@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.library' version '8.13.2'
+    id 'org.jetbrains.kotlin.android' version '1.9.25'
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url = uri(providers.gradleProperty('tabrisRepository').get()) }
+}
+
+android {
+    namespace 'com.eclipsesource.firebase.analytics.test'
+    compileSdk 36
+    defaultConfig { minSdk 23 }
+    sourceSets {
+        main.java {
+            srcDirs = ['../../src/android/com/eclipsesource/firebase/analytics']
+        }
+    }
+    sourceSets.main.kotlin.exclude '**/AnalyticsHandler.kt'
+    testOptions.unitTests.includeAndroidResources = true
+    testOptions.unitTests.all {
+        systemProperty 'firebaseVersion', providers.gradleProperty('firebaseVersion').getOrElse('21.1.1')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions { jvmTarget = '1.8' }
+}
+
+dependencies {
+    implementation('com.eclipsesource.tabris.android:tabris:3.11.0') { transitive = false }
+    implementation 'com.eclipsesource.j2v8:j2v8:6.3.4'
+    implementation "com.google.firebase:firebase-analytics:${providers.gradleProperty('firebaseVersion').getOrElse('21.1.1')}"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.13'
+    testImplementation 'io.mockk:mockk-jvm:1.13.13'
+    testImplementation 'com.google.android.material:material:1.12.0'
+}
